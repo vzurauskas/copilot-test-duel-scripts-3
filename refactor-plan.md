@@ -17,19 +17,19 @@
 - [x] Add a high-level flow diagram in text
 
 ### Step 2: Integrate Object Thinking better
-- [ ] Clarify how CRC cards inform test planning
-- [ ] Resolve "avoid getters" vs "Describe self" conflict
-- [ ] Add concrete examples of responsibilities in this domain
-- [ ] Show how anthropomorphization applies during coding
+- [x] Clarify how CRC cards inform test planning
+- [x] Resolve "avoid getters" vs "Describe self" conflict
+- [x] Add concrete examples of responsibilities in this domain
+- [x] Show how anthropomorphization applies during coding
 
 ### Step 3: Add practical examples
-- [ ] Create sample CRC card for Fighter object
-- [ ] Show example of "Describe self" implementation
-- [ ] Add plan.md template with sample entries
-- [ ] Show macro→micro transition example
+- [x] Create sample CRC card for Fighter object
+- [x] Show example of "Describe self" implementation
+- [x] Add plan.md template with sample entries
+- [x] Show macro→micro transition example
 
 ### Step 4: Clarify conflicting guidance
-- [ ] Reconcile "avoid getters" with Object Thinking patterns
+- [x] Reconcile "avoid getters" with Object Thinking patterns (resolved in current instructions)
 - [ ] Clarify when to use maps vs direct method calls
 - [ ] Show how to balance simplicity with anthropomorphization
 

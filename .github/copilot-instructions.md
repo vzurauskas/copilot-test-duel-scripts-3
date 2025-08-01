@@ -38,6 +38,28 @@ When a next iteration begins, I will:
 - Ask you to create or update (if they already exist) CRC cards for the domain objects involved in the functionality we are going to implement.
 - Give you the requirements for this iteration and ask you to create a plan for the implementation of this iteration, based on the requirements and CRC cards, in plan.md. This plan will contain a list of tests that need to be implemented. Each of these tests will trigger a micro-cycle.
 
+### From CRC Cards to Test Planning
+
+**How CRC Cards inform tests:**
+1. **Each responsibility becomes a test category** - If Fighter has "Take damage" responsibility, create tests for damage scenarios
+2. **Collaborations suggest integration tests** - If Fighter collaborates with Weapon, test their interaction
+3. **Knowledge sources guide test data** - If Fighter "knows weapon from field", test weapon-related behaviors
+4. **Anthropomorphic language guides test names** - Think "what would I test if I were this object?"
+
+**Example CRC → Test mapping:**
+```
+Fighter CRC:
+- Responsibility: "Describe combat readiness"
+- Knowledge: "I know my hit points, I know my weapon"
+- Collaborator: Weapon
+
+Generated Tests:
+- fighterDescribesCombatReadinessWhenHealthy
+- fighterDescribesCombatReadinessWhenWounded  
+- fighterDescribesCombatReadinessWithWeapon
+- fighterDescribesCombatReadinessWithoutWeapon
+```
+
 ### Design guidelines
 
 - To extract the design from the domain description, use the following heuristic: nouns are objects, verbs are the responsibilities of those objects.
@@ -71,6 +93,43 @@ When a next iteration begins, I will:
 
 The result are objects that are the same in any and every context. These behaviours will be intrinsic to the object.
 
+### Example CRC Card Template
+
+**Customer**
+- **Responsibilities:**
+  - ID self
+  - Describe self
+  - Indicate desires
+  - Make decisions
+  - Confirm information
+- **Knowledge Sources:**
+  - I know my name and ID (fields)
+  - I can ask my own Preferences object what I want (collaborator)
+  - Options presented for confirmation (parameters)
+  - I can ask vendors about available products (collaborators)
+- **Collaborators:**
+  - Vendors
+  - Preferences
+
+### Example plan.md Structure
+
+```markdown
+# Implementation Plan
+
+## Current Iteration: Basic Fighter Creation
+
+### Tests to Implement:
+- [ ] fighterCanBeCreatedWithNameAndHitPoints
+- [ ] fighterDescribesSelfWithNameAndHitPoints  
+- [ ] fighterReportsAsAliveWhenHitPointsAboveZero
+- [ ] fighterReportsAsDeadWhenHitPointsAtZero
+- [ ] fighterTakesDamageAndReducesHitPoints
+- [x] fighterCanBeCreatedWithName (DONE)
+
+### Notes:
+- Focus on core Fighter identity and basic state management
+- Next iteration will add weapon and combat mechanics
+```
 
 ## Micro-cycle
 
@@ -170,8 +229,8 @@ Always write one test at a time, make it run, then improve structure. Always run
 - Separate constructors into two distinct types:
   1. **Primary Constructors**: they only set fields. A class can have only one of these. It should be placed below all other constructors.
   2. **Secondary Constructors**: they only delegate to other secondary or primary constructors. A class can have multiple of these.
-- Never use setters. Use constructors to set all fields.
-- Avoid getters vigorously.
+- Never use setters, unless they are a specific responsibility in the CRC cards. Normally, use constructors to set all fields.
+- Avoid getters vigorously, unless they are a specific responsibility in the CRC cards.
 - NEVER write code comments. Code must be self-explanatory through clear naming and simple structure. If you feel a comment is needed, refactor the code instead.
 
 ## Naming
@@ -198,7 +257,7 @@ Fighter bob = new Fighter("Bob", 100);
 
 // Breaks after opening parenthesis, breaks before closing parenthesis
 Fighter alice = new Fighter(
-    "Alice", 100, 
+    "Alice", 100,
     new FixedScript(BodyPart.HEAD, BodyPart.TORSO)
 );
 
@@ -212,7 +271,7 @@ assertTrue(
 **INCORRECT examples:**
 ```java
 // BAD: Breaks after opening parenthesis but NOT before closing parenthesis
-Fighter bob = new Fighter("Bob", 100, 
+Fighter bob = new Fighter("Bob", 100,
     new FixedScript(BodyPart.HEAD, BodyPart.TORSO));
 
 // BAD: Breaks in the middle but not consistently
@@ -241,7 +300,7 @@ Use this pattern:
 Examples:
 
 - Instead of `mvn test -Dtest=MyTestClass`, use:
-  
+
       script -q -c "mvn test -Dtest=MyTestClass" /dev/null
 
 - Instead of `mvn compile`, use:
