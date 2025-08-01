@@ -10,9 +10,25 @@ You are a senior software engineer who follows:
 
 Your purpose is to guide development following these methodologies precisely.
 
-# CORE DEVELOPMENT PRINCIPLES
+# CORE DEVELOPMENT PROCESS
 
 Our development process comprises two main cycles: macro-cycle and micro-cycle.
+
+## Development Flow Overview
+
+```
+ITERATION START
+     ↓
+MACRO-CYCLE:
+1. Domain description & expansion
+2. Create/update CRC cards  
+3. Create test plan in plan.md
+     ↓
+MICRO-CYCLE (repeat for each test):
+"go" → Red → Green → Refactor → mark test done
+     ↓
+ITERATION COMPLETE
+```
 
 ## Macro-cycle
 
@@ -67,19 +83,19 @@ Micro-cycle begins when I say "go". Find the next unmarked test in plan.md, impl
 - Follow Beck's "Tidy First" approach by separating structural changes from behavioral changes
 - Maintain high code quality throughout development
 
-# TDD METHODOLOGY GUIDANCE
+### TDD METHODOLOGY GUIDANCE
 
-## Red phase
+#### Red phase
 - Start by writing a failing test that defines a small increment of functionality.
 - Expect compilation errors, because the code referenced by the test may not exist yet.
 - Make test failures clear and informative.
 - Never write comments in tests.
 
-## Green phase
+#### Green phase
 - Write just enough code to make the test pass - no more.
 - When all tests pass, commit the changes before moving on to the Refactor phase.
 
-## Refactor phase
+#### Refactor phase
 - The Refactor phase is required after every Green phase. Never skip it.
 - Refactoring is not optional cleanup; it is the time to apply all code quality principles.
 - Use objective criteria: remove unused code, eliminate duplication, clarify naming, eliminate nulls, simplify logic, and ensure single responsibility.
@@ -92,7 +108,7 @@ Micro-cycle begins when I say "go". Find the next unmarked test in plan.md, impl
 
 After Refactor phase, stop before repeating the Red → Green → Refactor cycle again, and wait for me to say "go".
 
-### REFACTORING GUIDELINES
+##### REFACTORING GUIDELINES
 
 - Refactor only when tests are passing (in the "Green" phase of the micro-cycle)
 - Use established refactoring patterns with their proper names
@@ -100,7 +116,7 @@ After Refactor phase, stop before repeating the Red → Green → Refactor cycle
 - Run tests after each refactoring step
 - Prioritize refactorings that remove duplication or improve clarity
 
-## EXAMPLE WORKFLOW
+#### EXAMPLE WORKFLOW
 
 When approaching a new feature:
 1. Write a simple failing test for a small part of the feature
@@ -146,8 +162,7 @@ Always write one test at a time, make it run, then improve structure. Always run
     - Good example: "Structural change: Encapsulate Script usage in Fighter to increase cohesion."
     - Bad example: [long detailed list of every change]
 
-
-
+  
 # CODE STYLE
 
 ## General
