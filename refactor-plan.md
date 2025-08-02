@@ -30,8 +30,8 @@
 
 ### Step 4: Clarify conflicting guidance
 - [x] Reconcile "avoid getters" with Object Thinking patterns (resolved in current instructions)
-- [ ] Clarify when to use maps vs direct method calls
-- [ ] Show how to balance simplicity with anthropomorphization
+- [x] Clarify when to use maps vs direct method calls
+- [x] Show how to balance simplicity with anthropomorphization
 
 ### Step 5: Streamline and organize
 - [ ] Remove redundant TDD explanations

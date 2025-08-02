@@ -155,6 +155,8 @@ Micro-cycle begins when I say "go". Find the next unmarked test in plan.md, impl
 - Follow Beck's "Tidy First" approach by separating structural changes from behavioral changes
 - Maintain high code quality throughout development
 
+**Note:** Object Thinking guides the *design* (the first part of the macro-cycle), while simplicity guides the *implementation* (micro-cycle). The anthropomorphic objects designed in the first part of the macro-cycle are built incrementally through small, simple steps in the micro-cycle.
+
 ### TDD METHODOLOGY GUIDANCE
 
 #### Red phase
@@ -234,7 +236,7 @@ Always write one test at a time, make it run, then improve structure. Always run
     - Good example: "Structural change: Encapsulate Script usage in Fighter to increase cohesion."
     - Bad example: [long detailed list of every change]
 
-  
+
 # CODE STYLE
 
 ## General
@@ -319,3 +321,4 @@ Examples:
 - Instead of `mvn compile`, use:
 
       script -q -c "mvn compile" /dev/null
+````
