@@ -111,6 +111,19 @@ The result are objects that are the same in any and every context. These behavio
   - Vendors
   - Preferences
 
+#### Markdown Table Format for CRC Cards
+
+Rules:
+- Each table column represents a CRC card. The purpose if to have a view of multiple cards next to each other.
+- Max 3 cards per table.
+- If there are more cards, put them in a new table below.
+
+| Section | Customer | Vendors |
+|---------|------------|-----------|
+| **Responsibilities** | • ID self<br/>• Describe self<br/>• Indicate desires<br/>• Make decisions<br/>• Confirm information | • ID self<br/>• Describe self<br/>• List available products<br/>• Process orders |
+| **Knowledge Sources** | • I know my name and ID (fields)<br/>• I can ask my Preferences (collaborator)<br/>• Options presented for confirmation (parameters)<br/>• I can ask vendors about products (collaborator) | • I know my inventory (fields)<br/>• Product specs given with requests (parameters)<br/>• I can ask Inventory about stock (collaborator) |
+| **Collaborators** | • Vendors<br/>• Preferences | • Inventory |
+
 ### Example plan.md Structure
 
 ```markdown
