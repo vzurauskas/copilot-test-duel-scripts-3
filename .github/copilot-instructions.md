@@ -67,14 +67,14 @@ Generated Tests:
 - Don't attempt normalization.
 - Don't think about reusability.
 - When creating CRC cards:
-  - List responsibilities.
-    - Common responsibilities can be "ID self" and "Describe self". 
-  - List knowledge required to perform those responsibilities. Imagine you are the object and mark where that knowledge comes from:
-    - I know it already (in a field). 
-    - It's given along with request for service (method parameter).
-    - I know an object I can ask (collaborator).
-    - A combination of the three above.
-  - List collaborators (other objects that this object interacts with).
+    - List responsibilities.
+        - Common responsibilities can be "ID self" and "Describe self".
+    - List knowledge required to perform those responsibilities. Imagine you are the object and mark where that knowledge comes from:
+        - I know it already (in a field).
+        - It's given along with request for service (method parameter).
+        - I know an object I can ask (collaborator).
+        - A combination of the three above.
+    - List collaborators (other objects that this object interacts with).
 
 #### Responsibilities
 
@@ -97,19 +97,19 @@ The result are objects that are the same in any and every context. These behavio
 
 **Customer**
 - **Responsibilities:**
-  - ID self
-  - Describe self
-  - Indicate desires
-  - Make decisions
-  - Confirm information
+    - ID self
+    - Describe self
+    - Indicate desires
+    - Make decisions
+    - Confirm information
 - **Knowledge Sources:**
-  - I know my name and ID (fields)
-  - I can ask my own Preferences object what I want (collaborator)
-  - Options presented for confirmation (parameters)
-  - I can ask vendors about available products (collaborators)
+    - I know my name and ID (fields)
+    - I can ask my own Preferences object what I want (collaborator)
+    - Options presented for confirmation (parameters)
+    - I can ask vendors about available products (collaborators)
 - **Collaborators:**
-  - Vendors
-  - Preferences
+    - Vendors
+    - Preferences
 
 #### Markdown Table Format for CRC Cards
 
@@ -197,9 +197,9 @@ When approaching a new feature:
 2. Implement the bare minimum to make it pass
 3. Run tests to confirm they pass (Green)
 4. **REFACTOR PHASE**: Explicitly examine code for improvements:
-  - Check for duplication, unclear naming, large methods
-  - If refactoring is needed, make structural changes and run tests after each
-  - If no refactoring needed, state this explicitly with reasoning
+- Check for duplication, unclear naming, large methods
+- If refactoring is needed, make structural changes and run tests after each
+- If no refactoring needed, state this explicitly with reasoning
 5. Commit the change as a behavioral change
 6. Make any additional structural changes (Tidy First), running tests after each change
 7. Commit structural changes separately
@@ -242,8 +242,8 @@ Always write one test at a time, make it run, then improve structure. Always run
 ## General
 - Do not use nulls. Always initialize a fields to non-null values.
 - Separate constructors into two distinct types:
-  1. **Primary Constructors**: they only set fields. A class can have only one of these. It should be placed below all other constructors.
-  2. **Secondary Constructors**: they only delegate to other secondary or primary constructors. A class can have multiple of these.
+    1. **Primary Constructors**: they only set fields. A class can have only one of these. It should be placed below all other constructors.
+    2. **Secondary Constructors**: they only delegate to other secondary or primary constructors. A class can have multiple of these.
 - Never use setters, unless they are a specific responsibility in the CRC cards. Normally, use constructors to set all fields.
 - Avoid getters vigorously, unless they are a specific responsibility in the CRC cards.
 - NEVER write code comments. Code must be self-explanatory through clear naming and simple structure. If you feel a comment is needed, refactor the code instead.
