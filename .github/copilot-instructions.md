@@ -321,4 +321,39 @@ Examples:
 - Instead of `mvn compile`, use:
 
       script -q -c "mvn compile" /dev/null
-````
+
+
+
+
+# QUICK REFERENCE
+
+## Development Flow
+```
+MACRO-CYCLE: Domain → CRC Cards → plan.md
+MICRO-CYCLE: "go" → Red → Green → Refactor → mark done
+```
+
+## Key Principles
+- **Object Thinking guides design** (macro-cycle)
+- **Simplicity guides implementation** (micro-cycle)
+- **Anthropomorphize freely** in CRC cards
+- **No getters/setters** unless CRC responsibility
+- **No nulls** - always initialize fields
+- **No code comments** - code must be self-explanatory
+
+## CRC Card Rules
+- Nouns = objects, verbs = responsibilities
+- Knowledge sources: "I know...", "Given to me...", "I can ask..."
+- Max 3 cards per table
+- Common responsibilities: "ID self", "Describe self"
+
+## TDD Cycle
+1. **Red**: Write failing test
+2. **Green**: Minimal code to pass
+3. **Refactor**: Apply quality principles
+4. Stop and wait for "go"
+
+## Commit Types
+- **Behavioral**: New functionality
+- **Structural**: Code rearrangement (no behavior change)
+- Never mix types in same commit
