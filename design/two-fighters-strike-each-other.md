@@ -63,57 +63,44 @@ The elegance lies in the simultaneous nature of the combat—neither fighter has
 
 ## Extracted Objects (Nouns → Objects, Verbs → Responsibilities)
 
-**Fighter**
+**Fighter** (from "two seasoned fighters face each other")
 - ID self
-- Describe self (name, hit points, strength, combat condition)
-- Strike opponent at chosen body part
-- Parry strikes to chosen body part
-- Take damage and reduce hit points
-- Analyze combat situation
-- Make tactical decisions
-- Report combat readiness (alive/dead status)
+- Describe self (name, hit points, strength, combat condition) (from "Alice, a nimble warrior with 100 hit points and formidable strength")
+- Strike opponent at chosen body part (from "Alice's fist shoots toward Bob's head")
+- Parry strikes to chosen body part (from "Bob's strike aims low at Alice's legs while his arms protect his head")
+- Take damage and reduce hit points (from "reducing Alice's hit points according to Bob's strength")
+- Analyze combat situation (from "Alice studies her opponent carefully")
+- Make tactical decisions (from "She must decide where to strike Bob and which part of her own body to protect")
 
-**BodyPart**
-- ID self (Head, Torso, Legs)
-- Describe damage potential
-- Calculate strike damage based on type
+**BodyPart** (from "Target one of three body parts—Head (highest damage), Torso (medium), or Legs (lowest)")
+- ID self (Head, Torso, Legs) (from "Head (highest damage), Torso (medium), or Legs (lowest)")
+- Take damage (from "Head (highest damage), Torso (medium), or Legs (lowest)")
 
-**CombatScript** 
-- ID self
-- Describe decision-making approach
-- Choose strike target
-- Choose parry location
-- Process fight history
-- Adapt tactics based on opponent behavior
+**CombatScript** (from "Her combat script—the ingrained fighting instincts")
+- Describe decision-making approach (from "the ingrained fighting instincts developed through years of training")
+- Choose strike target (from "Her combat script processes these choices based on her knowledge")
+- Choose parry location (from "His own combat script guides these tactical choices")
 
-**Strike**
-- ID self
-- Describe target and power
-- Calculate damage potential
-- Report if blocked or successful
+**FightHistory** (from "the growing history of their exchanges")
+- Describe past exchanges (from "they have seen each other's tactical preferences")
+- Record combat events (from "based on the growing history of their exchanges")
+- Track patterns and trends (from "This information will influence their decisions in subsequent turns")
 
-**Parry**
-- ID self  
-- Describe protected body part
-- Block incoming strikes
-- Report defense success
+**Arena** (from "In the dusty arena, two seasoned fighters face each other")
+- Coordinate fighter interactions (from "The referee signals the beginning of the turn")
+- Manage turn sequence (from "Each turn, both fighters perform two actions")
+- Determine fight conclusion (from "until one fighter's hit points are depleted and victory is achieved")
 
-**CombatExchange**
-- ID self
-- Coordinate simultaneous actions
-- Resolve strike vs parry interactions
-- Apply damage results
-- Record exchange outcome
+**HitPoints** (from "100 hit points")
+- Track current health (from "Alice, a nimble warrior with 100 hit points")
+- Reduce health on damage (from "reducing Alice's hit points according to Bob's strength")
+- Check for defeat condition (from "until one fighter's hit points are depleted and victory is achieved")
 
-**FightHistory**
-- ID self
-- Describe past exchanges
-- Record combat events
-- Provide tactical insights
-- Track patterns and trends
-
-**Arena** (implied context)
-- ID self
-- Coordinate fighter interactions
-- Manage turn sequence
-- Determine fight conclusion
+## Other potential objects
+- Strike
+- Parry
+- Attack
+- Defense
+- Combat / Fight / Duel
+- Turn
+- Exchange
