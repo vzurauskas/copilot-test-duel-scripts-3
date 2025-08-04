@@ -1,0 +1,12 @@
+---
+description: Complete project development process, TDD workflow, code style and commit guidelines imported from legacy Copilot instructions.
+globs: ["**/*"]
+---
+
+# Project Development Rules (Imported)
+
+These rules are the authoritative guidelines for this repository. They are taken verbatim from `.github/copilot-instructions.md`.
+
+Follow them exactly during every interaction with the AI assistant.
+
+@file(.github/copilot-instructions.md)

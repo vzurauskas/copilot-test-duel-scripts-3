@@ -69,7 +69,6 @@
   - Coordinate fighter interactions
   - Manage turn sequence
   - Determine fight conclusion
-  - Notify observers of combat events
 - **Knowledge Sources:**
   - I know the fighters in combat (fields)
   - I know my fight observers (fields)

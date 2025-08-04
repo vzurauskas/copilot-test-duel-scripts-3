@@ -304,32 +304,6 @@ Fighter alice = new Fighter("Alice", 100,
 
 
 
-# RUNNING TERMINAL COMMANDS
-(This is to ensure proper output in GitHub Codespaces.)
-
-## Any terminal command
-- When you run a command in terminal and don't see any output, warn me. I need to know this because it's a problem that we need to fix.
-
-## Maven commands
-When running Maven commands in the terminal (e.g. `mvn test`, `mvn compile`), always wrap them using the `script` command to ensure that output is visible in non-interactive environments.
-
-Use this pattern:
-
-    script -q -c "mvn test" /dev/null
-
-Examples:
-
-- Instead of `mvn test -Dtest=MyTestClass`, use:
-
-      script -q -c "mvn test -Dtest=MyTestClass" /dev/null
-
-- Instead of `mvn compile`, use:
-
-      script -q -c "mvn compile" /dev/null
-
-
-
-
 # QUICK REFERENCE
 
 ## Development Flow
