@@ -36,29 +36,8 @@ When a next iteration begins, I will:
 - Give you a description of the domain (problem space) for which we are going to develop a small part of the functionality in this iteration.
 - Ask you to expand the description in richer detail. This is because we need a rich prose description of the domain to extract the design from.
 - Ask you to create or update (if they already exist) CRC cards for the domain objects involved in the functionality we are going to implement.
-- Give you the requirements for this iteration and ask you to create a plan for the implementation of this iteration, based on the requirements and CRC cards, in plan.md. This plan will contain a list of tests that need to be implemented. Each of these tests will trigger a micro-cycle.
-
-### From CRC Cards to Test Planning
-
-**How CRC Cards inform tests:**
-1. **Each responsibility becomes a test category** - If Fighter has "Take damage" responsibility, create tests for damage scenarios
-2. **Collaborations suggest integration tests** - If Fighter collaborates with Weapon, test their interaction
-3. **Knowledge sources guide test data** - If Fighter "knows weapon from field", test weapon-related behaviors
-4. **Anthropomorphic language guides test names** - Think "what would I test if I were this object?"
-
-**Example CRC → Test mapping:**
-```
-Fighter CRC:
-- Responsibility: "Describe combat readiness"
-- Knowledge: "I know my hit points, I know my weapon"
-- Collaborator: Weapon
-
-Generated Tests:
-- fighterDescribesCombatReadinessWhenHealthy
-- fighterDescribesCombatReadinessWhenWounded  
-- fighterDescribesCombatReadinessWithWeapon
-- fighterDescribesCombatReadinessWithoutWeapon
-```
+  - This may involve several exercises for reviewing the CRC cards and verifying that they are sufficient for the implementation of the mechanism for this iteration.
+- Give you the requirements for this iteration and ask you to create a plan for the implementation of this iteration, based on the requirements and CRC cards, in plan.md. This plan will contain a list of tests that need to be implemented. Each of these tests will trigger a micro-cycle. 
 
 ### Design guidelines
 
@@ -111,25 +90,64 @@ The result are objects that are the same in any and every context. These behavio
     - Vendors
     - Preferences
 
+
+
 ### Example plan.md Structure
 
 ```markdown
-# Implementation Plan
+# Current iteration implementation Plan
 
-## Current Iteration: Basic Fighter Creation
+## Goals
+- Goal 1...
+- Goal 2...
 
-### Tests to Implement:
+## Scenario description
+
+A few sentences describing the scenario we are going to implement in this iteration.
+
+## Design
+
+### Diagram
+
+Mermaid diagram of the objects involved in this iteration, their relationships, and responsibilities. Not everything from crc.md needs to be included, only the minimum subset of objects and their responsibilities relevant to this iteration.
+
+### Implementation details
+
+Any specific implementation details that are important for this iteration.
+
+## Tests to Implement:
 - [ ] fighterCanBeCreatedWithNameAndHitPoints
 - [ ] fighterDescribesSelfWithNameAndHitPoints  
 - [ ] fighterReportsAsAliveWhenHitPointsAboveZero
 - [ ] fighterReportsAsDeadWhenHitPointsAtZero
 - [ ] fighterTakesDamageAndReducesHitPoints
 - [x] fighterCanBeCreatedWithName (DONE)
-
-### Notes:
-- Focus on core Fighter identity and basic state management
-- Next iteration will add weapon and combat mechanics
 ```
+
+
+
+### From CRC Cards to Test Planning
+
+**How CRC Cards inform tests:**
+1. **Each responsibility becomes a test category** - If Fighter has "Take damage" responsibility, create tests for damage scenarios
+2. **Collaborations suggest integration tests** - If Fighter collaborates with Weapon, test their interaction
+3. **Knowledge sources guide test data** - If Fighter "knows weapon from field", test weapon-related behaviors
+4. **Anthropomorphic language guides test names** - Think "what would I test if I were this object?"
+
+**Example CRC → Test mapping:**
+```
+Fighter CRC:
+- Responsibility: "Describe combat readiness"
+- Knowledge: "I know my hit points, I know my weapon"
+- Collaborator: Weapon
+
+Generated Tests:
+- fighterDescribesCombatReadinessWhenHealthy
+- fighterDescribesCombatReadinessWhenWounded  
+- fighterDescribesCombatReadinessWithWeapon
+- fighterDescribesCombatReadinessWithoutWeapon
+```
+
 
 ## Micro-cycle
 

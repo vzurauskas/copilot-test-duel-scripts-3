@@ -10,6 +10,7 @@
   - Parry strikes to chosen body part
 - **Knowledge Sources:**
   - I know my name and max hit points (fields)
+  - I know my current parry location (field)
   - I have my body parts (fields)
   - Opponent fighter to strike is given with request (parameters)
   - I can ask my CombatScript for decisions (collaborator)
@@ -21,15 +22,22 @@
 **BodyPart**
 - **Responsibilities:**
   - ID self
+  - Receive strike attempts
+  - Check if strike is parried
   - Take damage
   - Report damage taken
+  - Notify combat observers of events
 - **Knowledge Sources:**
   - I know my owner fighter (collaborator)
   - I know my type and damage multiplier (fields)
   - I know my current damage total (field)
+  - I know my combat observers (collaborators)
   - Base damage amount given with attack (parameters)
+  - Striking fighter given with attack (parameters)
+  - I can ask my owner Fighter if they're parrying me (collaborator)
 - **Collaborators:**
   - Fighter (owner)
+  - Observers (FightHistory)
 
 **CombatScript**
 - **Responsibilities:**
