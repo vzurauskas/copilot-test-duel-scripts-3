@@ -1,0 +1,55 @@
+---
+description: Micro-cycle execution and TDD guidance, including Red/Green/Refactor rules and refactoring discipline
+globs:
+  - "src/test/**/*.java"
+  - "plan.md"
+  - "pom.xml"
+alwaysApply: false
+---
+
+# Micro-cycle and TDD Guidance
+
+Micro-cycle begins when I say "go": find the next unmarked test in `plan.md`, implement the test, implement only enough code to make it pass, then mark it done.
+
+## TDD Cycle
+
+1. Red: write a failing test defining a small increment of functionality.
+2. Green: write just enough code to pass.
+3. Refactor: improve structure with tests passing.
+
+Additional rules:
+- Write the simplest failing test first.
+- Implement the minimum code needed to pass.
+- Refactor only after tests are passing.
+- Separate structural (Tidy First) vs behavioral changes.
+
+Object Thinking guides design (macro); simplicity guides implementation (micro).
+
+## TDD Methodology Details
+
+### Red
+- Expect compilation errors initially.
+- Make failures clear and informative.
+- Never write comments in tests.
+
+### Green
+- When all tests pass, commit before Refactor.
+
+### Refactor (required after every Green)
+- Use objective criteria: remove unused code, eliminate duplication, clarify naming, eliminate nulls, simplify logic, ensure single responsibility.
+- Run all tests before and after each refactor; make one refactor at a time; commit after each.
+- If no refactoring is needed, explicitly state "No refactoring needed" with objective reason.
+
+## Example Workflow
+
+1. Write a simple failing test.
+2. Implement the bare minimum to pass.
+3. Run tests (Green).
+4. Refactor: check for duplication, unclear naming, large methods; run tests after each change.
+5. Commit behavioral change.
+6. Make structural changes (Tidy First), running tests after each.
+7. Commit structural changes separately.
+8. Add another test and repeat.
+
+Always run all tests each time (except long-running ones).
+
