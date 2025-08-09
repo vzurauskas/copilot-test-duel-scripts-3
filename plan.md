@@ -35,8 +35,8 @@ classDiagram
     }
     
     class CombatScript {
-        +chooseStrikeTarget()
-        +chooseParryLocation()
+        +chooseStrikeTarget(self, opponent)
+        +chooseParryLocation(self, opponent)
     }
     
     class FightHistory {
@@ -59,8 +59,11 @@ classDiagram
 - Arena manages turn sequence and fighter coordination
 
 ## Tests to Implement:
-- [ ] unparriedStrikeDealsDamage
-- [ ] parriedStrikeDealsNoDamage
+- [x] unparriedStrikeDealsDamage
+    - Two fighters: Aragorn and Boromir.
+    - Boromir parries head, Aragorn strikes Boromir's torso.
+    - Boromir's description reveals he's injured.
+- [x] parriedStrikeDealsNoDamage
 - [ ] fighterDescribesDamageStatusAfterExchange
 - [ ] fightHistoryRecordsSimultaneousExchange
 - [ ] arenaExecutesSimultaneousExchange

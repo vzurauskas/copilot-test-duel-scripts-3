@@ -3,20 +3,18 @@ package com.vzurauskas.duelscripts3;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import java.util.function.BiFunction;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class DuelTest {
 
     @Test
     void unparriedStrikeDealsDamage() {
-        CombatScript aragornScript = new FixedScript(
-            (self, opponent) -> self.torso(),
-            (self, opponent) -> opponent.torso()
-        );
-        CombatScript boromirScript = new FixedScript(
-            (self, opponent) -> self.head(),
-            (self, opponent) -> opponent.legs()
-        );
+        CombatScript aragornScript = new FixedScript()
+            .parry(Fighter::torso)
+            .strike(Fighter::torso);
+        CombatScript boromirScript = new FixedScript()
+            .parry(Fighter::head)
+            .strike(Fighter::legs);
 
         Fighter aragorn = new Fighter("Aragorn", aragornScript);
         Fighter boromir = new Fighter("Boromir", boromirScript);
@@ -29,28 +27,27 @@ public final class DuelTest {
         assertTrue(description.intValue("damage") > 0);
     }
 
-    private static final class FixedScript implements CombatScript {
-        private final BiFunction<Fighter, Fighter, BodyPart> parrySelector;
-        private final BiFunction<Fighter, Fighter, BodyPart> strikeSelector;
+    @Test
+    void parriedStrikeDealsNoDamage() {
+        CombatScript aragornScript = new FixedScript()
+            .parry(Fighter::legs)
+            .strike(Fighter::head);
+        CombatScript boromirScript = new FixedScript()
+            .parry(Fighter::head)
+            .strike(Fighter::legs);
 
-        private FixedScript(
-            BiFunction<Fighter, Fighter, BodyPart> parrySelector,
-            BiFunction<Fighter, Fighter, BodyPart> strikeSelector
-        ) {
-            this.parrySelector = parrySelector;
-            this.strikeSelector = strikeSelector;
-        }
+        Fighter aragorn = new Fighter("Aragorn", aragornScript);
+        Fighter boromir = new Fighter("Boromir", boromirScript);
 
-        @Override
-        public BodyPart chooseParryLocation(Fighter self, Fighter opponent) {
-            return parrySelector.apply(self, opponent);
-        }
+        Arena arena = new Arena(aragorn, boromir);
+        arena.nextTurn();
 
-        @Override
-        public BodyPart chooseStrikeTarget(Fighter self, Fighter opponent) {
-            return strikeSelector.apply(self, opponent);
-        }
+        Description description = boromir.describe();
+        assertTrue(description.knows("damage"));
+        assertEquals(0, description.intValue("damage"));
     }
+
+    // Test-local FixedScript removed in favor of production FixedScript
 }
 
 
