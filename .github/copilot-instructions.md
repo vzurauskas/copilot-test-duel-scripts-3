@@ -25,7 +25,7 @@ MACRO-CYCLE:
 3. Create test plan in plan.md
      ↓
 MICRO-CYCLE (repeat for each test):
-"go" → Red → Green → Refactor → mark test done
+"go" → Red → "proceed" → Green → Refactor → mark test done
      ↓
 ITERATION COMPLETE
 ```
@@ -153,7 +153,7 @@ Generated Tests:
 
 ## Micro-cycle
 
-Micro-cycle begins when I say "go". Find the next unmarked test in plan.md, write the failing test, then stop and let me review/modify it. Only after my approval proceed to implement the minimum code to make the test pass. Once the test passes, mark it as done in plan.md.
+Micro-cycle begins when I say "go". Find the next unmarked test in plan.md, write the failing test, then stop and let me review/modify it. Only after I reply "proceed" implement the minimum code to make the test pass. Once the test passes, refactor if requested and then mark it as done in plan.md.
 - Always follow the TDD cycle: Red → Green → Refactor
 - Write the simplest failing test first
 - Implement the minimum code needed to make tests pass
@@ -171,7 +171,9 @@ Micro-cycle begins when I say "go". Find the next unmarked test in plan.md, writ
 - Expect compilation errors, because the code referenced by the test may not exist yet.
 - Make test failures clear and informative.
 - Never write comments in tests.
- - After writing the failing test, stop and request my review; do not begin implementation until I approve.
+- Normally, you would write a failing test in this phase, but sometimes plan.md defines a test which may actually pass. That is fine, the important thing is not to write implementation code before test.
+- After writing the test, pause and request for my review, saying "Red done — say \"proceed\" to continue."
+- When I say "proceed", proceed to Green phase, writing code to make the test pass.
 
 #### Green phase
 - Write just enough code to make the test pass - no more.
@@ -202,7 +204,7 @@ After Refactor phase, stop before repeating the Red → Green → Refactor cycle
 
 When approaching a new feature:
 1. Write a simple failing test for a small part of the feature
-2. Implement the bare minimum to make it pass
+2. When I say "proceed", implement the bare minimum to make it pass
 3. Run tests to confirm they pass (Green)
 4. **REFACTOR PHASE**: Explicitly examine code for improvements:
 - Check for duplication, unclear naming, large methods
@@ -312,7 +314,7 @@ Fighter alice = new Fighter("Alice", 100,
 ## Development Flow
 ```
 MACRO-CYCLE: Domain → CRC Cards → plan.md
-MICRO-CYCLE: "go" → Red → Green → Refactor → mark done
+MICRO-CYCLE: "go" → Red → "proceed" -> Green → Refactor → mark done
 ```
 
 ## Key Principles
@@ -330,7 +332,7 @@ MICRO-CYCLE: "go" → Red → Green → Refactor → mark done
 - Common responsibilities: "ID self", "Describe self"
 
 ## TDD Cycle
-1. **Red**: Write failing test and pause for review
+1. **Red**: Write failing test, pause for review and wait for "proceed"
 2. **Green**: Minimal code to pass
 3. **Refactor**: Apply quality principles
 4. Stop and wait for "go"

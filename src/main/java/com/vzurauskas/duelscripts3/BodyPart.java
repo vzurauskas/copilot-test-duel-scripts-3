@@ -1,13 +1,13 @@
 package com.vzurauskas.duelscripts3;
 
 public final class BodyPart {
-    private final String id;
+    private final String name;
     private final Fighter owner;
-    private final int damageMultiplier;
+    private final double damageMultiplier;
     private int damage;
 
-    public BodyPart(String id, Fighter owner, int damageMultiplier) {
-        this.id = id;
+    public BodyPart(String name, Fighter owner, double damageMultiplier) {
+        this.name = name;
         this.owner = owner;
         this.damageMultiplier = damageMultiplier;
         this.damage = 0;
@@ -21,7 +21,7 @@ public final class BodyPart {
     }
 
     public String id() {
-        return id;
+        return name;
     }
 
     public int damage() {

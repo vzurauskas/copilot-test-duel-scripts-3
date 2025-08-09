@@ -2,19 +2,23 @@ package com.vzurauskas.duelscripts3;
 
 public final class Fighter {
     private final String name;
+    private final Description description;
     private final CombatScript script;
     private final BodyPart head;
     private final BodyPart torso;
     private final BodyPart legs;
     private BodyPart parryLocation;
+    private FightHistory history;
 
     public Fighter(String name, CombatScript script) {
         this.name = name;
+        this.description = new Description();
         this.script = script;
-        this.head = new BodyPart("head", this, 3);
-        this.torso = new BodyPart("torso", this, 2);
-        this.legs = new BodyPart("legs", this, 1);
-        this.parryLocation = this.torso; // default non-null
+        this.head = new BodyPart("head", this, 1.7);
+        this.torso = new BodyPart("torso", this, 1);
+        this.legs = new BodyPart("legs", this, 0.7);
+        this.parryLocation = this.torso;
+        this.history = new FightHistory();
     }
 
     public BodyPart head() {
@@ -35,7 +39,8 @@ public final class Fighter {
 
     public void strike(Fighter opponent) {
         BodyPart target = script.chooseStrikeTarget(this, opponent);
-        target.receiveStrike(1, this);
+        target.receiveStrike(3, this);
+        history.strikeOccured(this + " -> " + opponent);
     }
 
     public boolean isParrying(BodyPart bodyPart) {
@@ -43,10 +48,15 @@ public final class Fighter {
     }
 
     public Description describe() {
-        int totalDamage = head.damage() + torso.damage() + legs.damage();
-        Description description = new Description();
-        description.remember("damage", String.valueOf(totalDamage));
+        description.remember(
+            "damage",
+            String.valueOf(head.damage() + torso.damage() + legs.damage())
+        );
         return description;
+    }
+
+    public void observeWith(FightHistory history) {
+        this.history = history;
     }
 }
 

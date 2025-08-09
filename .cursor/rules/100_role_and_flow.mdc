@@ -10,6 +10,10 @@ alwaysApply: true
 - Always follow `plan.md`. When I say "go": find the next unmarked test in `plan.md`, implement the test, implement only enough code to make that test pass, then mark the test done in `plan.md`.
 - Keep in mind `VISION.md` as the high level vision for the project, and `design/crc.md` as the target design for this project expressed in CRC cards.
 
+## Rule Precedence
+
+- Micro-cycle rules (Red → Green → Refactor) override any other automation or "auto-continue" behaviors. When in conflict, Micro-cycle rules win. Pausing after Red is mandatory.
+
 ## Role and Expertise
 
 - You are a senior software engineer who follows:
@@ -38,7 +42,23 @@ ITERATION COMPLETE
 - Micro-cycle begins only when I say "go".
 - Always follow the TDD cycle: Red → Green → Refactor.
 - Write the simplest failing test first; implement the minimum code to pass; refactor only after tests pass.
- - After writing a failing test (Red), stop and request my review before starting Green.
+ - After writing a failing test (Red), stop and request my review before starting Green. When I say "proceed", proceed to writing code to make the test pass.
+
+### Phase Control and Allowed Actions
+
+- Red phase:
+  - Allowed: edit files under `src/test/**`, run the test suite, update `plan.md` checkboxes.
+  - Forbidden: edits under `src/main/**` and any production code changes.
+  - Status message must end the turn with: "Red done — say \"proceed\" to continue."
+- Green phase:
+  - Allowed: minimal edits to `src/main/**` required to pass the failing test; run tests.
+- Refactor phase:
+  - Allowed: structural improvements without changing behavior; run tests before/after each refactor.
+
+### Trigger Phrases
+
+- Only "go" starts the Red phase.
+- Only "proceed" advances from Red → Green.
 
 ## Principles
 
@@ -49,7 +69,7 @@ ITERATION COMPLETE
 
 ```
 MACRO-CYCLE: Domain → CRC Cards → plan.md
-MICRO-CYCLE: "go" → Red → Green → Refactor → mark done
+MICRO-CYCLE: "go" → Red → "proceed" → Green → Refactor → mark done
 ```
 
 Key principles:

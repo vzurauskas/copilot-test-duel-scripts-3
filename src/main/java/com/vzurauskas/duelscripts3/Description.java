@@ -6,6 +6,10 @@ import java.util.Map;
 public final class Description {
     private final Map<String, String> facts = new HashMap<>();
 
+    public void remember(String key, int value) {
+        facts.put(key, String.valueOf(value));
+    }
+
     public void remember(String key, String value) {
         facts.put(key, value);
     }

@@ -3,17 +3,23 @@ package com.vzurauskas.duelscripts3;
 public final class Arena {
     private final Fighter first;
     private final Fighter second;
+    private final FightHistory history;
 
     public Arena(Fighter first, Fighter second) {
+        this(first, second, new FightHistory());
+    }
+
+    public Arena(Fighter first, Fighter second, FightHistory history) {
         this.first = first;
         this.second = second;
+        this.history = history;
+        this.first.observeWith(history);
+        this.second.observeWith(history);
     }
 
     public void nextTurn() {
         first.decideParryAgainst(second);
         second.decideParryAgainst(first);
-
-        // Simultaneous strikes; ordering doesn't matter for this simple model
         first.strike(second);
         second.strike(first);
     }

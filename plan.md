@@ -64,6 +64,8 @@ classDiagram
     - Boromir parries head, Aragorn strikes Boromir's torso.
     - Boromir's description reveals he's injured.
 - [x] parriedStrikeDealsNoDamage
-- [ ] fighterDescribesDamageStatusAfterExchange
-- [ ] fightHistoryRecordsSimultaneousExchange
-- [ ] arenaExecutesSimultaneousExchange
+- [x] fightHistoryRecordsSimultaneousExchange
+- [ ] damageIsCalculatedCorrectly
+    - Two fighters: Aragorn and Boromir.
+    - FixedScript is used to setup a deterministic strike.
+    - Specific damage is expected.

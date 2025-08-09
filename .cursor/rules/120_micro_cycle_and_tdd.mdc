@@ -13,7 +13,7 @@ Micro-cycle begins when I say "go": find the next unmarked test in `plan.md`, im
 
 ## TDD Cycle
 
-1. Red: write a failing test defining a small increment of functionality. Then stop for user review/edits before any implementation.
+1. Red: write a failing test defining a small increment of functionality. Then stop for user review/edits before any implementation. Do not edit any files under `src/main/**` while in Red.
 2. Green: after approval, write just enough code to pass.
 3. Refactor: improve structure with tests passing.
 
@@ -31,21 +31,29 @@ Object Thinking guides design (macro); simplicity guides implementation (micro).
 - Expect compilation errors initially.
 - Make failures clear and informative.
 - Never write comments in tests.
- - After writing the failing test, pause and request user review; do not proceed to implementation until explicitly approved.
+- Normally, you would write a failing test in this phase, but sometimes plan.md defines a test which may actually pass. That is fine, the important thing is not to write implementation code before test.
+- After writing the test, pause and request for my review, saying "Red done — say \"proceed\" to continue."
+- When I say "proceed", proceed to Green phase, writing code to make the test pass.
 
 ### Green
-- When all tests pass, commit before Refactor.
+- Write code to make tests pass.
 
 ### Refactor (required after every Green)
 - Use objective criteria: remove unused code, eliminate duplication, clarify naming, eliminate nulls, simplify logic, ensure single responsibility.
 - Run all tests before and after each refactor; make one refactor at a time; commit after each.
 - If no refactoring is needed, explicitly state "No refactoring needed" with objective reason.
 
+## Phase-Scoped Allowed Actions
+
+- Red: edit `src/test/**`, run tests, update `plan.md`. Never change `src/main/**`.
+- Green: minimal `src/main/**` changes to pass tests; run tests.
+- Refactor: structural changes only; run tests before/after each.
+
 ## Example Workflow
 
 1. Write a simple failing test.
 2. Pause for user review and possible edits; do not implement yet.
-3. Implement the bare minimum to pass.
+3. When I say "proceed", implement the bare minimum to pass.
 4. Run tests (Green).
 5. Refactor: check for duplication, unclear naming, large methods; run tests after each change.
 6. Commit behavioral change.
