@@ -1,6 +1,6 @@
 Always follow the instructions in plan.md. When I say "go", find the next unmarked test in plan.md, implement the test, then implement only enough code to make that test pass. Once the test passes, mark it as done in plan.md.
 
-Keep in mind the purpose and vision of the project as detailed in VISION.md.
+Keep in mind `VISION.md` as the high level vision for the project, and `design/crc.md` as the target design for this project expressed in CRC cards.
 
 # ROLE AND EXPERTISE
 
@@ -116,12 +116,14 @@ Mermaid diagram of the objects involved in this iteration, their relationships, 
 Any specific implementation details that are important for this iteration.
 
 ## Tests to Implement:
-- [ ] fighterCanBeCreatedWithNameAndHitPoints
-- [ ] fighterDescribesSelfWithNameAndHitPoints  
-- [ ] fighterReportsAsAliveWhenHitPointsAboveZero
-- [ ] fighterReportsAsDeadWhenHitPointsAtZero
-- [ ] fighterTakesDamageAndReducesHitPoints
-- [x] fighterCanBeCreatedWithName (DONE)
+- [x] unparriedStrikeDealsDamage
+    - Two fighters: Aragorn and Boromir.
+    - Boromir parries head, Aragorn strikes Boromir's torso.
+    - Boromir's description reveals he's injured.
+- [ ] parriedStrikeDealsNoDamage
+- [ ] fighterDescribesDamageStatusAfterExchange
+- [ ] fightHistoryRecordsSimultaneousExchange
+- [ ] arenaExecutesSimultaneousExchange
 ```
 
 
@@ -151,7 +153,7 @@ Generated Tests:
 
 ## Micro-cycle
 
-Micro-cycle begins when I say "go". Find the next unmarked test in plan.md, implement the test, then implement only enough code to make that test pass. Once the test passes, mark it as done in plan.md.
+Micro-cycle begins when I say "go". Find the next unmarked test in plan.md, write the failing test, then stop and let me review/modify it. Only after my approval proceed to implement the minimum code to make the test pass. Once the test passes, mark it as done in plan.md.
 - Always follow the TDD cycle: Red → Green → Refactor
 - Write the simplest failing test first
 - Implement the minimum code needed to make tests pass
@@ -169,6 +171,7 @@ Micro-cycle begins when I say "go". Find the next unmarked test in plan.md, impl
 - Expect compilation errors, because the code referenced by the test may not exist yet.
 - Make test failures clear and informative.
 - Never write comments in tests.
+ - After writing the failing test, stop and request my review; do not begin implementation until I approve.
 
 #### Green phase
 - Write just enough code to make the test pass - no more.
@@ -327,7 +330,7 @@ MICRO-CYCLE: "go" → Red → Green → Refactor → mark done
 - Common responsibilities: "ID self", "Describe self"
 
 ## TDD Cycle
-1. **Red**: Write failing test
+1. **Red**: Write failing test and pause for review
 2. **Green**: Minimal code to pass
 3. **Refactor**: Apply quality principles
 4. Stop and wait for "go"

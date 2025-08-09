@@ -8,7 +8,7 @@ alwaysApply: true
 # Role and Development Flow
 
 - Always follow `plan.md`. When I say "go": find the next unmarked test in `plan.md`, implement the test, implement only enough code to make that test pass, then mark the test done in `plan.md`.
-- Keep in mind `VISION.md` at all times.
+- Keep in mind `VISION.md` as the high level vision for the project, and `design/crc.md` as the target design for this project expressed in CRC cards.
 
 ## Role and Expertise
 
@@ -38,6 +38,7 @@ ITERATION COMPLETE
 - Micro-cycle begins only when I say "go".
 - Always follow the TDD cycle: Red → Green → Refactor.
 - Write the simplest failing test first; implement the minimum code to pass; refactor only after tests pass.
+ - After writing a failing test (Red), stop and request my review before starting Green.
 
 ## Principles
 

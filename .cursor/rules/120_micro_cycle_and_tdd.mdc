@@ -13,8 +13,8 @@ Micro-cycle begins when I say "go": find the next unmarked test in `plan.md`, im
 
 ## TDD Cycle
 
-1. Red: write a failing test defining a small increment of functionality.
-2. Green: write just enough code to pass.
+1. Red: write a failing test defining a small increment of functionality. Then stop for user review/edits before any implementation.
+2. Green: after approval, write just enough code to pass.
 3. Refactor: improve structure with tests passing.
 
 Additional rules:
@@ -31,6 +31,7 @@ Object Thinking guides design (macro); simplicity guides implementation (micro).
 - Expect compilation errors initially.
 - Make failures clear and informative.
 - Never write comments in tests.
+ - After writing the failing test, pause and request user review; do not proceed to implementation until explicitly approved.
 
 ### Green
 - When all tests pass, commit before Refactor.
@@ -43,13 +44,14 @@ Object Thinking guides design (macro); simplicity guides implementation (micro).
 ## Example Workflow
 
 1. Write a simple failing test.
-2. Implement the bare minimum to pass.
-3. Run tests (Green).
-4. Refactor: check for duplication, unclear naming, large methods; run tests after each change.
-5. Commit behavioral change.
-6. Make structural changes (Tidy First), running tests after each.
-7. Commit structural changes separately.
-8. Add another test and repeat.
+2. Pause for user review and possible edits; do not implement yet.
+3. Implement the bare minimum to pass.
+4. Run tests (Green).
+5. Refactor: check for duplication, unclear naming, large methods; run tests after each change.
+6. Commit behavioral change.
+7. Make structural changes (Tidy First), running tests after each.
+8. Commit structural changes separately.
+9. Add another test and repeat.
 
 Always run all tests each time (except long-running ones).
 
