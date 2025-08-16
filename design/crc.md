@@ -8,6 +8,7 @@
   - Have body parts available for striking
   - Strike opponent at chosen body part
   - Parry strikes to chosen body part
+  - Report chosen parry and strike, including damage, to observers
 - **Knowledge Sources:**
   - I know my name and max hit points (fields)
   - I know my current parry location (field)
@@ -15,9 +16,11 @@
   - Opponent fighter to strike is given with request (parameters)
   - I can ask my CombatScript for decisions (collaborator)
   - I can ask my body parts for their damage (collaborator)
+  - I know my observers (collaborator)
 - **Collaborators:**
   - BodyPart
   - CombatScript
+  - FightHistory (observer)
 
 **BodyPart**
 - **Responsibilities:**
@@ -41,28 +44,34 @@
 
 **CombatScript**
 - **Responsibilities:**
-  - Analyze combat situation
-  - Make tactical decisions
+  - Analyze combat situation using FightHistory
+  - Make tactical decisions, possibly adapting to opponent tendencies
   - Choose strike target
   - Choose parry location
 - **Knowledge Sources:**
   - I know my tactical preferences (fields)
   - Fight situation given with requests (parameters)
-  - I can ask FightHistory about patterns (collaborator)
+  - I can query FightHistory for: recent parries, last outcomes, damage by body part, target effectiveness (collaborator)
 - **Collaborators:**
   - FightHistory
 
 **FightHistory**
 - **Responsibilities:**
-  - Observe combat events
-  - Record combat events as they happen
-  - Describe past exchanges
-  - Track patterns and trends
+  - Observe combat events (parry choices, strike targets, outcomes, damage)
+  - Record exchanges turn-by-turn in a structured form
+  - Present a human-readable summary of the duel so far, turn by turn
+  - Expose queryable insights (recent parries, last outcomes, damage by body part, target effectiveness)
+  - Track cumulative and per-body-part damage over time
+  - Expose post-exchange state (hit points per fighter) after each turn
 - **Knowledge Sources:**
-  - I know all recorded combat events (fields)
-  - I observe combat events as they occur (parameters)
+  - I know all recorded exchanges (fields)
+  - I observe combat events and turn boundaries as they occur (parameters)
+  - I maintain derived aggregates per fighter and body part (fields or computed)
 - **Collaborators:**
-  - Arena
+  - Arena (turn sequencing, boundaries)
+  - Fighter (decisions, HP changes)
+  - BodyPart (strike outcomes and damage)
+  - CombatScript (consumer of queries)
 
 **Arena**
 - **Responsibilities:**
