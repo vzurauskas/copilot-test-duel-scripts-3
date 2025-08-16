@@ -1,5 +1,5 @@
 ---
-description: Macro-cycle instructions and CRC-based design rules for deriving objects and responsibilities from domain description
+description: Design phase instructions and CRC-based design rules for deriving objects and responsibilities from domain description
 globs:
   - "design/**/*.md"
   - "plan.md"
@@ -7,15 +7,15 @@ globs:
 alwaysApply: false
 ---
 
-# Macro-cycle and CRC Design
+# Design Phase and CRC Design
 
-## Macro-cycle
+## Design Phase
 
 When a new iteration begins:
 - Expand the domain description with rich prose to enable design extraction.
 - Create or update CRC cards for domain objects involved in this iteration.
 - Use CRC review exercises to verify sufficiency for implementation.
-- Create an implementation plan in `plan.md` with a list of tests; each test triggers a micro-cycle.
+- Create an implementation plan in `plan.md` with a list of tests; each test triggers a programming phase.
 
 ## Design Guidelines
 

@@ -65,7 +65,7 @@ classDiagram
     - Boromir's description reveals he's injured.
 - [x] parriedStrikeDealsNoDamage
 - [x] fightHistoryRecordsSimultaneousExchange
-- [ ] damageIsCalculatedCorrectly
+- [x] damageIsCalculatedCorrectly
     - Two fighters: Aragorn and Boromir.
     - FixedScript is used to setup a deterministic strike.
     - Specific damage is expected.

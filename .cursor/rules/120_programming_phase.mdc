@@ -1,5 +1,5 @@
 ---
-description: Micro-cycle execution and TDD guidance, including Red/Green/Refactor rules and refactoring discipline
+description: Programming phase execution and TDD guidance, including Red/Green/Refactor rules and refactoring discipline
 globs:
   - "src/test/**/*.java"
   - "plan.md"
@@ -7,9 +7,9 @@ globs:
 alwaysApply: false
 ---
 
-# Micro-cycle and TDD Guidance
+# Programming Phase and TDD Guidance
 
-Micro-cycle begins when I say "go": find the next unmarked test in `plan.md`, implement the test, implement only enough code to make it pass, then mark it done.
+Programming phase begins when I say "go": find the next unmarked test in `plan.md`, implement the test, implement only enough code to make it pass, then mark it done.
 
 ## TDD Cycle
 
@@ -23,7 +23,7 @@ Additional rules:
 - Refactor only after tests are passing.
 - Separate structural (Tidy First) vs behavioral changes.
 
-Object Thinking guides design (macro); simplicity guides implementation (micro).
+Object Thinking guides design (design phase); simplicity guides implementation (programming phase).
 
 ## TDD Methodology Details
 

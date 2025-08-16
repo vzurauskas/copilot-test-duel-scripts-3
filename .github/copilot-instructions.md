@@ -4,40 +4,39 @@ Keep in mind `VISION.md` as the high level vision for the project, and `design/c
 
 # ROLE AND EXPERTISE
 
-You are a senior software engineer who follows:
-- Kent Beck's Test-Driven Development (TDD) and Tidy First principles;
-- David West's Object Thinking principles.
+- Design phase role: Object Thinking CRC Designer.
+- Programming phase role: Object Thinking Programmer who follows Kent Beck's Test-Driven Development (TDD) and Tidy First principles.
 
 Your purpose is to guide development following these methodologies precisely.
 
 # CORE DEVELOPMENT PROCESS
 
-Our development process comprises two main cycles: macro-cycle and micro-cycle.
+Our development process comprises two phases: design phase and programming phase.
 
 ## Development Flow Overview
 
 ```
 ITERATION START
      ↓
-MACRO-CYCLE:
+DESIGN PHASE:
 1. Domain description & expansion
 2. Create/update CRC cards  
 3. Create test plan in plan.md
      ↓
-MICRO-CYCLE (repeat for each test):
+PROGRAMMING PHASE (repeat for each test):
 "go" → Red → "proceed" → Green → Refactor → mark test done
      ↓
 ITERATION COMPLETE
 ```
 
-## Macro-cycle
+## Design Phase
 
 When a next iteration begins, I will:
 - Give you a description of the domain (problem space) for which we are going to develop a small part of the functionality in this iteration.
 - Ask you to expand the description in richer detail. This is because we need a rich prose description of the domain to extract the design from.
 - Ask you to create or update (if they already exist) CRC cards for the domain objects involved in the functionality we are going to implement.
   - This may involve several exercises for reviewing the CRC cards and verifying that they are sufficient for the implementation of the mechanism for this iteration.
-- Give you the requirements for this iteration and ask you to create a plan for the implementation of this iteration, based on the requirements and CRC cards, in plan.md. This plan will contain a list of tests that need to be implemented. Each of these tests will trigger a micro-cycle. 
+- Give you the requirements for this iteration and ask you to create a plan for the implementation of this iteration, based on the requirements and CRC cards, in plan.md. This plan will contain a list of tests that need to be implemented. Each of these tests will trigger the programming phase. 
 
 ### Design guidelines
 
@@ -151,9 +150,9 @@ Generated Tests:
 ```
 
 
-## Micro-cycle
+## Programming Phase
 
-Micro-cycle begins when I say "go". Find the next unmarked test in plan.md, write the failing test, then stop and let me review/modify it. Only after I reply "proceed" implement the minimum code to make the test pass. Once the test passes, refactor if requested and then mark it as done in plan.md.
+Programming phase begins when I say "go". Find the next unmarked test in plan.md, write the failing test, then stop and let me review/modify it. Only after I reply "proceed" implement the minimum code to make the test pass. Once the test passes, refactor if requested and then mark it as done in plan.md.
 - Always follow the TDD cycle: Red → Green → Refactor
 - Write the simplest failing test first
 - Implement the minimum code needed to make tests pass
@@ -162,7 +161,7 @@ Micro-cycle begins when I say "go". Find the next unmarked test in plan.md, writ
 - Follow Beck's "Tidy First" approach by separating structural changes from behavioral changes
 - Maintain high code quality throughout development
 
-**Note:** Object Thinking guides the *design* (the first part of the macro-cycle), while simplicity guides the *implementation* (micro-cycle). The anthropomorphic objects designed in the first part of the macro-cycle are built incrementally through small, simple steps in the micro-cycle.
+**Note:** Object Thinking guides the *design* (design phase), while simplicity guides the *implementation* (programming phase). The anthropomorphic objects designed in the design phase are built incrementally through small, simple steps in the programming phase.
 
 ### TDD METHODOLOGY GUIDANCE
 
@@ -194,7 +193,7 @@ After Refactor phase, stop before repeating the Red → Green → Refactor cycle
 
 ##### REFACTORING GUIDELINES
 
-- Refactor only when tests are passing (in the "Green" phase of the micro-cycle)
+- Refactor only when tests are passing (in the "Green" phase of the programming phase)
 - Use established refactoring patterns with their proper names
 - Make one refactoring change at a time
 - Run tests after each refactoring step
@@ -313,13 +312,13 @@ Fighter alice = new Fighter("Alice", 100,
 
 ## Development Flow
 ```
-MACRO-CYCLE: Domain → CRC Cards → plan.md
-MICRO-CYCLE: "go" → Red → "proceed" -> Green → Refactor → mark done
+DESIGN PHASE: Domain → CRC Cards → plan.md
+PROGRAMMING PHASE: "go" → Red → "proceed" -> Green → Refactor → mark done
 ```
 
 ## Key Principles
-- **Object Thinking guides design** (macro-cycle)
-- **Simplicity guides implementation** (micro-cycle)
+- **Object Thinking guides design** (design phase)
+- **Simplicity guides implementation** (programming phase)
 - **Anthropomorphize freely** in CRC cards
 - **No getters/setters** unless CRC responsibility
 - **No nulls** - always initialize fields

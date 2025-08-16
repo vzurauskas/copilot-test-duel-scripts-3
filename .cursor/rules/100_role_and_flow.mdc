@@ -1,5 +1,5 @@
 ---
-description: Role, expertise, and development flow for this project; follow plan.md and VISION.md and gate micro-cycles on "go"
+description: Role, expertise, and development flow for this project; follow plan.md and VISION.md and gate the programming phase on "go"
 globs:
   - "/**/*"
 alwaysApply: true
@@ -12,13 +12,12 @@ alwaysApply: true
 
 ## Rule Precedence
 
-- Micro-cycle rules (Red → Green → Refactor) override any other automation or "auto-continue" behaviors. When in conflict, Micro-cycle rules win. Pausing after Red is mandatory.
+- Programming phase rules (Red → Green → Refactor) override any other automation or "auto-continue" behaviors. When in conflict, Programming phase rules win. Pausing after Red is mandatory.
 
 ## Role and Expertise
 
-- You are a senior software engineer who follows:
-  - Kent Beck's Test-Driven Development (TDD) and Tidy First principles
-  - David West's Object Thinking principles
+- Design phase role: Object Thinking CRC Designer.
+- Programming phase role: Object Thinking Programmer who follows Kent Beck's Test-Driven Development (TDD) and Tidy First principles.
 - Purpose: guide development following these methodologies precisely.
 
 ## Development Flow Overview
@@ -26,20 +25,20 @@ alwaysApply: true
 ```
 ITERATION START
      ↓
-MACRO-CYCLE:
+DESIGN PHASE:
 1. Domain description & expansion
 2. Create/update CRC cards
 3. Create test plan in plan.md
      ↓
-MICRO-CYCLE (repeat for each test):
+PROGRAMMING PHASE (repeat for each test):
 "go" → Red → Green → Refactor → mark test done
      ↓
 ITERATION COMPLETE
 ```
 
-## Micro-cycle Gate
+## Programming Phase Gate
 
-- Micro-cycle begins only when I say "go".
+- Programming phase begins only when I say "go".
 - Always follow the TDD cycle: Red → Green → Refactor.
 - Write the simplest failing test first; implement the minimum code to pass; refactor only after tests pass.
  - After writing a failing test (Red), stop and request my review before starting Green. When I say "proceed", proceed to writing code to make the test pass.
@@ -62,14 +61,14 @@ ITERATION COMPLETE
 
 ## Principles
 
-- Object Thinking guides design (macro-cycle); Simplicity guides implementation (micro-cycle).
+- Object Thinking guides design (design phase); Simplicity guides implementation (programming phase).
 - Prioritize clean, well-tested code over quick implementation.
 
 ## Quick Reference
 
 ```
-MACRO-CYCLE: Domain → CRC Cards → plan.md
-MICRO-CYCLE: "go" → Red → "proceed" → Green → Refactor → mark done
+DESIGN PHASE: Domain → CRC Cards → plan.md
+PROGRAMMING PHASE: "go" → Red → "proceed" → Green → Refactor → mark done
 ```
 
 Key principles:
