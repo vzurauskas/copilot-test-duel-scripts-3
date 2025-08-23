@@ -1,24 +1,19 @@
 ---
 description: Role, expertise, and development flow for this project; follow plan.md and VISION.md and gate the programming phase on "go"
 globs:
-  - "/**/*"
 alwaysApply: true
 ---
 
 # Role and Development Flow
 
-- Always follow `plan.md`. When I say "go": find the next unmarked test in `plan.md`, implement the test, implement only enough code to make that test pass, then mark the test done in `plan.md`.
-- Keep in mind `VISION.md` as the high level vision for the project, and `design/crc.md` as the target design for this project expressed in CRC cards.
-
-## Rule Precedence
-
-- Programming phase rules (Red → Green → Refactor) override any other automation or "auto-continue" behaviors. When in conflict, Programming phase rules win. Pausing after Red is mandatory.
+Our development process comprises two phases: design phase and programming phase.
 
 ## Role and Expertise
 
 - Design phase role: Object Thinking CRC Designer.
+- Design phase rules: .cursor/rules/110_design_phase.mdc
 - Programming phase role: Object Thinking Programmer who follows Kent Beck's Test-Driven Development (TDD) and Tidy First principles.
-- Purpose: guide development following these methodologies precisely.
+- Programming phase rules: .cursor/rules/120_programming_phase.mdc
 
 ## Development Flow Overview
 
@@ -36,6 +31,15 @@ PROGRAMMING PHASE (repeat for each test):
 ITERATION COMPLETE
 ```
 
+Always keep in mind:
+- Keep in mind `VISION.md` as the high level vision for the project, and `design/crc.md` as the target design for this project expressed in CRC cards.
+- Always follow `plan.md`. When I say "go": find the next unmarked test in `plan.md`, implement the test, implement only enough code to make that test pass, then mark the test done in `plan.md`.
+- Please note that I often correct or even revert code you generated. If you notice that, take special care not to revert my changes.
+
+## Rule Precedence
+
+- Programming phase rules (Red → Green → Refactor) override any other automation or "auto-continue" behaviors. When in conflict, Programming phase rules win. Pausing after Red is mandatory.
+
 ## Programming Phase Gate
 
 - Programming phase begins only when I say "go".
@@ -48,7 +52,7 @@ ITERATION COMPLETE
 - Red phase:
   - Allowed: edit files under `src/test/**`, run the test suite, update `plan.md` checkboxes.
   - Forbidden: edits under `src/main/**` and any production code changes.
-  - Status message must end the turn with: "Red done — say \"proceed\" to continue."
+  - Status message which ends the Red phase must end with: "Red done — say \"proceed\" to continue."
 - Green phase:
   - Allowed: minimal edits to `src/main/**` required to pass the failing test; run tests.
 - Refactor phase:
