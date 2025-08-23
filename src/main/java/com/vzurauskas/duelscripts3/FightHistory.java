@@ -25,8 +25,12 @@ public final class FightHistory {
         turn.recordParry(fighter, parryLocation.id());
     }
 
-    public void recordStrike(Fighter attacker, BodyPart target, int damageDealt) {
-        turn.recordStrike(attacker, target.id(), damageDealt);
+    public void strikeTargetChosen(Fighter attacker, BodyPart target) {
+        turn.recordTarget(attacker, target.id());
+    }
+
+    public void strikeOccurred(Fighter attacker, BodyPart target, int damageDealt) {
+        turn.recordOutcome(attacker, target.id(), damageDealt);
         if (turn.isComplete()) {
             turnSummaries.add(turn.toSummary(turnCounter));
             turn.clear();
@@ -50,7 +54,12 @@ public final class FightHistory {
                 .put(PARRY_KEY, parryId);
         }
 
-        private void recordStrike(Fighter fighter, String targetId, int damage) {
+        private void recordTarget(Fighter fighter, String targetId) {
+            Map<String, String> decision = decisions.computeIfAbsent(fighter, f -> new LinkedHashMap<>());
+            decision.put(TARGET_KEY, targetId);
+        }
+
+        private void recordOutcome(Fighter fighter, String targetId, int damage) {
             Map<String, String> decision = decisions.computeIfAbsent(fighter, f -> new LinkedHashMap<>());
             decision.put(TARGET_KEY, targetId);
             decision.put(OUTCOME_KEY, damage == 0 ? "parried" : "hit");

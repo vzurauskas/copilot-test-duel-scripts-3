@@ -16,10 +16,11 @@ public final class DuelTest {
             .parry(Fighter::head)
             .strike(Fighter::legs);
 
-        Fighter aragorn = new Fighter("Aragorn", aragornScript);
-        Fighter boromir = new Fighter("Boromir", boromirScript);
+        FightHistory history = new FightHistory();
+        Fighter aragorn = new Fighter("Aragorn", aragornScript, history);
+        Fighter boromir = new Fighter("Boromir", boromirScript, history);
 
-        Arena arena = new Arena(aragorn, boromir);
+        Arena arena = new Arena(aragorn, boromir, history);
         arena.nextTurn();
 
         Description description = boromir.describe();
@@ -36,10 +37,11 @@ public final class DuelTest {
             .parry(Fighter::head)
             .strike(Fighter::legs);
 
-        Fighter aragorn = new Fighter("Aragorn", aragornScript);
-        Fighter boromir = new Fighter("Boromir", boromirScript);
+        FightHistory history = new FightHistory();
+        Fighter aragorn = new Fighter("Aragorn", aragornScript, history);
+        Fighter boromir = new Fighter("Boromir", boromirScript, history);
 
-        Arena arena = new Arena(aragorn, boromir);
+        Arena arena = new Arena(aragorn, boromir, history);
         arena.nextTurn();
 
         Description description = boromir.describe();
@@ -56,10 +58,11 @@ public final class DuelTest {
             .parry(Fighter::legs)
             .strike(Fighter::legs);
 
-        Fighter aragorn = new Fighter("Aragorn", aragornScript);
-        Fighter boromir = new Fighter("Boromir", boromirScript);
+        FightHistory history = new FightHistory();
+        Fighter aragorn = new Fighter("Aragorn", aragornScript, history);
+        Fighter boromir = new Fighter("Boromir", boromirScript, history);
 
-        Arena arena = new Arena(aragorn, boromir);
+        Arena arena = new Arena(aragorn, boromir, history);
         arena.nextTurn();
 
         assertEquals(5, boromir.head().damage());
@@ -75,10 +78,9 @@ public final class DuelTest {
             .parry(Fighter::head)
             .strike(Fighter::legs);
 
-        Fighter alice = new Fighter("Alice", aliceScript);
-        Fighter bob = new Fighter("Bob", bobScript);
-
         FightHistory history = new FightHistory();
+        Fighter alice = new Fighter("Alice", aliceScript, history);
+        Fighter bob = new Fighter("Bob", bobScript, history);
         Arena arena = new Arena(alice, bob, history);
         arena.nextTurn();
 

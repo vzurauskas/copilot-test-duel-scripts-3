@@ -11,14 +11,18 @@ public final class Fighter {
     private FightHistory history;
 
     public Fighter(String name, CombatScript script) {
+        this(name, script, new FightHistory());
+    }
+
+    public Fighter(String name, CombatScript script, FightHistory history) {
         this.name = name;
         this.description = new Description();
         this.script = script;
-        this.head = new BodyPart("head", this, 1.7);
-        this.torso = new BodyPart("torso", this, 1);
-        this.legs = new BodyPart("legs", this, 0.7);
+        this.history = history;
+        this.head = new BodyPart("head", this, 1.7, history);
+        this.torso = new BodyPart("torso", this, 1, history);
+        this.legs = new BodyPart("legs", this, 0.7, history);
         this.parryLocation = this.torso;
-        this.history = new FightHistory();
     }
 
     public BodyPart head() {
@@ -40,10 +44,8 @@ public final class Fighter {
 
     public void strike(Fighter opponent) {
         BodyPart target = script.chooseStrikeTarget(this, opponent);
-        int before = target.damage();
+        history.strikeTargetChosen(this, target);
         target.receiveStrike(3, this);
-        int dealt = target.damage() - before;
-        history.recordStrike(this, target, dealt);
     }
 
     public boolean isParrying(BodyPart bodyPart) {
@@ -60,6 +62,10 @@ public final class Fighter {
 
     public void observeWith(FightHistory history) {
         this.history = history;
+    }
+
+    public FightHistory history() {
+        return history;
     }
 
     @Override

@@ -8,7 +8,7 @@
   - Have body parts available for striking
   - Strike opponent at chosen body part
   - Parry strikes to chosen body part
-  - Report chosen parry and strike, including damage, to observers
+  - Report chosen parry and strike to observers
 - **Knowledge Sources:**
   - I know my name and max hit points (fields)
   - I know my current parry location (field)
