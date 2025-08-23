@@ -44,7 +44,6 @@ public final class Fighter {
         target.receiveStrike(3, this);
         int dealt = target.damage() - before;
         history.recordStrike(this, target, dealt);
-        history.strikeOccured(this + " -> " + opponent);
     }
 
     public boolean isParrying(BodyPart bodyPart) {

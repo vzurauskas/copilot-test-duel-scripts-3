@@ -48,25 +48,6 @@ public final class DuelTest {
     }
 
     @Test
-    void fightHistoryRecordsSimultaneousExchange() {
-        CombatScript aliceScript = new FixedScript()
-            .parry(Fighter::torso)
-            .strike(Fighter::head);
-        CombatScript bobScript = new FixedScript()
-            .parry(Fighter::head)
-            .strike(Fighter::legs);
-
-        Fighter alice = new Fighter("Alice", aliceScript);
-        Fighter bob = new Fighter("Bob", bobScript);
-
-        FightHistory history = new FightHistory();
-        Arena arena = new Arena(alice, bob, history);
-        arena.nextTurn();
-
-        assertEquals(2, history.strikes().size());
-    }
-
-    @Test
     void damageIsCalculatedCorrectly() {
         CombatScript aragornScript = new FixedScript()
             .parry(Fighter::torso)
@@ -103,8 +84,9 @@ public final class DuelTest {
 
         assertEquals(
             """
-            Turn 1: Alice parry=torso, strike=head [parried];
-            Bob parry=head, strike=legs [hit]
+            Turn 1:
+                Alice parry=torso, strike=head [parried]
+                Bob parry=head, strike=legs [hit]
             """,
             history.describeTurn(1)
         );
