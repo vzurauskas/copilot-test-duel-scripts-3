@@ -35,11 +35,15 @@ public final class Fighter {
 
     public void decideParryAgainst(Fighter opponent) {
         this.parryLocation = script.chooseParryLocation(this, opponent);
+        history.parryChosen(this, parryLocation);
     }
 
     public void strike(Fighter opponent) {
         BodyPart target = script.chooseStrikeTarget(this, opponent);
+        int before = target.damage();
         target.receiveStrike(3, this);
+        int dealt = target.damage() - before;
+        history.recordStrike(this, target, dealt);
         history.strikeOccured(this + " -> " + opponent);
     }
 
@@ -57,6 +61,11 @@ public final class Fighter {
 
     public void observeWith(FightHistory history) {
         this.history = history;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }
 

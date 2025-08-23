@@ -2,13 +2,25 @@ package com.vzurauskas.duelscripts3;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public final class FightHistory {
+    private static final String PARRY_KEY = "parry";
+    private static final String TARGET_KEY = "target";
+    private static final String OUTCOME_KEY = "outcome";
     private final List<String> strikes;
+    private final List<String> turnSummaries;
+    private final TurnBuffer turn;
+    private int turnCounter;
 
     public FightHistory() {
         this.strikes = new ArrayList<>();
+        this.turnSummaries = new ArrayList<>();
+        this.turn = new TurnBuffer();
+        this.turnCounter = 1;
     }
 
     public void strikeOccured(String strike) {
@@ -17,6 +29,80 @@ public final class FightHistory {
 
     public List<String> strikes() {
         return Collections.unmodifiableList(strikes);
+    }
+
+    public void parryChosen(Fighter fighter, BodyPart parryLocation) {
+        turn.recordParry(fighter, parryLocation.id());
+    }
+
+    public void recordStrike(Fighter attacker, BodyPart target, int damageDealt) {
+        turn.recordStrike(attacker, target.id(), damageDealt);
+        if (turn.isComplete()) {
+            turnSummaries.add(turn.toSummary(turnCounter));
+            turn.clear();
+            turnCounter++;
+        }
+    }
+
+    public String describeTurn(int turnNumber) {
+        return turnSummaries.get(turnNumber - 1);
+    }
+
+    private static final class TurnBuffer {
+        private final Map<Fighter, Map<String, String>> decisions;
+
+        private TurnBuffer() {
+            this.decisions = new LinkedHashMap<>();
+        }
+
+        private void recordParry(Fighter fighter, String parryId) {
+            decisions.computeIfAbsent(fighter, f -> new LinkedHashMap<>())
+                .put(PARRY_KEY, parryId);
+        }
+
+        private void recordStrike(Fighter fighter, String targetId, int damage) {
+            Map<String, String> decision = decisions.computeIfAbsent(fighter, f -> new LinkedHashMap<>());
+            decision.put(TARGET_KEY, targetId);
+            decision.put(OUTCOME_KEY, damage == 0 ? "parried" : "hit");
+        }
+
+        private boolean isComplete() {
+            return decisions.size() == 2 && decisions.values().stream()
+                .allMatch(d -> d.containsKey(PARRY_KEY) && d.containsKey(TARGET_KEY) && d.containsKey(OUTCOME_KEY));
+        }
+
+        private String toSummary(int turnNumber) {
+            Iterator<Fighter> fighters = decisions.keySet().iterator();
+            Fighter first = fighters.next();
+            Fighter second = fighters.next();
+            Map<String, String> firstDecision = decisions.get(first);
+            Map<String, String> secondDecision = decisions.get(second);
+
+            String firstLine = String.format(
+                "Turn %d: %s parry=%s, strike=%s [%s];",
+                turnNumber, first,
+                firstDecision.get(PARRY_KEY),
+                firstDecision.get(TARGET_KEY),
+                firstDecision.get(OUTCOME_KEY)
+            );
+            String secondLine = String.format(
+                "%s parry=%s, strike=%s [%s]",
+                second,
+                secondDecision.get(PARRY_KEY),
+                secondDecision.get(TARGET_KEY),
+                secondDecision.get(OUTCOME_KEY)
+            );
+
+            return firstLine + "\n" + secondLine + "\n";
+        }
+
+        private void clear() {
+            decisions.clear();
+        }
+    }
+
+    private static String outcomeLabel(Integer damage) {
+        return damage == 0 ? "parried" : "hit";
     }
 }
 

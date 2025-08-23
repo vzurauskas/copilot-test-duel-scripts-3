@@ -28,11 +28,12 @@ Object Thinking guides design (design phase); simplicity guides implementation (
 ## TDD Methodology Details
 
 ### Red
+- Follow [CRC cards](../../design/crc.md) when writing tests. When writing tests, avoid inventing new types which are not declared in CRC cards.
 - Expect compilation errors initially.
 - Make failures clear and informative.
 - Never write comments in tests.
 - Normally, you would write a failing test in this phase, but sometimes plan.md defines a test which may actually pass. That is fine, the important thing is not to write implementation code before test.
-- After writing the test, pause and request for my review, saying "Red done — say \"proceed\" to continue."
+- After writing the test, pause and request for my review, saying "Red done — say \"proceed\" to continue." I will probably modify the test, so expect changes.
 - When I say "proceed", proceed to Green phase, writing code to make the test pass.
 
 ### Green

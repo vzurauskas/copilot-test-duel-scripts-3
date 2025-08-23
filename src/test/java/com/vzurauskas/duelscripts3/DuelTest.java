@@ -84,6 +84,31 @@ public final class DuelTest {
         assertEquals(5, boromir.head().damage());
         assertEquals(2, aragorn.legs().damage());
     }
+
+    @Test
+    void recordsTurnWithParriesTargetsAndOutcomes() {
+        CombatScript aliceScript = new FixedScript()
+            .parry(Fighter::torso)
+            .strike(Fighter::head);
+        CombatScript bobScript = new FixedScript()
+            .parry(Fighter::head)
+            .strike(Fighter::legs);
+
+        Fighter alice = new Fighter("Alice", aliceScript);
+        Fighter bob = new Fighter("Bob", bobScript);
+
+        FightHistory history = new FightHistory();
+        Arena arena = new Arena(alice, bob, history);
+        arena.nextTurn();
+
+        assertEquals(
+            """
+            Turn 1: Alice parry=torso, strike=head [parried];
+            Bob parry=head, strike=legs [hit]
+            """,
+            history.describeTurn(1)
+        );
+    }
 }
 
 
