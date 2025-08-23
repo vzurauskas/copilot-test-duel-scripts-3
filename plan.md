@@ -1,71 +1,67 @@
-# Implementation Plan
+# Implementation Plan — Iteration: Turn-by-turn History and Script Insights
 
 ## Goals
-- Implement core combat exchange mechanism where two fighters simultaneously parry and strike
-- Enable fighters to use scripts for tactical decisions
-- Implement body part damage system with multipliers
-- Record combat exchanges in fight history for future tactical analysis
+- Present a clear, human-readable turn-by-turn account of the duel for the user
+- Record a structured history of each turn so `CombatScript` can make tactical decisions
+- Expose queries on `FightHistory` needed by scripts (recent parries, outcomes, damage by body part, last successful hit)
+
 
 ## Scenario description
+- Turn 1: Alice parries torso, strikes Bob’s head [parried]. Bob parries head, strikes Alice’s legs [hit X].
+- Turn 2: Alice parries legs, strikes Bob’s torso [hit Y]. Bob parries head, strikes Alice’s legs [parried].
+- The user can read this as sequential lines; scripts can query exact data points that produced it.
 
-Arena coordinates the exchange: Both fighters simultaneously decide which body part to parry (by asking their scripts) and then strike their opponents - target body parts are also chosen by scripts. Alice chooses to parry her torso, and Bob chooses to parry his head. Alice strikes Bob's head, and Bob strikes Alice's legs. Alice's head strike is completely negated by Bob's successful parry, while Bob's leg strike connects and deals damage to Alice's legs according to the leg's damage multiplier. This exchange is recorder in combat history, making it available for future tactical decisions.
 
 ## Design
 
 ### Diagram
 
-```mermaid
-classDiagram
-    class Arena {
-        +nextTurn()
-    }
-    
-    class Fighter {
-        +strike(opponent)
-        +parry()
-        +describe()
-        +head()
-        +torso()
-        +legs()
-    }
-    
-    class BodyPart {
-        +receiveStrike(damage, striker)
-        +damage()
-    }
-    
-    class CombatScript {
-        +chooseStrikeTarget(self, opponent)
-        +chooseParryLocation(self, opponent)
-    }
-    
-    class FightHistory {
-        +strikeOccured(strike)
-        +strikes()
-    }
-    
-    Arena --> Fighter : coordinates
-    Fighter --> BodyPart : has
-    Fighter --> CombatScript : uses
-    Fighter --> FightHistory : notifies
-```
+No diagram for this iteration since there is no new objects or responsibilities.
 
 ### Implementation details
+- Enhance `FightHistory` to capture per-turn structured entries:
+  - For each fighter: chosen parry body part; chosen strike target; strike result (parried/hit); effective damage (0 if parried)
+  - Maintain cumulative damage per fighter and per body part (derivable or cached)
+- Provide a concise, human-readable summary rendering of the duel so far (ordered by turn)
+- Provide query methods for scripts (examples below)
+- Keep `Arena` as orchestrator: collect both parry decisions first, then both strikes
 
-- Body parts have damage multipliers: Head (high), Torso (medium), Legs (low)
-- Parrying completely negates incoming strikes to that body part
-- Combat scripts make tactical decisions based on fight situation
-- Fight history observes and records all combat events
-- Arena manages turn sequence and fighter coordination
+### Queries needed by `CombatScript`
+- Recent opponent parry location (e.g., last turn)
+- Last successful hit target for a given attacker
+- Parry frequency for a fighter over the last N turns
+- Target body part frequency for a given attacker over the last N turns
 
-## Tests to Implement:
-- [x] unparriedStrikeDealsDamage
-    - Two fighters: Aragorn and Boromir.
-    - Boromir parries head, Aragorn strikes Boromir's torso.
-    - Boromir's description reveals he's injured.
-- [x] parriedStrikeDealsNoDamage
-- [x] fightHistoryRecordsSimultaneousExchange
-- [x] damageIsCalculatedCorrectly
-    - Two fighters: Aragorn and Boromir.
-    - FixedScript is used to setup a deterministic strike.
-    - Specific damage is expected.
+
+## Tests to Implement (TDD)
+- [ ] recordsTurnWithParriesTargetsAndOutcomes
+  - Setup two fighters with `FixedScript` to choose: Alice parry torso/strike head; Bob parry head/strike legs.
+  - After one `Arena.nextTurn()`, `FightHistory` contains a structured entry for turn 1 with both fighters’ parry, target, result, and damage fields (0 when parried).
+
+- [ ] parryNegationRecordedAsZeroDamage
+  - A strike into a correctly parried body part is recorded with result=parried and damage=0.
+
+- [ ] appliesDamageMultiplierAndRecordsDamage
+  - A hit to legs/head/torso records damage consistent with the `BodyPart` multiplier and base strike power used by `Fighter`.
+
+- [ ] humanReadableSummaryRendersTwoTurns
+  - After two `nextTurn()` calls (with deterministic scripts), `FightHistory` summary returns two lines in order summarizing both exchanges for a human reader.
+
+- [ ] exposesRecentOpponentParryForScript
+  - A query on `FightHistory` returns the opponent’s last parry location for the requesting fighter.
+
+- [ ] exposesDamageByBodyPartForScript
+  - A query returns cumulative damage dealt by the attacker to the opponent grouped by body part.
+
+- [ ] exposesParryFrequencyOverLastN
+  - Over the last N turns, a query returns how often a given target was parried.
+
+- [ ] exposesTargetFrequencyOverLastN
+  - Over the last N turns, a query returns how often a given target was attacked.
+
+- [ ] exposesLastSuccessfulHitTarget
+  - A query returns the last target where the attacker’s strike resulted in a hit.
+
+## Notes
+- Keep the API surface minimal; prefer derived data where possible.
+- The human-readable summary should be stable and skimmable, not a debug dump.
