@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 
 public final class FightHistory {
     private static final String PARRY_KEY = "parry";
@@ -14,15 +15,18 @@ public final class FightHistory {
     private final List<String> turnSummaries;
     private final TurnBuffer turn;
     private int turnCounter;
+    private final Map<Fighter, String> lastParryByFighter;
 
     public FightHistory() {
         this.turnSummaries = new ArrayList<>();
         this.turn = new TurnBuffer();
         this.turnCounter = 1;
+        this.lastParryByFighter = new HashMap<>();
     }
 
     public void parryChosen(Fighter fighter, BodyPart parryLocation) {
         turn.recordParry(fighter, parryLocation.id());
+        lastParryByFighter.put(fighter, parryLocation.id());
     }
 
     public void strikeTargetChosen(Fighter attacker, BodyPart target) {
@@ -40,6 +44,10 @@ public final class FightHistory {
 
     public String describeTurn(int turnNumber) {
         return turnSummaries.get(turnNumber - 1);
+    }
+
+    public String lastParryOf(Fighter fighter) {
+        return lastParryByFighter.get(fighter);
     }
 
     private static final class TurnBuffer {

@@ -29,6 +29,25 @@ public final class DuelTest {
     }
 
     @Test
+    void exposesRecentOpponentParryForScript() {
+        CombatScript aliceScript = new FixedScript()
+            .parry(Fighter::torso)
+            .strike(Fighter::head);
+        CombatScript bobScript = new FixedScript()
+            .parry(Fighter::head)
+            .strike(Fighter::legs);
+
+        FightHistory history = new FightHistory();
+        Fighter alice = new Fighter("Alice", aliceScript, history);
+        Fighter bob = new Fighter("Bob", bobScript, history);
+        Arena arena = new Arena(alice, bob, history);
+
+        arena.nextTurn();
+
+        assertEquals("head", history.lastParryOf(bob));
+        assertEquals("torso", history.lastParryOf(alice));
+    }
+    @Test
     void parriedStrikeDealsNoDamage() {
         CombatScript aragornScript = new FixedScript()
             .parry(Fighter::legs)
