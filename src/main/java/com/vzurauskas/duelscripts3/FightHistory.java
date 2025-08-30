@@ -1,7 +1,6 @@
 package com.vzurauskas.duelscripts3;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -16,12 +15,14 @@ public final class FightHistory {
     private final TurnBuffer turn;
     private int turnCounter;
     private final Map<Fighter, String> lastParryByFighter;
+    private final List<Map<Fighter, Map<String, String>>> turns;
 
     public FightHistory() {
         this.turnSummaries = new ArrayList<>();
         this.turn = new TurnBuffer();
         this.turnCounter = 1;
         this.lastParryByFighter = new HashMap<>();
+        this.turns = new ArrayList<>();
     }
 
     public void parryChosen(Fighter fighter, BodyPart parryLocation) {
@@ -37,6 +38,7 @@ public final class FightHistory {
         turn.recordOutcome(attacker, target.id(), damageDealt);
         if (turn.isComplete()) {
             turnSummaries.add(turn.toSummary(turnCounter));
+            turns.add(turn.snapshot());
             turn.clear();
             turnCounter++;
         }
@@ -48,6 +50,44 @@ public final class FightHistory {
 
     public String lastParryOf(Fighter fighter) {
         return lastParryByFighter.get(fighter);
+    }
+
+    public Map<BodyPart, Integer> targetFrequencyOverLastN(Fighter attacker, int n) {
+        Map<BodyPart, Integer> freq = new HashMap<>();
+        int size = turns.size();
+        int start = Math.max(0, size - n);
+        for (int i = start; i < size; i++) {
+            Map<Fighter, Map<String, String>> t = turns.get(i);
+            Map<String, String> decision = t.get(attacker);
+            if (decision == null) {
+                continue;
+            }
+            // Find opponent for this turn
+            Fighter opponent = null;
+            for (Fighter f : t.keySet()) {
+                if (f != attacker) {
+                    opponent = f;
+                    break;
+                }
+            }
+            if (opponent == null) {
+                continue;
+            }
+            String targetId = decision.get(TARGET_KEY);
+            BodyPart part = resolveBodyPartById(opponent, targetId);
+            if (part == null) {
+                continue;
+            }
+            freq.put(part, freq.getOrDefault(part, 0) + 1);
+        }
+        return freq;
+    }
+
+    private BodyPart resolveBodyPartById(Fighter fighter, String id) {
+        if ("head".equals(id)) return fighter.head();
+        if ("torso".equals(id)) return fighter.torso();
+        if ("legs".equals(id)) return fighter.legs();
+        return null;
     }
 
     private static final class TurnBuffer {
@@ -106,6 +146,14 @@ public final class FightHistory {
 
         private void clear() {
             decisions.clear();
+        }
+
+        private Map<Fighter, Map<String, String>> snapshot() {
+            Map<Fighter, Map<String, String>> copy = new LinkedHashMap<>();
+            for (Map.Entry<Fighter, Map<String, String>> e : decisions.entrySet()) {
+                copy.put(e.getKey(), new LinkedHashMap<>(e.getValue()));
+            }
+            return copy;
         }
     }
 }

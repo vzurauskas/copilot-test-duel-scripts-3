@@ -10,10 +10,6 @@ public final class Fighter {
     private BodyPart parryLocation;
     private FightHistory history;
 
-    public Fighter(String name, CombatScript script) {
-        this(name, script, new FightHistory());
-    }
-
     public Fighter(String name, CombatScript script, FightHistory history) {
         this.name = name;
         this.description = new Description();
@@ -58,14 +54,6 @@ public final class Fighter {
             String.valueOf(head.damage() + torso.damage() + legs.damage())
         );
         return description;
-    }
-
-    public void observeWith(FightHistory history) {
-        this.history = history;
-    }
-
-    public FightHistory history() {
-        return history;
     }
 
     @Override

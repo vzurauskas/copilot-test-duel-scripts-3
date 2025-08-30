@@ -13,8 +13,6 @@ public final class Arena {
         this.first = first;
         this.second = second;
         this.history = history;
-        this.first.observeWith(history);
-        this.second.observeWith(history);
     }
 
     public void nextTurn() {

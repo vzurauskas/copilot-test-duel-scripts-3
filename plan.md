@@ -34,13 +34,9 @@ No diagram for this iteration since there is no new objects or responsibilities.
 
 
 ## Tests to Implement (TDD)
-- [ ] recordsTurnWithParriesTargetsAndOutcomes
+- [x] recordsTurnWithParriesTargetsAndOutcomes
   - Setup two fighters with `FixedScript` to choose: Alice parry torso/strike head; Bob parry head/strike legs.
   - After one `Arena.nextTurn()`, `FightHistory` contains a structured entry for turn 1 with both fighters’ parry, target, result, and damage fields (0 when parried).
-  - Refactoring
-    - Make BodyPart observer subject too.
-    - Consider removing strikeOccured and renaming the other method.
-    - Rewrite finalizeTurn in a clearer way.
 
 - [ ] parryNegationRecordedAsZeroDamage
   - A strike into a correctly parried body part is recorded with result=parried and damage=0.
