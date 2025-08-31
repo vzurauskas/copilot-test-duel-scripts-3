@@ -64,14 +64,24 @@
   - Track cumulative and per-body-part damage over time
   - Expose post-exchange state (hit points per fighter) after each turn
 - **Knowledge Sources:**
-  - I know all recorded exchanges (fields)
+  - I know all events that happened so far (fields)
   - I observe combat events and turn boundaries as they occur (parameters)
   - I maintain derived aggregates per fighter and body part (fields or computed)
 - **Collaborators:**
-  - Arena (turn sequencing, boundaries)
+  - Turn
   - Fighter (decisions, HP changes)
   - BodyPart (strike outcomes and damage)
-  - CombatScript (consumer of queries)
+
+**Turn**
+- **Responsibilities:**
+  - Record events that happened in this turn
+  - Describe self (i.e. what happened this turn)
+  - Present a human-readable summary of the turn
+- **Knowledge Sources:**
+  - Events are given to me via method parameters as they happen
+  - I know everything that happened this turn (Description field)
+- **Collaborators:**
+  - Description
 
 **Arena**
 - **Responsibilities:**

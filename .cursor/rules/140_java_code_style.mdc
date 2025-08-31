@@ -30,6 +30,26 @@ alwaysApply: false
 
 - Max line length: 80 characters. Use line breaks to keep within this limit.
 
+### Braces and Method Bodies
+
+- Opening brace on the same line as the declaration.
+- Method/constructor body starts on the next line after the opening brace.
+- Always use braces, even for single-statement blocks.
+
+Correct:
+```java
+public void doThing() {
+    if (condition) {
+        call();
+    }
+}
+```
+
+Incorrect:
+```java
+public void doThing() { if (condition) call(); }
+```
+
 ### Line Breaking Rules for Method/Constructor Calls
 
 Rule: If broken across lines, break after the opening parenthesis and also before the closing parenthesis.
@@ -50,6 +70,13 @@ assertTrue(
     description.contains("expected text"),
     "Error message here"
 );
+
+// Long parameter on a separate line, multiple short parameters grouped on
+// another line
+String line = String.format(
+    "    %s parry=%s, strike=%s [%s]",
+    fighter, parry, target, outcome
+);
 ```
 
 Incorrect examples:
@@ -58,11 +85,14 @@ Incorrect examples:
 Fighter bob = new Fighter("Bob", 100,
     new FixedScript(BodyPart.HEAD, BodyPart.TORSO));
 
-// BAD: Breaks in the middle but not consistently
+// BAD: Breaks in the middle, not along parentheses
 Fighter alice = new Fighter("Alice", 100,
     new FixedScript(BodyPart.HEAD, BodyPart.TORSO)
 );
+
+// BAD: Breaks in the middle, not along parentheses
+String line = String.format("    %s parry=%s, strike=%s [%s]", 
+    fighter, parry, target, outcome);
 ```
 
 Key principle: Either keep the entire call on one line OR break after the opening parenthesis AND before the closing parenthesis. Never mix these styles.
-

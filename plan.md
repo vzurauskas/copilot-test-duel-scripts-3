@@ -65,3 +65,6 @@ No diagram for this iteration since there is no new objects or responsibilities.
 ## Notes
 - Keep the API surface minimal; prefer derived data where possible.
 - The human-readable summary should be stable and skimmable, not a debug dump.
+
+## Next
+- Refactor FightHistory
