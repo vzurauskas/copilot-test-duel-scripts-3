@@ -20,6 +20,7 @@ public final class Arena {
         second.decideParryAgainst(first);
         first.strike(second);
         second.strike(first);
+        history.turnCompleted();
     }
 }
 

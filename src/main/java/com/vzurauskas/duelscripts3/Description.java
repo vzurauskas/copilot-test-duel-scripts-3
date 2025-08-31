@@ -21,6 +21,10 @@ public final class Description {
     public int intValue(String key) {
         return Integer.valueOf(facts.get(key));
     }
+
+    public String stringValue(String key) {
+        return facts.get(key);
+    }
 }
 
 

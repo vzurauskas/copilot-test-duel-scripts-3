@@ -33,6 +33,17 @@ public final class Fighter {
         return legs;
     }
 
+    public BodyPart bodyPart(String id) {
+        return switch (id) {
+            case "head" -> head();
+            case "torso" -> torso();
+            case "legs" -> legs();
+            default -> throw new IllegalArgumentException(
+                "Unknown body part id: " + id
+            );
+        };
+    }
+
     public void decideParryAgainst(Fighter opponent) {
         this.parryLocation = script.chooseParryLocation(this, opponent);
         history.parryChosen(this, parryLocation);

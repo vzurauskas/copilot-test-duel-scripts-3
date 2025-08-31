@@ -1,8 +1,5 @@
 package com.vzurauskas.duelscripts3;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 public final class Turn {
     private static final String PARRY_KEY = "parry";
     private static final String TARGET_KEY = "target";
@@ -12,12 +9,10 @@ public final class Turn {
     private Fighter first;
     private Fighter second;
     private final Description desc;
-    private final Map<String, String> values;
 
     public Turn(int number) {
         this.number = number;
         this.desc = new Description();
-        this.values = new LinkedHashMap<>();
     }
 
     public void recordParry(Fighter fighter, String parryId) {
@@ -33,15 +28,9 @@ public final class Turn {
     public void recordOutcome(Fighter fighter, String targetId, String outcome) {
         ensureOrder(fighter);
         remember(key(fighter, OUTCOME_KEY), outcome);
-        if (!values.containsKey(key(fighter, TARGET_KEY))) {
+        if (!desc.knows(key(fighter, TARGET_KEY))) {
             remember(key(fighter, TARGET_KEY), targetId);
         }
-    }
-
-    public boolean isComplete() {
-        return first != null && second != null
-            && knows(first, PARRY_KEY) && knows(first, TARGET_KEY) && knows(first, OUTCOME_KEY)
-            && knows(second, PARRY_KEY) && knows(second, TARGET_KEY) && knows(second, OUTCOME_KEY);
     }
 
     public String humanReadable() {
@@ -87,12 +76,8 @@ public final class Turn {
         }
     }
 
-    private boolean knows(Fighter fighter, String what) {
-        return values.containsKey(key(fighter, what));
-    }
-
     private String value(Fighter fighter, String what) {
-        return values.get(key(fighter, what));
+        return desc.stringValue(key(fighter, what));
     }
 
     private String key(Fighter fighter, String what) {
@@ -101,7 +86,6 @@ public final class Turn {
 
     private void remember(String key, String val) {
         desc.remember(key, val);
-        values.put(key, val);
     }
 }
 

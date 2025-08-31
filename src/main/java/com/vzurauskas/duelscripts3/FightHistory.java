@@ -26,11 +26,12 @@ public final class FightHistory {
 
     public void strikeOccurred(Fighter attacker, BodyPart target, int damageDealt) {
         currentTurn.recordOutcome(attacker, target.id(), damageDealt == 0 ? "parried" : "hit");
-        if (currentTurn.isComplete()) {
-            completedTurns.add(currentTurn);
-            nextTurnNumber++;
-            currentTurn = new Turn(nextTurnNumber);
-        }
+    }
+
+    public void turnCompleted() {
+        completedTurns.add(currentTurn);
+        nextTurnNumber++;
+        currentTurn = new Turn(nextTurnNumber);
     }
 
     public String describeTurn(int turnNumber) {
@@ -38,13 +39,7 @@ public final class FightHistory {
     }
 
     public String lastParryOf(Fighter fighter) {
-        for (int i = completedTurns.size() - 1; i >= 0; i--) {
-            String parry = completedTurns.get(i).parryOf(fighter);
-            if (parry != null) {
-                return parry;
-            }
-        }
-        return null;
+        return completedTurns.getLast().parryOf(fighter);
     }
 
     public Map<BodyPart, Integer> targetFrequencyOverLastN(
@@ -61,29 +56,10 @@ public final class FightHistory {
             }
             Fighter opponent = t.opponentOf(attacker);
             String targetId = t.targetOf(attacker);
-            BodyPart part = resolveBodyPartById(opponent, targetId);
-            if (part == null) {
-                continue;
-            }
+            BodyPart part = opponent.bodyPart(targetId);
             freq.put(part, freq.getOrDefault(part, 0) + 1);
         }
         return freq;
-    }
-
-    private BodyPart resolveBodyPartById(
-        Fighter fighter,
-        String id
-    ) {
-        if ("head".equals(id)) {
-            return fighter.head();
-        }
-        if ("torso".equals(id)) {
-            return fighter.torso();
-        }
-        if ("legs".equals(id)) {
-            return fighter.legs();
-        }
-        return null;
     }
 }
 
