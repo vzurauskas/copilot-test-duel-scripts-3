@@ -28,48 +28,7 @@ public final class DuelTest {
         assertTrue(description.intValue("damage") > 0);
     }
 
-    // moved to FightDescriptionTest
-
-    @Test
-    void exposesRecentOpponentParryForScript() {
-        CombatScript aliceScript = new FixedScript()
-            .parry(Fighter::torso)
-            .strike(Fighter::head);
-        CombatScript bobScript = new FixedScript()
-            .parry(Fighter::head)
-            .strike(Fighter::legs);
-
-        FightHistory history = new FightHistory();
-        Fighter alice = new Fighter("Alice", aliceScript, history);
-        Fighter bob = new Fighter("Bob", bobScript, history);
-        Arena arena = new Arena(alice, bob, history);
-
-        arena.nextTurn();
-
-        assertEquals("head", history.lastParryOf(bob));
-        assertEquals("torso", history.lastParryOf(alice));
-    }
-
-    @Test
-    void exposesTargetFrequencyOverLastN() {
-        CombatScript aliceScript = new FixedScript()
-            .parry(Fighter::torso)
-            .strike(Fighter::head);
-        CombatScript bobScript = new FixedScript()
-            .parry(Fighter::head)
-            .strike(Fighter::legs);
-
-        FightHistory history = new FightHistory();
-        Fighter alice = new Fighter("Alice", aliceScript, history);
-        Fighter bob = new Fighter("Bob", bobScript, history);
-        Arena arena = new Arena(alice, bob, history);
-
-        arena.nextTurn();
-        arena.nextTurn();
-
-        assertEquals(2, history.targetFrequencyOverLastN(bob, 2).get(alice.legs()));
-        assertEquals(2, history.targetFrequencyOverLastN(alice, 2).get(bob.head()));
-    }
+    // moved to FightHistoryQueriesTest
     
     @Test
     void parriedStrikeDealsNoDamage() {
@@ -111,11 +70,6 @@ public final class DuelTest {
         assertEquals(5, boromir.head().damage());
         assertEquals(2, aragorn.legs().damage());
     }
-
-    // moved to FightDescriptionTest
-
-    // moved to FightDescriptionTest
-    // moved to FightDescriptionTest
 }
 
 

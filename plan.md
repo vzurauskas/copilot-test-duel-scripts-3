@@ -44,11 +44,8 @@ No diagram for this iteration since there is no new objects or responsibilities.
 - [x] humanReadableSummaryRendersTwoTurns
   - After two `nextTurn()` calls (with deterministic scripts), `FightHistory` summary returns two lines in order summarizing both exchanges for a human reader.
 
-- [ ] exposesRecentOpponentParryForScript
-  - A query on `FightHistory` returns the opponent’s last parry location for the requesting fighter.
-
-- [ ] exposesDamageByBodyPartForScript
-  - A query returns cumulative damage dealt by the attacker to the opponent grouped by body part.
+- [ ] exposesRecentOpponentTargetForScript
+  - A query on `FightHistory` returns the opponent’s last target location for the requesting fighter.
 
 - [ ] exposesParryFrequencyOverLastN
   - Over the last N turns, a query returns how often a given target was parried.
@@ -56,12 +53,8 @@ No diagram for this iteration since there is no new objects or responsibilities.
 - [ ] exposesTargetFrequencyOverLastN
   - Over the last N turns, a query returns how often a given target was attacked.
 
-- [ ] exposesLastSuccessfulHitTarget
-  - A query returns the last target where the attacker’s strike resulted in a hit.
-
 ## Notes
 - Keep the API surface minimal; prefer derived data where possible.
 - The human-readable summary should be stable and skimmable, not a debug dump.
 
 ## Next
-- Refactor FightHistory
