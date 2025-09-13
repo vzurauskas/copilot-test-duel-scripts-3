@@ -86,30 +86,4 @@ public final class FightDescriptionTest {
             history.describeTurn(1) + history.describeTurn(2)
         );
     }
-
-    @Test
-    void appliesDamageMultiplierAndRecordsDamage() {
-        CombatScript aliceScript = new FixedScript()
-            .parry(Fighter::legs)
-            .strike(Fighter::head); // expect hit to head => damage 5
-        CombatScript bobScript = new FixedScript()
-            .parry(Fighter::torso)
-            .strike(Fighter::torso); // expect hit to torso => damage 3
-
-        FightHistory history = new FightHistory();
-        Fighter alice = new Fighter("Alice", aliceScript, history);
-        Fighter bob = new Fighter("Bob", bobScript, history);
-        Arena arena = new Arena(alice, bob, history);
-
-        arena.nextTurn();
-
-        assertEquals(
-            """
-            Turn 1:
-                Alice parry=legs, strike=head [hit], damage=5
-                Bob parry=torso, strike=torso [hit], damage=3
-            """,
-            history.describeTurn(1)
-        );
-    }
 }

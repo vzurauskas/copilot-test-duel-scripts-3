@@ -44,14 +44,11 @@ No diagram for this iteration since there is no new objects or responsibilities.
 - [x] humanReadableSummaryRendersTwoTurns
   - After two `nextTurn()` calls (with deterministic scripts), `FightHistory` summary returns two lines in order summarizing both exchanges for a human reader.
 
-- [ ] exposesRecentOpponentTargetForScript
+- [x] exposesRecentOpponentTargetForScript
   - A query on `FightHistory` returns the opponent’s last target location for the requesting fighter.
 
-- [ ] exposesParryFrequencyOverLastN
+- [x] exposesParryFrequencyOverLastN
   - Over the last N turns, a query returns how often a given target was parried.
-
-- [ ] exposesTargetFrequencyOverLastN
-  - Over the last N turns, a query returns how often a given target was attacked.
 
 ## Notes
 - Keep the API surface minimal; prefer derived data where possible.

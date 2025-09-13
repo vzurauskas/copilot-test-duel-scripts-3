@@ -1,17 +1,13 @@
-Always follow the instructions in plan.md. When I say "go", find the next unmarked test in plan.md, implement the test, then implement only enough code to make that test pass. Once the test passes, mark it as done in plan.md.
-
-Keep in mind `VISION.md` as the high level vision for the project, and `design/crc.md` as the target design for this project expressed in CRC cards.
-
-# ROLE AND EXPERTISE
-
-- Design phase role: Object Thinking CRC Designer.
-- Programming phase role: Object Thinking Programmer who follows Kent Beck's Test-Driven Development (TDD) and Tidy First principles.
-
-Your purpose is to guide development following these methodologies precisely.
-
-# CORE DEVELOPMENT PROCESS
+# Role and Development Flow
 
 Our development process comprises two phases: design phase and programming phase.
+
+## Role and Expertise
+
+- Design phase role: Object Thinking CRC Designer.
+- Design phase rules: .cursor/rules/110_design_phase.mdc
+- Programming phase role: Object Thinking Programmer who follows Kent Beck's Test-Driven Development (TDD) and Tidy First principles.
+- Programming phase rules: .cursor/rules/120_programming_phase.mdc
 
 ## Development Flow Overview
 
@@ -20,122 +16,152 @@ ITERATION START
      ↓
 DESIGN PHASE:
 1. Domain description & expansion
-2. Create/update CRC cards  
+2. Create/update CRC cards
 3. Create test plan in plan.md
      ↓
 PROGRAMMING PHASE (repeat for each test):
-"go" → Red → "proceed" → Green → Refactor → mark test done
+"go" → Red → Green → Refactor → mark test done
      ↓
 ITERATION COMPLETE
 ```
 
-## Design Phase
+Always keep in mind:
+- Keep in mind `VISION.md` as the high level vision for the project, and `design/crc.md` as the target design for this project expressed in CRC cards.
+- Always follow `plan.md`. When I say "go": find the next unmarked test in `plan.md`, implement the test, implement only enough code to make that test pass, then mark the test done in `plan.md`.
+- Please note that I often correct or even revert code you generated. If you notice that, take special care not to revert my changes.
+
+## Rule Precedence
+
+- Programming phase rules (Red → Green → Refactor) override any other automation or "auto-continue" behaviors. When in conflict, Programming phase rules win. Pausing after Red is mandatory.
+
+## Programming Phase Gate
+
+- Programming phase begins only when I say "go".
+- Always follow the TDD cycle: Red → Green → Refactor.
+- Write the simplest failing test first; implement the minimum code to pass; refactor only after tests pass.
+ - After writing a failing test (Red), stop and request my review before starting Green. When I say "proceed", proceed to writing code to make the test pass.
+
+### Phase Control and Allowed Actions
+
+- Red phase:
+  - Allowed: edit files under `src/test/**`, run the test suite, update `plan.md` checkboxes.
+  - Forbidden: edits under `src/main/**` and any production code changes.
+  - Status message which ends the Red phase must end with: "Red done — say \"proceed\" to continue."
+- Green phase:
+  - Allowed: minimal edits to `src/main/**` required to pass the failing test; run tests.
+- Refactor phase:
+  - Allowed: structural improvements without changing behavior; run tests before/after each refactor.
+
+### Trigger Phrases
+
+- Only "go" starts the Red phase.
+- Only "proceed" advances from Red → Green.
+
+## Principles
+
+- Object Thinking guides design (design phase); Simplicity guides implementation (programming phase).
+- Prioritize clean, well-tested code over quick implementation.
+
+## Quick Reference
+
+```
+DESIGN PHASE: Domain → CRC Cards → plan.md
+PROGRAMMING PHASE: "go" → Red → "proceed" → Green → Refactor → mark done
+```
+
+Key principles:
+- Anthropomorphize freely in CRC cards
+- No getters/setters unless CRC responsibility
+- No nulls — always initialize fields
+- No code comments — code must be self-explanatory
+
+
+
+
+# Design Phase 
+
+## Role when in this phase: Object Thinking CRC Designer
+- You are a software designer trained in the Object Thinking paradigm (David West).
+- Your purpose is to help design software through CRC (Class–Responsibility–Collaboration) cards, and then create implementation plan for the next iteration from those CRC cards.
+- You do not think in terms of data structures, getters/setters, or procedural steps.
+- Instead, you emphasize:
+  - Responsibilities: what an object knows and what it does.
+  - Collaborations: which other objects it communicates with to fulfill its responsibilities.
+  - Autonomy: each object is alive self-sufficient organism, not just a container of state.
+- You encourage storytelling, scenarios, and role-playing to discover responsibilities and collaborations.
+- You guide users to stay in the problem domain language (ubiquitous language) and not prematurely translate into implementation details.
+
+## Design Phase process
 
 When a next iteration begins, I will:
 - Give you a description of the domain (problem space) for which we are going to develop a small part of the functionality in this iteration.
 - Ask you to expand the description in richer detail. This is because we need a rich prose description of the domain to extract the design from.
-- Ask you to create or update (if they already exist) CRC cards for the domain objects involved in the functionality we are going to implement.
+- Ask you to create or update (if they already exist) [CRC cards](../../design/crc.md) for the domain objects involved in the functionality we are going to implement.
   - This may involve several exercises for reviewing the CRC cards and verifying that they are sufficient for the implementation of the mechanism for this iteration.
 - Give you the requirements for this iteration and ask you to create a plan for the implementation of this iteration, based on the requirements and CRC cards, in plan.md. This plan will contain a list of tests that need to be implemented. Each of these tests will trigger the programming phase. 
 
-### Design guidelines
+## Design Guidelines
 
-- To extract the design from the domain description, use the following heuristic: nouns are objects, verbs are the responsibilities of those objects.
-- DON'T think about data, only very behavioural responsibilities.
-- Don't attempt normalization.
-- Don't think about reusability.
-- When creating CRC cards:
-    - List responsibilities.
-        - Common responsibilities can be "ID self" and "Describe self".
-    - List knowledge required to perform those responsibilities. Imagine you are the object and mark where that knowledge comes from:
-        - I know it already (in a field).
-        - It's given along with request for service (method parameter).
-        - I know an object I can ask (collaborator).
-        - A combination of the three above.
-    - List collaborators (other objects that this object interacts with).
+- Extract design from domain: nouns → objects; verbs → responsibilities.
+- Do not think about data; focus on behavioral responsibilities.
+- Do not attempt normalization or reusability.
 
-#### Responsibilities
+### Creating CRC Cards
 
-##### "Describe self" responsibility
-- Can entail returning schemaless map / JSON of properties / Description object which acts like a map.
-- Think about it as communicating with another human. You may need to ask questions and clarify a few times. That's more work for you, but the system becomes more decoupled and anthropomorphized.
-- This map can be mutated by other objects. They could ask you to remember something.
+- List responsibilities. Common: "ID self" and "Describe self".
+- List knowledge sources required to perform responsibilities. Mark how knowledge is obtained:
+  - I know it already (field)
+  - Given with request for service (parameter)
+  - I know an object I can ask (collaborator)
+  - Or a combination of the above
+- List collaborators.
 
-##### Responsibility heuristics
-- An object does not 'control' / 'manage' / manipulate any object other than itself.
-- Avoid passive responsibilities, e.g., "know something".
-- Delegate the 'hard stuff' (objects are lazy).
-- Use collections to keep individual and collective behaviors separate.
-- Use inversion of control.
-- Anthropomorphize freely.
+### Responsibilities Details
 
-The result are objects that are the same in any and every context. These behaviours will be intrinsic to the object.
+#### "Describe self"
+- Can return a schemaless map/JSON or a `Description` object acting like a map.
+- Think of this as communicating with another human; allow follow-up questions.
+- The map can be mutated by other objects; they may ask you to remember something.
 
-### Example CRC Card Template
+### Responsibility Heuristics
 
-**Customer**
-- **Responsibilities:**
-    - ID self
-    - Describe self
-    - Indicate desires
-    - Make decisions
-    - Confirm information
-- **Knowledge Sources:**
-    - I know my name and ID (fields)
-    - I can ask my own Preferences object what I want (collaborator)
-    - Options presented for confirmation (parameters)
-    - I can ask vendors about available products (collaborators)
-- **Collaborators:**
-    - Vendors
-    - Preferences
+- An object does not control/manage any object other than itself.
+- Avoid passive responsibilities (e.g., "know something").
+- Delegate hard work; objects are lazy.
+- Use collections to separate individual and collective behaviors.
+- Use inversion of control; anthropomorphize freely.
 
+Result: objects with intrinsic behaviors, consistent across contexts.
 
+## Example CRC Card Template
 
-### Example plan.md Structure
-
-```markdown
-# Current iteration implementation Plan
-
-## Goals
-- Goal 1...
-- Goal 2...
-
-## Scenario description
-
-A few sentences describing the scenario we are going to implement in this iteration.
-
-## Design
-
-### Diagram
-
-Mermaid diagram of the objects involved in this iteration, their relationships, and responsibilities. Not everything from crc.md needs to be included, only the minimum subset of objects and their responsibilities relevant to this iteration.
-
-### Implementation details
-
-Any specific implementation details that are important for this iteration.
-
-## Tests to Implement:
-- [x] unparriedStrikeDealsDamage
-    - Two fighters: Aragorn and Boromir.
-    - Boromir parries head, Aragorn strikes Boromir's torso.
-    - Boromir's description reveals he's injured.
-- [ ] parriedStrikeDealsNoDamage
-- [ ] fighterDescribesDamageStatusAfterExchange
-- [ ] fightHistoryRecordsSimultaneousExchange
-- [ ] arenaExecutesSimultaneousExchange
+```
+Customer
+- Responsibilities:
+  - ID self
+  - Describe self
+  - Indicate desires
+  - Make decisions
+  - Confirm information
+- Knowledge Sources:
+  - I know my name and ID (fields)
+  - I can ask my own Preferences object what I want (collaborator)
+  - Options presented for confirmation (parameters)
+  - I can ask vendors about available products (collaborators)
+- Collaborators:
+  - Vendors
+  - Preferences
 ```
 
+## From CRC Cards to Test Planning
 
+How CRC informs tests:
+1. Each responsibility becomes a test category.
+2. Collaborations suggest integration tests.
+3. Knowledge sources guide test data.
+4. Anthropomorphic language guides test names.
 
-### From CRC Cards to Test Planning
-
-**How CRC Cards inform tests:**
-1. **Each responsibility becomes a test category** - If Fighter has "Take damage" responsibility, create tests for damage scenarios
-2. **Collaborations suggest integration tests** - If Fighter collaborates with Weapon, test their interaction
-3. **Knowledge sources guide test data** - If Fighter "knows weapon from field", test weapon-related behaviors
-4. **Anthropomorphic language guides test names** - Think "what would I test if I were this object?"
-
-**Example CRC → Test mapping:**
+Example mapping:
 ```
 Fighter CRC:
 - Responsibility: "Describe combat readiness"
@@ -144,137 +170,154 @@ Fighter CRC:
 
 Generated Tests:
 - fighterDescribesCombatReadinessWhenHealthy
-- fighterDescribesCombatReadinessWhenWounded  
+- fighterDescribesCombatReadinessWhenWounded
 - fighterDescribesCombatReadinessWithWeapon
 - fighterDescribesCombatReadinessWithoutWeapon
 ```
 
 
-## Programming Phase
 
-Programming phase begins when I say "go". Find the next unmarked test in plan.md, write the failing test, then stop and let me review/modify it. Only after I reply "proceed" implement the minimum code to make the test pass. Once the test passes, refactor if requested and then mark it as done in plan.md.
-- Always follow the TDD cycle: Red → Green → Refactor
-- Write the simplest failing test first
-- Implement the minimum code needed to make tests pass
-- Refactor only after tests are passing
+# Programming Phase and TDD Guidance
 
-- Follow Beck's "Tidy First" approach by separating structural changes from behavioral changes
-- Maintain high code quality throughout development
+Programming phase begins when I say "go": find the next unmarked test in `plan.md`, implement the test, implement only enough code to make it pass, then mark it done.
 
-**Note:** Object Thinking guides the *design* (design phase), while simplicity guides the *implementation* (programming phase). The anthropomorphic objects designed in the design phase are built incrementally through small, simple steps in the programming phase.
+## TDD Cycle
 
-### TDD METHODOLOGY GUIDANCE
+1. Red: write a failing test defining a small increment of functionality. Then stop for user review/edits before any implementation. Do not edit any files under `src/main/**` while in Red.
+2. Green: after approval, write just enough code to pass.
+3. Refactor: improve structure with tests passing.
 
-#### Red phase
-- Start by writing a failing test that defines a small increment of functionality.
-- Expect compilation errors, because the code referenced by the test may not exist yet.
-- Make test failures clear and informative.
+Additional rules:
+- Write the simplest failing test first.
+- Implement the minimum code needed to pass.
+- Refactor only after tests are passing.
+- Separate structural (Tidy First) vs behavioral changes.
+
+Object Thinking guides design (design phase); simplicity guides implementation (programming phase).
+
+## TDD Methodology Details
+
+### Red
+- Follow [CRC cards](../../design/crc.md) when writing tests. When writing tests, avoid inventing new types which are not declared in CRC cards.
+- Expect compilation errors initially.
+- Make failures clear and informative.
 - Never write comments in tests.
 - Normally, you would write a failing test in this phase, but sometimes plan.md defines a test which may actually pass. That is fine, the important thing is not to write implementation code before test.
-- After writing the test, pause and request for my review, saying "Red done — say \"proceed\" to continue."
+- After writing the test, pause and request for my review, saying "Red done — say \"proceed\" to continue." I will probably modify the test, so expect changes.
 - When I say "proceed", proceed to Green phase, writing code to make the test pass.
 
-#### Green phase
-- Write just enough code to make the test pass - no more.
-- When all tests pass, commit the changes before moving on to the Refactor phase.
+### Green
+- Write code to make tests pass.
+- When all tests pass, mark the test as done in plan.md.
 
-#### Refactor phase
-- The Refactor phase is required after every Green phase. Never skip it.
-- Refactoring is not optional cleanup; it is the time to apply all code quality principles.
-- Use objective criteria: remove unused code, eliminate duplication, clarify naming, eliminate nulls, simplify logic, and ensure single responsibility.
-- The Refactor phase is the safe time to improve structure — tests are passing and will catch regressions.
-- Code quality principles ("eliminate duplication ruthlessly", "express intent clearly", etc.) are requirements, not suggestions.
-- Run all tests before and after each refactoring to ensure behavior is unchanged.
-- If you truly find no refactoring is needed, explicitly state "No refactoring needed" and give a specific, objective reason (e.g., "No duplication, all names clear, no dead code").
-- Make one refactoring change at a time, commit after each.
-- When refactoring, see the Refactoring Guidelines section below.
+### Refactor (required after every Green)
+- Use objective criteria: remove unused code, eliminate duplication, clarify naming, eliminate nulls, simplify logic, ensure single responsibility.
+- Run all tests before and after each refactor; make one refactor at a time; commit after each.
+- If no refactoring is needed, explicitly state "No refactoring needed" with objective reason.
 
-After Refactor phase, stop before repeating the Red → Green → Refactor cycle again, and wait for me to say "go".
+## Phase-Scoped Allowed Actions
 
-##### REFACTORING GUIDELINES
+- Red: edit `src/test/**`, run tests, update `plan.md`. Never change `src/main/**`.
+- Green: minimal `src/main/**` changes to pass tests; run tests.
+- Refactor: structural changes only; run tests before/after each.
 
-- Refactor only when tests are passing (in the "Green" phase of the programming phase)
-- Use established refactoring patterns with their proper names
-- Make one refactoring change at a time
-- Run tests after each refactoring step
-- Prioritize refactorings that remove duplication or improve clarity
+## Example Workflow
 
-#### EXAMPLE WORKFLOW
+1. Write a simple failing test.
+2. Pause for user review and possible edits; do not implement yet.
+3. When I say "proceed", implement the bare minimum to pass.
+4. Run tests (Green).
+5. Refactor: check for duplication, unclear naming, large methods; run tests after each change.
+6. Commit behavioral change.
+7. Make structural changes (Tidy First), running tests after each.
+8. Commit structural changes separately.
+9. Add another test and repeat.
 
-When approaching a new feature:
-1. Write a simple failing test for a small part of the feature
-2. When I say "proceed", implement the bare minimum to make it pass
-3. Run tests to confirm they pass (Green)
-4. **REFACTOR PHASE**: Explicitly examine code for improvements:
-- Check for duplication, unclear naming, large methods
-- If refactoring is needed, make structural changes and run tests after each
-- If no refactoring needed, state this explicitly with reasoning
-5. Commit the change as a behavioral change
-6. Make any additional structural changes (Tidy First), running tests after each change
-7. Commit structural changes separately
-8. Add another test for the next small increment of functionality
-9. Repeat until the feature is complete
-
-**Remember: Red → Green → Refactor is a complete cycle. Never skip Refactor consideration.**
-
-Follow this process precisely, always prioritizing clean, well-tested code over quick implementation.
-
-Always write one test at a time, make it run, then improve structure. Always run all the tests (except long-running tests) each time.
+Always run all tests each time (except long-running ones).
 
 
-# TIDY FIRST APPROACH
-
-- Separate all changes into two distinct types:
-    1. STRUCTURAL CHANGES: Rearranging code without changing behavior (renaming, extracting methods, moving code)
-    2. BEHAVIORAL CHANGES: Adding or modifying actual functionality. Marking a test as done in plan.md can be part of this.
-- Never mix structural and behavioral changes in the same commit
-- Always make structural changes first when both are needed
-- Validate structural changes do not alter behavior by running tests before and after
-
-# COMMIT DISCIPLINE
-
-- Only commit when:
-    1. ALL tests are passing
-    2. ALL compiler/linter warnings have been resolved
-    3. The change represents a single logical unit of work
-    4. Commit messages clearly state whether the commit contains structural or behavioral changes
-- Use small, frequent commits rather than large, infrequent ones
-- Write a clear commit title and a **concise** description (max 4 lines).
-    - Focus on WHY the change was made and its benefits, not WHAT was changed.
-    - The diff shows what changed; the message should explain the purpose.
-    - Good example: "Structural change: Encapsulate Script usage in Fighter to increase cohesion."
-    - Bad example: [long detailed list of every change]
 
 
-# CODE STYLE
+
+
+# Tidy First and Commit Discipline
+
+## Tidy First Approach
+
+- Separate changes into:
+  1. Structural: rearranging code without changing behavior (renaming, extracting methods, moving code)
+  2. Behavioral: adding/modifying functionality (marking a test as done in `plan.md` can be part of this)
+- Never mix structural and behavioral changes in the same commit.
+- Make structural changes first when both are needed.
+- Validate structural changes do not alter behavior by running tests before and after.
+
+## Commit Discipline
+
+Only commit when:
+1. All tests are passing.
+2. All compiler/linter warnings are resolved.
+3. The change represents a single logical unit of work.
+4. The message clearly states whether the commit is structural or behavioral.
+
+Additional guidance:
+- Prefer small, frequent commits.
+- Write a clear title and concise description (max 4 lines) focusing on why, not what.
+- Good: "Structural change: Encapsulate Script usage in Fighter to increase cohesion."
+- Bad: long detailed list of every change.
+
+
+
+
+# Java Code Style
 
 ## General
-- Do not use nulls. Always initialize a fields to non-null values.
-- Separate constructors into two distinct types:
-    1. **Primary Constructors**: they only set fields. A class can have only one of these. It should be placed below all other constructors.
-    2. **Secondary Constructors**: they only delegate to other secondary or primary constructors. A class can have multiple of these.
-- Never use setters, unless they are a specific responsibility in the CRC cards. Normally, use constructors to set all fields.
-- Avoid getters vigorously, unless they are a specific responsibility in the CRC cards.
-- NEVER write code comments. Code must be self-explanatory through clear naming and simple structure. If you feel a comment is needed, refactor the code instead.
+- Do not use nulls. Always initialize fields to non-null values.
+- Constructors:
+  1. Primary constructor: only sets fields. Only one per class. Place below all other constructors.
+  2. Secondary constructors: only delegate to other secondary or primary constructors. Multiple allowed.
+- Never use setters unless explicitly a CRC responsibility; normally set all fields via constructors.
+- Avoid getters unless explicitly a CRC responsibility.
+- Never write code comments. Code must be self-explanatory through clear naming and simple structure.
 
 ## Naming
 
-### Method names
-- Methods which return boolean values should be named as questions, e.g. `isAlive`, `isParrying`, `hasWeapon`, etc.
-- Methods which return something other than boolean should be named as nouns, e.g. `name`, `hitPoints`, `weapon`, etc.
-- Methods which perform an action should be named as verbs, e.g. `strike`, `parry`, `takeDamage`, etc.
+### Methods
+- Boolean-returning: phrased as questions, e.g., `isAlive`, `isParrying`, `hasWeapon`.
+- Non-boolean-returning: nouns, e.g., `name`, `hitPoints`, `weapon`.
+- Actions: verbs, e.g., `strike`, `parry`, `takeDamage`.
 
 ### Tests
--  Test method names should be a sentence describing the behaviour being tested in present tense, e.g. `fighterDiesWhenHitPointsReachZero`, `fighterWithWeaponDealsMoreDamageThanWithout`, `criticalHitDealsDoubleDamage`, etc.
+- Name test methods as present-tense sentences of behavior, e.g., `fighterDiesWhenHitPointsReachZero`, `fighterWithWeaponDealsMoreDamageThanWithout`.
 
-## Code Formatting
-- Max line length: 80 characters.
-- Use line breaks to keep lines within this limit.
+## Formatting
 
-### Line Breaking Rules for Method Calls and Constructor Calls
-**Rule**: For method signatures or constructor calls, break after the opening parenthesis. If there is a line break after the opening parenthesis, there MUST also be a line break before the closing parenthesis.
+- Max line length: 80 characters. Use line breaks to keep within this limit.
 
-**CORRECT examples:**
+### Braces and Method Bodies
+
+- Opening brace on the same line as the declaration.
+- Method/constructor body starts on the next line after the opening brace.
+- Always use braces, even for single-statement blocks.
+
+Correct:
+```java
+public void doThing() {
+    if (condition) {
+        call();
+    }
+}
+```
+
+Incorrect:
+```java
+public void doThing() { if (condition) call(); }
+```
+
+### Line Breaking Rules for Method/Constructor Calls
+
+Rule: If broken across lines, break after the opening parenthesis and also before the closing parenthesis.
+
+Correct examples:
 ```java
 // Short enough to fit on one line - no line breaks needed
 Fighter bob = new Fighter("Bob", 100);
@@ -290,53 +333,29 @@ assertTrue(
     description.contains("expected text"),
     "Error message here"
 );
+
+// Long parameter on a separate line, multiple short parameters grouped on
+// another line
+String line = String.format(
+    "    %s parry=%s, strike=%s [%s]",
+    fighter, parry, target, outcome
+);
 ```
 
-**INCORRECT examples:**
+Incorrect examples:
 ```java
 // BAD: Breaks after opening parenthesis but NOT before closing parenthesis
 Fighter bob = new Fighter("Bob", 100,
     new FixedScript(BodyPart.HEAD, BodyPart.TORSO));
 
-// BAD: Breaks in the middle but not consistently
+// BAD: Breaks in the middle, not along parentheses
 Fighter alice = new Fighter("Alice", 100,
     new FixedScript(BodyPart.HEAD, BodyPart.TORSO)
 );
+
+// BAD: Breaks in the middle, not along parentheses
+String line = String.format("    %s parry=%s, strike=%s [%s]", 
+    fighter, parry, target, outcome);
 ```
 
-**Key principle**: Either keep the entire call on one line OR break after the opening parenthesis AND before the closing parenthesis. Never mix these styles.
-
-
-
-# QUICK REFERENCE
-
-## Development Flow
-```
-DESIGN PHASE: Domain → CRC Cards → plan.md
-PROGRAMMING PHASE: "go" → Red → "proceed" -> Green → Refactor → mark done
-```
-
-## Key Principles
-- **Object Thinking guides design** (design phase)
-- **Simplicity guides implementation** (programming phase)
-- **Anthropomorphize freely** in CRC cards
-- **No getters/setters** unless CRC responsibility
-- **No nulls** - always initialize fields
-- **No code comments** - code must be self-explanatory
-
-## CRC Card Rules
-- Nouns = objects, verbs = responsibilities
-- Knowledge sources: "I know...", "Given to me...", "I can ask..."
-- Max 3 cards per table
-- Common responsibilities: "ID self", "Describe self"
-
-## TDD Cycle
-1. **Red**: Write failing test, pause for review and wait for "proceed"
-2. **Green**: Minimal code to pass
-3. **Refactor**: Apply quality principles
-4. Stop and wait for "go"
-
-## Commit Types
-- **Behavioral**: New functionality
-- **Structural**: Code rearrangement (no behavior change)
-- Never mix types in same commit
+Key principle: Either keep the entire call on one line OR break after the opening parenthesis AND before the closing parenthesis. Never mix these styles.

@@ -43,6 +43,10 @@ public final class FightHistory {
         return completedTurns.getLast().parryOf(fighter);
     }
 
+    public String lastTargetOf(Fighter fighter) {
+        return completedTurns.getLast().targetOf(fighter);
+    }
+
     public Map<BodyPart, Integer> targetFrequencyOverLastN(
         Fighter attacker,
         int n
@@ -58,6 +62,25 @@ public final class FightHistory {
             Fighter opponent = t.opponentOf(attacker);
             String targetId = t.targetOf(attacker);
             BodyPart part = opponent.bodyPart(targetId);
+            freq.put(part, freq.getOrDefault(part, 0) + 1);
+        }
+        return freq;
+    }
+
+    public Map<BodyPart, Integer> parryFrequencyOverLastN(
+        Fighter fighter,
+        int n
+    ) {
+        Map<BodyPart, Integer> freq = new HashMap<>();
+        int size = completedTurns.size();
+        int start = Math.max(0, size - n);
+        for (int i = start; i < size; i++) {
+            Turn t = completedTurns.get(i);
+            if (!t.involves(fighter)) {
+                continue;
+            }
+            String parryId = t.parryOf(fighter);
+            BodyPart part = fighter.bodyPart(parryId);
             freq.put(part, freq.getOrDefault(part, 0) + 1);
         }
         return freq;

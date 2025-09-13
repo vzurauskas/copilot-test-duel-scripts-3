@@ -28,8 +28,6 @@ public final class DuelTest {
         assertTrue(description.intValue("damage") > 0);
     }
 
-    // moved to FightHistoryQueriesTest
-    
     @Test
     void parriedStrikeDealsNoDamage() {
         CombatScript aragornScript = new FixedScript()
