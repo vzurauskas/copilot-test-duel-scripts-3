@@ -4,6 +4,7 @@ public final class Turn {
     private static final String PARRY_KEY = "parry";
     private static final String TARGET_KEY = "target";
     private static final String OUTCOME_KEY = "outcome";
+    private static final String DAMAGE_KEY = "damage";
 
     private final int number;
     private Fighter first;
@@ -33,21 +34,28 @@ public final class Turn {
         }
     }
 
+    public void recordDamage(Fighter fighter, int damage) {
+        ensureOrder(fighter);
+        remember(key(fighter, DAMAGE_KEY), String.valueOf(damage));
+    }
+
     public String humanReadable() {
         String header = String.format("Turn %d:", number);
         String firstLine = String.format(
-            "    %s parry=%s, strike=%s [%s]",
+            "    %s parry=%s, strike=%s [%s], damage=%s",
             first,
             value(first, PARRY_KEY),
             value(first, TARGET_KEY),
-            value(first, OUTCOME_KEY)
+            value(first, OUTCOME_KEY),
+            value(first, DAMAGE_KEY)
         );
         String secondLine = String.format(
-            "    %s parry=%s, strike=%s [%s]",
+            "    %s parry=%s, strike=%s [%s], damage=%s",
             second,
             value(second, PARRY_KEY),
             value(second, TARGET_KEY),
-            value(second, OUTCOME_KEY)
+            value(second, OUTCOME_KEY),
+            value(second, DAMAGE_KEY)
         );
         return header + "\n" + firstLine + "\n" + secondLine + "\n";
     }

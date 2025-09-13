@@ -26,6 +26,7 @@ public final class FightHistory {
 
     public void strikeOccurred(Fighter attacker, BodyPart target, int damageDealt) {
         currentTurn.recordOutcome(attacker, target.id(), damageDealt == 0 ? "parried" : "hit");
+        currentTurn.recordDamage(attacker, damageDealt);
     }
 
     public void turnCompleted() {

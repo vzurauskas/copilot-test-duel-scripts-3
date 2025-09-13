@@ -29,6 +29,32 @@ public final class DuelTest {
     }
 
     @Test
+    void parryNegationRecordedAsZeroDamage() {
+        CombatScript aliceScript = new FixedScript()
+            .parry(Fighter::torso)
+            .strike(Fighter::head);
+        CombatScript bobScript = new FixedScript()
+            .parry(Fighter::head)
+            .strike(Fighter::legs);
+
+        FightHistory history = new FightHistory();
+        Fighter alice = new Fighter("Alice", aliceScript, history);
+        Fighter bob = new Fighter("Bob", bobScript, history);
+        Arena arena = new Arena(alice, bob, history);
+
+        arena.nextTurn();
+
+        assertEquals(
+            """
+            Turn 1:
+                Alice parry=torso, strike=head [parried], damage=0
+                Bob parry=head, strike=legs [hit], damage=2
+            """,
+            history.describeTurn(1)
+        );
+    }
+
+    @Test
     void exposesRecentOpponentParryForScript() {
         CombatScript aliceScript = new FixedScript()
             .parry(Fighter::torso)
@@ -128,8 +154,8 @@ public final class DuelTest {
         assertEquals(
             """
             Turn 1:
-                Alice parry=torso, strike=head [parried]
-                Bob parry=head, strike=legs [hit]
+                Alice parry=torso, strike=head [parried], damage=0
+                Bob parry=head, strike=legs [hit], damage=2
             """,
             history.describeTurn(1)
         );
