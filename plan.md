@@ -41,10 +41,7 @@ No diagram for this iteration since there is no new objects or responsibilities.
 - [x] parryNegationRecordedAsZeroDamage
   - A strike into a correctly parried body part is recorded with result=parried and damage=0.
 
-- [ ] appliesDamageMultiplierAndRecordsDamage
-  - A hit to legs/head/torso records damage consistent with the `BodyPart` multiplier and base strike power used by `Fighter`.
-
-- [ ] humanReadableSummaryRendersTwoTurns
+- [x] humanReadableSummaryRendersTwoTurns
   - After two `nextTurn()` calls (with deterministic scripts), `FightHistory` summary returns two lines in order summarizing both exchanges for a human reader.
 
 - [ ] exposesRecentOpponentParryForScript

@@ -38,6 +38,7 @@ Object Thinking guides design (design phase); simplicity guides implementation (
 
 ### Green
 - Write code to make tests pass.
+- When all tests pass, mark the test as done in plan.md.
 
 ### Refactor (required after every Green)
 - Use objective criteria: remove unused code, eliminate duplication, clarify naming, eliminate nulls, simplify logic, ensure single responsibility.
