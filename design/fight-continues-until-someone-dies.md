@@ -1,0 +1,19 @@
+# Fight continues until one of the fighters (or both) dies
+
+When two fighters meet, the contest feels like a drumbeat. A turn starts with intent and ends with consequence; then another begins. No one moves second. Each fighter picks where to strike and where to parry without seeing what the other chose. The Arena doesn’t rush to judge mid-swing; it lets both blows play out and only then asks, “Who is still standing?”
+
+Parry is absolute for the spot you named. If you called “Head,” and the strike comes for your head, the blow glances off. If you guessed wrong, the strike lands as it was meant to. There is no chip damage or “half block” here; prediction is everything. The fighters know this. You can read it in the rhythm of their choices: the timid who turtle the obvious, the gamblers who dare the Head and leave their Torso alone.
+
+Damage happens together. A fighter who is about to die still finishes the swing that killed them. The Arena waits until both strikes are resolved, tallies what got through, and only then lowers the curtain on the turn. Death is a state after the exchange, not during it. This is why an exchange can end with no one left alive.
+
+The FightHistory does not editorialize. It writes down what people did and what happened because of it. After each exchange, you see the parries chosen, the targets attempted, whether prediction prevailed, and how many hit points each fighter has left. When the ending comes, the history doesn’t change style; it simply says what is true: one fighter’s hit points have fallen to zero or below, or both have. The final turn reads like the rest—only heavier.
+
+Consider an exchange late in a bruising duel. They’ve learned each other’s habits. The first fighter has been favoring Torso; the second has been catching that with a steady parry. This time, the first fighter looks high. The second, expecting the habit, shields the Torso again. The strike to the Head lands. The return swing, a low cut to Legs, is guessed and swatted aside. The second fighter’s hit points drop through the floor. The history records the turn and, at its end, the fight is over. There is a survivor, and a ledger that shows exactly why.
+
+There are nights when the arena goes silent in a different way. Both fighters, emboldened or desperate, go for openings the other does not cover. A clean hit to the Torso here, a clean hit to the Head there. They both connect. They both fall. The writing afterward is matter-of-fact: both died. No more turns follow. The story ends with two names and two zeroes.
+
+Sometimes the early going is all caution and good guesses. You can watch ten exchanges go by with nothing but sparks and bravado. Parry meets strike at the chosen place, again and again, and the totals do not move. The history is still busy: it shows the guesses, the tendencies forming, the tension building. And then a moment slips—someone reaches high while guarding low—and the math finally changes. From there, the end is only ever one exchange away.
+
+There are things that never change here, even when the fighters do. There is no initiative advantage; both decide in the same breath. There is no partial block; a parried target takes no damage. And the ending is not a referee’s call—it is the arithmetic of hit points at the end of a turn. When neither falls to or below zero, the beat goes on. When one does, the beat stops with a survivor. When both do, it stops with none.
+
+You do not need a speech to know it is over. The last line of the history says enough: the parries that mattered (and the ones that didn’t), the targets that found flesh, and the numbers that reached zero. The Arena is done when the math says so. The fighters know it. The readers can see it.

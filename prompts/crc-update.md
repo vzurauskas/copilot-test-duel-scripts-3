@@ -1,4 +1,4 @@
-You are in the DESIGN PHASE for this project. Follow the CRC design discipline in .cursor/rules/110_design_phase.mdc.
+You are in the DESIGN PHASE for this project. Follow the CRC design discipline in .cursor/rules/110_design_phase.mdc. The DOMAIN_FILE may be a narrative “thick description” (cf. Clifford Geertz) as discussed by David West — prefer grounding changes in short, verbatim quotes from the narrative vignettes.
 
 Inputs:
 - DOMAIN_FILE: {path-to-rich-domain-description}
@@ -7,7 +7,7 @@ Inputs:
 Task:
 - Read DOMAIN_FILE carefully.
 - Update CRC_FILE by extracting NEW objects and responsibilities from the domain description.
-- Next to EACH new object and EACH new responsibility, add a parenthetical excerpt with the exact short phrase you used from DOMAIN_FILE (e.g., ‘from "attack is completely deflected, dealing no damage"’).
+- Next to EACH new object and EACH new responsibility, add a parenthetical excerpt with the exact short phrase you used from DOMAIN_FILE (e.g., ‘from "attack is completely deflected, dealing no damage"’). 
 - Only add what is explicitly supported by the domain description. Do not speculate.
 - Keep existing content intact unless the domain text clearly requires refinement; when refining, also include a parenthetical excerpt for the refined line.
 
@@ -28,6 +28,7 @@ Heuristics:
 - Nouns → potential Objects; Verbs → Responsibilities.
 - Only include collaborators/knowledge sources if they are needed for the object to perform the new responsibility.
 - Prefer minimal, incremental edits.
+- Extract short, precise quotes from the narrative; avoid paraphrasing beyond minimal trimming.
 
 Output:
 - Return the fully updated CRC_FILE content with the new/modified lines annotated with their domain excerpts.
