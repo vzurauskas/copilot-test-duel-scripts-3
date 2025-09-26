@@ -27,7 +27,7 @@
   - ID self
   - Receive strike attempts
   - Check if strike is parried
-  - Take damage
+  - Take damage (0 if parried)
   - Report damage taken
   - Notify combat observers of events
 - **Knowledge Sources:**
@@ -63,6 +63,7 @@
   - Expose queryable insights (recent parries, last outcomes, damage by body part, target effectiveness)
   - Track cumulative and per-body-part damage over time
   - Expose post-exchange state (hit points per fighter) after each turn
+  - Mark explicit end-of-fight outcome, including both died when applicable (from "both died.")
 - **Knowledge Sources:**
   - I know all events that happened so far (fields)
   - I observe combat events and turn boundaries as they occur (parameters)
