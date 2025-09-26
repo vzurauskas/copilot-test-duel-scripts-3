@@ -16,22 +16,15 @@ Format to preserve in PLAN_FILE:
 - One test per bullet. Use short, descriptive names in the problem domain language.
 - Under each test name, optionally add one sub-bullet stating the observable cue you will assert (e.g., “history states ‘both died’”).
 
- Canonical PLAN_FILE structure:
- # Implementation Plan — Iteration: [Name of the iteration here]
-
- ## Goals
- 
- ## Scenario description
- 
- ## Design
- 
- ### Diagram
- 
- ### Implementation details
- 
- ## Tests to Implement (TDD)
- 
- ## Notes
+Canonical PLAN_FILE structure (headings and subheadings):
+- Implementation Plan — Iteration: [Name of the iteration here]
+  - Goals
+  - Scenario description
+  - Design
+    - Diagram
+    - Implementation details
+  - Tests to Implement (TDD)
+  - Notes
 
  If PLAN_FILE does not exist, create it with the above skeleton before adding content. Preserve indentation, bullet style, and spacing exactly as shown when populating sections.
 
