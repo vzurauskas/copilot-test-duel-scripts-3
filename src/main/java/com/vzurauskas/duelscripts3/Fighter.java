@@ -4,6 +4,7 @@ public final class Fighter {
     private final String name;
     private final Description description;
     private final CombatScript script;
+    private final int maxHp;
     private final BodyPart head;
     private final BodyPart torso;
     private final BodyPart legs;
@@ -11,10 +12,15 @@ public final class Fighter {
     private FightHistory history;
 
     public Fighter(String name, CombatScript script, FightHistory history) {
+        this(name, 100, script, history);
+    }
+
+    public Fighter(String name, int maxHp, CombatScript script, FightHistory history) {
         this.name = name;
         this.description = new Description();
         this.script = script;
         this.history = history;
+        this.maxHp = maxHp;
         this.head = new BodyPart("head", this, 1.7, history);
         this.torso = new BodyPart("torso", this, 1, history);
         this.legs = new BodyPart("legs", this, 0.7, history);
@@ -60,10 +66,9 @@ public final class Fighter {
     }
 
     public Description describe() {
-        description.remember(
-            "damage",
-            String.valueOf(head.damage() + torso.damage() + legs.damage())
-        );
+        int totalDamage = head.damage() + torso.damage() + legs.damage();
+        description.remember("damage", String.valueOf(totalDamage));
+        description.remember("hp", String.valueOf(maxHp - totalDamage));
         return description;
     }
 

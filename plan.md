@@ -23,8 +23,6 @@ classDiagram
   }
   class FightHistory {
     +turnCompleted()
-    +recordFinalOutcome(outcome)
-    +finalOutcome()
   }
   class Fighter {
     +decideParryAgainst(opponent)
@@ -41,17 +39,22 @@ classDiagram
 
 ## Tests to Implement (TDD)
 
-- [ ] ends after single death at end of turn
+- [x] ends after single death at end of turn
   - Assert: history shows conclusion with one fighter at ≤ 0 HP and no further turns recorded
+- [ ] ends after single death at end of turn after multiple turns
+  - Assert: history shows conclusion with one fighter at ≤ 0 HP and no further turns recorded
+  - Assert: multiple turns passed.
 - [ ] both die in the same turn
   - Assert: history’s final entry states “both died” (or equivalent) and no further turns recorded
 - [ ] lethal strike still lands before death is checked
   - Assert: in the lethal turn, both strikes are recorded (hit/parried + damage) before the conclusion line
 - [ ] history records final outcome with final hit points
   - Assert: final turn includes explicit final HP per fighter alongside outcome wording
+  - Assert: final turn is not the first (there are others)
 - [ ] arena stops advancing after conclusion
   - Assert: calling next turn after conclusion does not add another completed turn to history
 - [ ] turn numbering remains consistent up to final turn
   - Assert: describeTurn(n) returns the last resolved turn; n+1 is unavailable after conclusion
 
 ## Notes
+- Need a fight loop in Arena

@@ -62,7 +62,6 @@
   - Present a human-readable summary of the duel so far, turn by turn
   - Expose queryable insights (recent parries, last outcomes, damage by body part, target effectiveness)
   - Track cumulative and per-body-part damage over time
-  - Expose post-exchange state (hit points per fighter) after each turn
   - Mark explicit end-of-fight outcome, including both died when applicable (from "both died.")
 - **Knowledge Sources:**
   - I know all events that happened so far (fields)
