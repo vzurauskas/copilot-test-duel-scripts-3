@@ -23,9 +23,9 @@ public final class FightDescriptionTest {
 
         assertEquals(
             """
-                Turn 1:
-                    Alice parry=torso, strike=head [parried], damage=0
-                    Bob parry=head, strike=legs [hit], damage=2
+            Turn 1:
+                Alice parry=torso, strike=head [parried], damage=0
+                Bob parry=head, strike=legs [hit], damage=2
             """,
             history.describeTurn(1));
     }
@@ -48,9 +48,9 @@ public final class FightDescriptionTest {
 
         assertEquals(
             """
-                Turn 1:
-                    Alice parry=torso, strike=head [parried], damage=0
-                    Bob parry=head, strike=legs [hit], damage=2
+            Turn 1:
+                Alice parry=torso, strike=head [parried], damage=0
+                Bob parry=head, strike=legs [hit], damage=2
             """,
             history.describeTurn(1));
     }
@@ -74,12 +74,12 @@ public final class FightDescriptionTest {
 
         assertEquals(
             """
-                Turn 1:
-                    Alice parry=torso, strike=head [parried], damage=0
-                    Bob parry=head, strike=legs [hit], damage=2
-                Turn 2:
-                    Alice parry=torso, strike=head [parried], damage=0
-                    Bob parry=head, strike=legs [hit], damage=2
+            Turn 1:
+                Alice parry=torso, strike=head [parried], damage=0
+                Bob parry=head, strike=legs [hit], damage=2
+            Turn 2:
+                Alice parry=torso, strike=head [parried], damage=0
+                Bob parry=head, strike=legs [hit], damage=2
             """,
             history.describeTurn(1) + history.describeTurn(2));
     }

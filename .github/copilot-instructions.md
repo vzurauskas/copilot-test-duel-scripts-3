@@ -198,7 +198,7 @@ Object Thinking guides design (design phase); simplicity guides implementation (
 ## TDD Methodology Details
 
 ### Red
-- Follow [CRC cards](../../design/crc.md) when writing tests. When writing tests, avoid inventing new types which are not declared in CRC cards.
+- Follow [CRC cards](../../design/crc.md) when writing tests. When writing tests, avoid inventing new types and responsibilities which are not declared in CRC cards.
 - Expect compilation errors initially.
 - Make failures clear and informative.
 - Never write comments in tests.
@@ -208,11 +208,12 @@ Object Thinking guides design (design phase); simplicity guides implementation (
 
 ### Green
 - Write code to make tests pass.
+- Run `mvn verify` to make sure all tests pass and code is formatted correctly.
 - When all tests pass, mark the test as done in plan.md.
 
 ### Refactor (required after every Green)
 - Use objective criteria: remove unused code, eliminate duplication, clarify naming, eliminate nulls, simplify logic, ensure single responsibility.
-- Run all tests before and after each refactor; make one refactor at a time; commit after each.
+- Run all tests (`mvn verify`) before and after each refactor; make one refactor at a time.
 - If no refactoring is needed, explicitly state "No refactoring needed" with objective reason.
 
 ## Phase-Scoped Allowed Actions
@@ -234,6 +235,7 @@ Object Thinking guides design (design phase); simplicity guides implementation (
 9. Add another test and repeat.
 
 Always run all tests each time (except long-running ones).
+
 
 
 

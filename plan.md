@@ -42,7 +42,7 @@ classDiagram
 
 - [x] ends after single death at end of turn
   - Assert: history shows conclusion with one fighter at ≤ 0 HP and no further turns recorded
-- [ ] ends after single death at end of turn after multiple turns
+- [x] ends after single death at end of turn after multiple turns
   - Assert: history shows conclusion with one fighter at ≤ 0 HP and no further turns recorded
   - Assert: multiple turns passed.
   - Implementation: add a `beginFight()` method to Arena which would loop `nextTurn` until fight is concluded.
@@ -62,4 +62,5 @@ classDiagram
 - Need a fight loop in Arena
 
 ## Next
+- Add role to programming phase.
 - Weapons

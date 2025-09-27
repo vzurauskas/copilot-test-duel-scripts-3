@@ -47,7 +47,7 @@ public final class DuelConclusionTest {
             .parry(Fighter::torso)
             .strike(Fighter::head);
         CombatScript bobScript = new FixedScript()
-            .parry(Fighter::head)
+            .parry(Fighter::torso)
             .strike(Fighter::legs);
 
         FightHistory history = new FightHistory();

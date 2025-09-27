@@ -17,6 +17,12 @@ public final class Arena {
         this.concluded = false;
     }
 
+    public void beginFight() {
+        while (!isConcluded()) {
+            nextTurn();
+        }
+    }
+
     public void nextTurn() {
         if (concluded) {
             return;

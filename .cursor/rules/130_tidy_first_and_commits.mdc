@@ -1,10 +1,6 @@
 ---
-description: Tidy First separation of structural vs behavioral changes and strict commit discipline for this project
-globs:
-  - "/**/*"
 alwaysApply: false
 ---
-
 # Tidy First and Commit Discipline
 
 ## Tidy First Approach
