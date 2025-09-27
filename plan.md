@@ -18,6 +18,7 @@ Two fighters trade simultaneous blows, each choosing a strike and a parry withou
 %% minimal, only the pieces touched this iteration
 classDiagram
   class Arena {
+    +beginFight()
     +nextTurn()
     +concludeIfOver()
   }
@@ -44,6 +45,7 @@ classDiagram
 - [ ] ends after single death at end of turn after multiple turns
   - Assert: history shows conclusion with one fighter at ≤ 0 HP and no further turns recorded
   - Assert: multiple turns passed.
+  - Implementation: add a `beginFight()` method to Arena which would loop `nextTurn` until fight is concluded.
 - [ ] both die in the same turn
   - Assert: history’s final entry states “both died” (or equivalent) and no further turns recorded
 - [ ] lethal strike still lands before death is checked
@@ -58,3 +60,6 @@ classDiagram
 
 ## Notes
 - Need a fight loop in Arena
+
+## Next
+- Weapons
