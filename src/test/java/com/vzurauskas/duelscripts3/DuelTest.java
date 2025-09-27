@@ -10,11 +10,11 @@ public final class DuelTest {
     @Test
     void unparriedStrikeDealsDamage() {
         CombatScript aragornScript = new FixedScript()
-                .parry(Fighter::torso)
-                .strike(Fighter::torso);
+            .parry(Fighter::torso)
+            .strike(Fighter::torso);
         CombatScript boromirScript = new FixedScript()
-                .parry(Fighter::head)
-                .strike(Fighter::legs);
+            .parry(Fighter::head)
+            .strike(Fighter::legs);
 
         FightHistory history = new FightHistory();
         Fighter aragorn = new Fighter("Aragorn", aragornScript, history);
@@ -31,11 +31,11 @@ public final class DuelTest {
     @Test
     void parriedStrikeDealsNoDamage() {
         CombatScript aragornScript = new FixedScript()
-                .parry(Fighter::legs)
-                .strike(Fighter::head);
+            .parry(Fighter::legs)
+            .strike(Fighter::head);
         CombatScript boromirScript = new FixedScript()
-                .parry(Fighter::head)
-                .strike(Fighter::legs);
+            .parry(Fighter::head)
+            .strike(Fighter::legs);
 
         FightHistory history = new FightHistory();
         Fighter aragorn = new Fighter("Aragorn", aragornScript, history);
@@ -52,11 +52,11 @@ public final class DuelTest {
     @Test
     void damageIsCalculatedCorrectly() {
         CombatScript aragornScript = new FixedScript()
-                .parry(Fighter::torso)
-                .strike(Fighter::head);
+            .parry(Fighter::torso)
+            .strike(Fighter::head);
         CombatScript boromirScript = new FixedScript()
-                .parry(Fighter::legs)
-                .strike(Fighter::legs);
+            .parry(Fighter::legs)
+            .strike(Fighter::legs);
 
         FightHistory history = new FightHistory();
         Fighter aragorn = new Fighter("Aragorn", aragornScript, history);

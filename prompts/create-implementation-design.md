@@ -9,7 +9,7 @@ Task:
 - Read ITERATION_FILE (narrative “thick description”) and CRC_FILE to understand rules and responsibilities relevant to this iteration.
 - Write or update PLAN_FILE to flesh out the design sections before tests:
   - Goals: 1–4 concise, concrete outcomes for this iteration.
-  - Scenario description: 2–6 sentences that narrate the intended behavior in domain language.
+  - Scenario description: 2–6 sentences that narrate the intended behavior. It should be a story where actors are objects, and they collaborate with each other in order to fulfil the goals of this iteration.
   - Design → Diagram: a minimal Mermaid diagram that includes only the objects and responsibilities that will be added or modified in this iteration. If none are needed, state “No diagram needed for this iteration.”
   - Design → Implementation details: optional short bullets for specific notes that future code must honor. Often we won't need this.
 
