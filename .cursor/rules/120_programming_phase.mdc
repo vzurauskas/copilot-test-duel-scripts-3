@@ -65,3 +65,7 @@ Object Thinking guides design (design phase); simplicity guides implementation (
 
 Always run all tests each time (except long-running ones).
 
+## Build and checks
+
+- Always run `mvn verify` (not just `mvn test`) before concluding a change. This enforces Checkstyle.
+

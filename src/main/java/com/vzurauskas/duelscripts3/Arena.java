@@ -41,5 +41,3 @@ public final class Arena {
         return concluded;
     }
 }
-
-

@@ -26,7 +26,9 @@ public final class Turn {
         remember(key(fighter, TARGET_KEY), targetId);
     }
 
-    public void recordOutcome(Fighter fighter, String targetId, String outcome) {
+    public void recordOutcome(
+        Fighter fighter, String targetId, String outcome
+    ) {
         ensureOrder(fighter);
         remember(key(fighter, OUTCOME_KEY), outcome);
         if (!desc.knows(key(fighter, TARGET_KEY))) {
@@ -96,5 +98,3 @@ public final class Turn {
         desc.remember(key, val);
     }
 }
-
-

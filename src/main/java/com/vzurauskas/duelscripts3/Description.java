@@ -26,5 +26,3 @@ public final class Description {
         return facts.get(key);
     }
 }
-
-

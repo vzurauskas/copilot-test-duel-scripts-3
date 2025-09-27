@@ -34,5 +34,3 @@ public final class BodyPart {
         return damage;
     }
 }
-
-

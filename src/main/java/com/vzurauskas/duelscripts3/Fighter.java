@@ -15,7 +15,9 @@ public final class Fighter {
         this(name, 100, script, history);
     }
 
-    public Fighter(String name, int maxHp, CombatScript script, FightHistory history) {
+    public Fighter(
+        String name, int maxHp, CombatScript script, FightHistory history
+    ) {
         this.name = name;
         this.description = new Description();
         this.script = script;
@@ -77,5 +79,3 @@ public final class Fighter {
         return name;
     }
 }
-
-

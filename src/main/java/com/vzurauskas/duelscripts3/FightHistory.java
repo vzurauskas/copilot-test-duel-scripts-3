@@ -24,8 +24,12 @@ public final class FightHistory {
         currentTurn.recordTarget(attacker, target.id());
     }
 
-    public void strikeOccurred(Fighter attacker, BodyPart target, int damageDealt) {
-        currentTurn.recordOutcome(attacker, target.id(), damageDealt == 0 ? "parried" : "hit");
+    public void strikeOccurred(
+        Fighter attacker, BodyPart target, int damageDealt
+    ) {
+        currentTurn.recordOutcome(
+            attacker, target.id(), damageDealt == 0 ? "parried" : "hit"
+        );
         currentTurn.recordDamage(attacker, damageDealt);
     }
 
@@ -48,8 +52,7 @@ public final class FightHistory {
     }
 
     public Map<BodyPart, Integer> targetFrequencyOverLastN(
-        Fighter attacker,
-        int n
+        Fighter attacker, int n
     ) {
         Map<BodyPart, Integer> freq = new HashMap<>();
         int size = completedTurns.size();
@@ -68,8 +71,7 @@ public final class FightHistory {
     }
 
     public Map<BodyPart, Integer> parryFrequencyOverLastN(
-        Fighter fighter,
-        int n
+        Fighter fighter, int n
     ) {
         Map<BodyPart, Integer> freq = new HashMap<>();
         int size = completedTurns.size();
@@ -86,5 +88,3 @@ public final class FightHistory {
         return freq;
     }
 }
-
- 

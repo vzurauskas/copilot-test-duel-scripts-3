@@ -9,11 +9,11 @@ public final class FightDescriptionTest {
     @Test
     void recordsTurnWithParriesTargetsAndOutcomes() {
         CombatScript aliceScript = new FixedScript()
-            .parry(Fighter::torso)
-            .strike(Fighter::head);
+                .parry(Fighter::torso)
+                .strike(Fighter::head);
         CombatScript bobScript = new FixedScript()
-            .parry(Fighter::head)
-            .strike(Fighter::legs);
+                .parry(Fighter::head)
+                .strike(Fighter::legs);
 
         FightHistory history = new FightHistory();
         Fighter alice = new Fighter("Alice", aliceScript, history);
@@ -22,23 +22,22 @@ public final class FightDescriptionTest {
         arena.nextTurn();
 
         assertEquals(
-            """
-            Turn 1:
-                Alice parry=torso, strike=head [parried], damage=0
-                Bob parry=head, strike=legs [hit], damage=2
-            """,
-            history.describeTurn(1)
-        );
+                     """
+                             Turn 1:
+                                 Alice parry=torso, strike=head [parried], damage=0
+                                 Bob parry=head, strike=legs [hit], damage=2
+                             """,
+                     history.describeTurn(1));
     }
 
     @Test
     void parryNegationRecordedAsZeroDamage() {
         CombatScript aliceScript = new FixedScript()
-            .parry(Fighter::torso)
-            .strike(Fighter::head);
+                .parry(Fighter::torso)
+                .strike(Fighter::head);
         CombatScript bobScript = new FixedScript()
-            .parry(Fighter::head)
-            .strike(Fighter::legs);
+                .parry(Fighter::head)
+                .strike(Fighter::legs);
 
         FightHistory history = new FightHistory();
         Fighter alice = new Fighter("Alice", aliceScript, history);
@@ -48,23 +47,22 @@ public final class FightDescriptionTest {
         arena.nextTurn();
 
         assertEquals(
-            """
-            Turn 1:
-                Alice parry=torso, strike=head [parried], damage=0
-                Bob parry=head, strike=legs [hit], damage=2
-            """,
-            history.describeTurn(1)
-        );
+                     """
+                             Turn 1:
+                                 Alice parry=torso, strike=head [parried], damage=0
+                                 Bob parry=head, strike=legs [hit], damage=2
+                             """,
+                     history.describeTurn(1));
     }
 
     @Test
     void humanReadableSummaryRendersTwoTurns() {
         CombatScript aliceScript = new FixedScript()
-            .parry(Fighter::torso)
-            .strike(Fighter::head);
+                .parry(Fighter::torso)
+                .strike(Fighter::head);
         CombatScript bobScript = new FixedScript()
-            .parry(Fighter::head)
-            .strike(Fighter::legs);
+                .parry(Fighter::head)
+                .strike(Fighter::legs);
 
         FightHistory history = new FightHistory();
         Fighter alice = new Fighter("Alice", aliceScript, history);
@@ -75,15 +73,14 @@ public final class FightDescriptionTest {
         arena.nextTurn();
 
         assertEquals(
-            """
-            Turn 1:
-                Alice parry=torso, strike=head [parried], damage=0
-                Bob parry=head, strike=legs [hit], damage=2
-            Turn 2:
-                Alice parry=torso, strike=head [parried], damage=0
-                Bob parry=head, strike=legs [hit], damage=2
-            """,
-            history.describeTurn(1) + history.describeTurn(2)
-        );
+                     """
+                             Turn 1:
+                                 Alice parry=torso, strike=head [parried], damage=0
+                                 Bob parry=head, strike=legs [hit], damage=2
+                             Turn 2:
+                                 Alice parry=torso, strike=head [parried], damage=0
+                                 Bob parry=head, strike=legs [hit], damage=2
+                             """,
+                     history.describeTurn(1) + history.describeTurn(2));
     }
 }
