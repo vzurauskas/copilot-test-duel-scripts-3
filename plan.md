@@ -62,5 +62,4 @@ classDiagram
 - Need a fight loop in Arena
 
 ## Next
-- Add role to programming phase.
 - Weapons
