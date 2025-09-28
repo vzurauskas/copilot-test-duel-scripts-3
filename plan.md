@@ -48,7 +48,7 @@ classDiagram
   - Implementation: add a `beginFight()` method to Arena which would loop `nextTurn` until fight is concluded.
 - [x] both die in the same turn
   - Assert: history’s final entry states “both died” (or equivalent) and no further turns recorded
-- [ ] lethal strike still lands before death is checked
+- [X] lethal strike still lands before death is checked
   - Assert: in the lethal turn, both strikes are recorded (hit/parried + damage) before the conclusion line
 - [ ] history records final outcome with final hit points
   - Assert: final turn includes explicit final HP per fighter alongside outcome wording
@@ -62,4 +62,4 @@ classDiagram
 - Need a fight loop in Arena
 
 ## Next
-- Weapons
+- Weapons. Use them in tests where nextTurn() has to be called manually because otherwise there would be too many turns.

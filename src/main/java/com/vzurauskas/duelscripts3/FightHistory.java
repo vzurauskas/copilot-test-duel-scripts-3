@@ -47,6 +47,14 @@ public final class FightHistory {
         return completedTurns.size();
     }
 
+    public String fullStory() {
+        StringBuilder sb = new StringBuilder();
+        for (Turn t : completedTurns) {
+            sb.append(t.humanReadable());
+        }
+        return sb.toString();
+    }
+
     public String lastParryOf(Fighter fighter) {
         return completedTurns.getLast().parryOf(fighter);
     }

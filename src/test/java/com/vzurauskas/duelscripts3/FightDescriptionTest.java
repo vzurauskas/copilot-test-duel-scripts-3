@@ -20,6 +20,8 @@ public final class FightDescriptionTest {
         Fighter alice = new Fighter("Alice", aliceScript, history);
         Fighter bob = new Fighter("Bob", bobScript, history);
         Arena arena = new Arena(alice, bob, history);
+
+        arena.nextTurn();
         arena.nextTurn();
 
         assertEquals(
@@ -28,7 +30,8 @@ public final class FightDescriptionTest {
                 Alice parry=torso, strike=head [parried], damage=0
                 Bob parry=head, strike=legs [hit], damage=2
             """,
-            history.describeTurn(1));
+            history.describeTurn(1)
+        );
     }
 
     @Test
@@ -46,6 +49,7 @@ public final class FightDescriptionTest {
         Arena arena = new Arena(alice, bob, history);
 
         arena.nextTurn();
+        arena.nextTurn();
 
         assertEquals(
             """
@@ -53,7 +57,8 @@ public final class FightDescriptionTest {
                 Alice parry=torso, strike=head [parried], damage=0
                 Bob parry=head, strike=legs [hit], damage=2
             """,
-            history.describeTurn(1));
+            history.describeTurn(1)
+        );
     }
 
     @Test
@@ -82,11 +87,12 @@ public final class FightDescriptionTest {
                 Alice parry=torso, strike=head [parried], damage=0
                 Bob parry=head, strike=legs [hit], damage=2
             """,
-            history.describeTurn(1) + history.describeTurn(2));
+            history.fullStory()
+        );
     }
 
     @Test
-    void finalTurnMentionsBothDied() {
+    void finalTurnMentionsBothDiedAndBothStrikesRecordedBeforeConclusion() {
         CombatScript aliceScript = new FixedScript()
             .parry(Fighter::torso)
             .strike(Fighter::head);
@@ -99,11 +105,12 @@ public final class FightDescriptionTest {
         Fighter bob = new Fighter("Bob", 5, bobScript, history);
         Arena arena = new Arena(alice, bob, history);
 
-        arena.nextTurn();
+        arena.beginFight();
 
         assertEquals(1, history.turnsPassed());
-        assertTrue(
-            history.describeTurn(1).contains("both died")
-        );
+        String turn = history.describeTurn(1);
+        assertTrue(turn.contains("Alice parry=torso, strike=head [hit], damage=5"));
+        assertTrue(turn.contains("Bob parry=torso, strike=head [hit], damage=5"));
+        assertTrue(turn.contains("both died"));
     }
 }
