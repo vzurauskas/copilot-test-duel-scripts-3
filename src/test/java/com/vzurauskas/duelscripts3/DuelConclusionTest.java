@@ -42,6 +42,35 @@ public final class DuelConclusionTest {
     }
 
     @Test
+    void bothDieInTheSameTurn() {
+        CombatScript aliceScript = new FixedScript()
+            .parry(Fighter::torso)
+            .strike(Fighter::head);
+        CombatScript bobScript = new FixedScript()
+            .parry(Fighter::torso)
+            .strike(Fighter::head);
+
+        FightHistory history = new FightHistory();
+
+        Fighter alice = new Fighter("Alice", 15, aliceScript, history);
+        Fighter bob = new Fighter("Bob", 15, bobScript, history);
+        Arena arena = new Arena(alice, bob, history);
+
+        arena.beginFight();
+
+        assertTrue(
+            arena.isFightOver(),
+            "Fight should be over after lethal turn ends");
+        assertTrue(
+            alice.describe().intValue("hp") <= 0,
+            "Alice should be dead (HP <= 0)");
+        assertTrue(
+            bob.describe().intValue("hp") <= 0,
+            "Bob should be dead (HP <= 0)");
+        assertTrue(history.turnsPassed() == 3);
+    }
+
+    @Test
     void endsAfterSingleDeathAtEndOfTurnAfterMultipleTurns() {
         CombatScript aliceScript = new FixedScript()
             .parry(Fighter::torso)

@@ -3,6 +3,7 @@ package com.vzurauskas.duelscripts3;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public final class FightDescriptionTest {
 
@@ -82,5 +83,27 @@ public final class FightDescriptionTest {
                 Bob parry=head, strike=legs [hit], damage=2
             """,
             history.describeTurn(1) + history.describeTurn(2));
+    }
+
+    @Test
+    void finalTurnMentionsBothDied() {
+        CombatScript aliceScript = new FixedScript()
+            .parry(Fighter::torso)
+            .strike(Fighter::head);
+        CombatScript bobScript = new FixedScript()
+            .parry(Fighter::torso)
+            .strike(Fighter::head);
+
+        FightHistory history = new FightHistory();
+        Fighter alice = new Fighter("Alice", 5, aliceScript, history);
+        Fighter bob = new Fighter("Bob", 5, bobScript, history);
+        Arena arena = new Arena(alice, bob, history);
+
+        arena.nextTurn();
+
+        assertEquals(1, history.turnsPassed());
+        assertTrue(
+            history.describeTurn(1).contains("both died")
+        );
     }
 }

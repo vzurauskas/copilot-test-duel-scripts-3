@@ -46,7 +46,7 @@ classDiagram
   - Assert: history shows conclusion with one fighter at ≤ 0 HP and no further turns recorded
   - Assert: multiple turns passed.
   - Implementation: add a `beginFight()` method to Arena which would loop `nextTurn` until fight is concluded.
-- [ ] both die in the same turn
+- [x] both die in the same turn
   - Assert: history’s final entry states “both died” (or equivalent) and no further turns recorded
 - [ ] lethal strike still lands before death is checked
   - Assert: in the lethal turn, both strikes are recorded (hit/parried + damage) before the conclusion line
