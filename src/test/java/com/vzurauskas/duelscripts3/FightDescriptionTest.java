@@ -111,6 +111,39 @@ public final class FightDescriptionTest {
         String turn = history.describeTurn(1);
         assertTrue(turn.contains("Alice parry=torso, strike=head [hit], damage=5"));
         assertTrue(turn.contains("Bob parry=torso, strike=head [hit], damage=5"));
-        assertTrue(turn.contains("both died"));
+        int idxFinalHp = turn.indexOf("final hp:");
+        int idxBothDied = turn.indexOf("both died");
+        assertTrue(idxFinalHp >= 0 && idxBothDied >= 0);
+        assertTrue(idxBothDied > idxFinalHp);
+    }
+
+    @Test
+    void finalOutcomeIncludesFinalHpAndIsNotFirstTurn() {
+        CombatScript aliceScript = new FixedScript()
+            .parry(Fighter::torso)
+            .strike(Fighter::head);
+        CombatScript bobScript = new FixedScript()
+            .parry(Fighter::head)
+            .strike(Fighter::legs);
+
+        FightHistory history = new FightHistory();
+        Fighter alice = new Fighter("Alice", 10, aliceScript, history);
+        Fighter bob = new Fighter("Bob", 7, bobScript, history);
+        Arena arena = new Arena(alice, bob, history);
+
+        arena.beginFight();
+
+        assertTrue(history.turnsPassed() > 1);
+        int last = history.turnsPassed();
+        String lastTurn = history.describeTurn(last);
+        String expected = String.format(
+            """
+            Turn 5:
+                Alice parry=torso, strike=head [parried], damage=0
+                Bob parry=head, strike=legs [hit], damage=2
+                final hp: Alice=0, Bob=7
+            """
+        );
+        assertEquals(expected, lastTurn);
     }
 }

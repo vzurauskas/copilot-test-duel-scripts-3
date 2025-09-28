@@ -17,7 +17,6 @@ public final class DuelConclusionTest {
             .strike(Fighter::legs);
 
         FightHistory history = new FightHistory();
-
         Fighter alice = new Fighter("Alice", 10, aliceScript, history);
         Fighter bob = new Fighter("Bob", 5, bobScript, history);
         Arena arena = new Arena(alice, bob, history);
@@ -51,7 +50,6 @@ public final class DuelConclusionTest {
             .strike(Fighter::head);
 
         FightHistory history = new FightHistory();
-
         Fighter alice = new Fighter("Alice", 15, aliceScript, history);
         Fighter bob = new Fighter("Bob", 15, bobScript, history);
         Arena arena = new Arena(alice, bob, history);
@@ -80,7 +78,6 @@ public final class DuelConclusionTest {
             .strike(Fighter::legs);
 
         FightHistory history = new FightHistory();
-
         Fighter alice = new Fighter("Alice", 10, aliceScript, history);
         Fighter bob = new Fighter("Bob", 7, bobScript, history);
         Arena arena = new Arena(alice, bob, history);

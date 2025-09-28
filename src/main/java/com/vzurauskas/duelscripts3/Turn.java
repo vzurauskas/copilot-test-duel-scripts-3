@@ -59,16 +59,37 @@ public final class Turn {
             value(second, OUTCOME_KEY),
             value(second, DAMAGE_KEY)
         );
-        StringBuilder sb = new StringBuilder();
-        sb.append(header).append("\n");
-        sb.append(firstLine).append("\n");
-        sb.append(secondLine).append("\n");
+
         boolean firstDead = first.describe().intValue("hp") <= 0;
         boolean secondDead = second.describe().intValue("hp") <= 0;
-        if (firstDead && secondDead) {
-            sb.append("    both died\n");
+
+        String finalHpLine = (firstDead || secondDead)
+            ? String.format(
+                "    final hp: %s=%d, %s=%d",
+                first, first.describe().intValue("hp"),
+                second, second.describe().intValue("hp")
+            )
+            : "";
+
+        String bothDiedLine = (firstDead && secondDead)
+            ? "    both died"
+            : "";
+
+        String[] lines = new String[] {
+            header,
+            firstLine,
+            secondLine,
+            finalHpLine,
+            bothDiedLine
+        };
+
+        StringBuilder readable = new StringBuilder();
+        for (String line : lines) {
+            if (!line.isEmpty()) {
+                readable.append(line).append("\n");
+            }
         }
-        return sb.toString();
+        return readable.toString();
     }
 
     public boolean involves(Fighter fighter) {

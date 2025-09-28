@@ -50,11 +50,11 @@ classDiagram
   - Assert: history’s final entry states “both died” (or equivalent) and no further turns recorded
 - [X] lethal strike still lands before death is checked
   - Assert: in the lethal turn, both strikes are recorded (hit/parried + damage) before the conclusion line
-- [ ] history records final outcome with final hit points
+- [x] history records final outcome with final hit points
   - Assert: final turn includes explicit final HP per fighter alongside outcome wording
   - Assert: final turn is not the first (there are others)
 - [ ] arena stops advancing after conclusion
-  - Assert: calling next turn after conclusion does not add another completed turn to history
+  - Assert: calling next turn after conclusion throws exception
 - [ ] turn numbering remains consistent up to final turn
   - Assert: describeTurn(n) returns the last resolved turn; n+1 is unavailable after conclusion
 
