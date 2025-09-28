@@ -25,8 +25,8 @@ public final class DuelConclusionTest {
         arena.nextTurn();
 
         assertTrue(
-            arena.isConcluded(),
-            "Fight should be concluded after lethal turn ends");
+            arena.isFightOver(),
+            "Fight should be over after lethal turn ends");
         assertTrue(
             bob.describe().intValue("hp") <= 0,
             "Bob should be dead (HP <= 0)");
@@ -59,21 +59,14 @@ public final class DuelConclusionTest {
         arena.beginFight();
 
         assertTrue(
-            arena.isConcluded(),
-            "Fight should be concluded after lethal turn ends");
+            arena.isFightOver(),
+            "Fight should be over after lethal turn ends");
         assertTrue(
             bob.describe().intValue("hp") <= 0,
             "Bob should be dead (HP <= 0)");
         assertTrue(
             alice.describe().intValue("hp") > 0,
             "Alice should be alive (HP > 0)");
-
-        // Multiple turns should have been recorded (Bob dies on turn 2)
-        history.describeTurn(1);
-        history.describeTurn(2);
-        assertThrows(
-            IndexOutOfBoundsException.class,
-            () -> history.describeTurn(3)
-        );
+        assertTrue(history.turnsPassed() == 2);
     }
 }

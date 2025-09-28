@@ -18,7 +18,7 @@ public final class Arena {
     }
 
     public void beginFight() {
-        while (!isConcluded()) {
+        while (!isFightOver()) {
             nextTurn();
         }
     }
@@ -43,7 +43,7 @@ public final class Arena {
         }
     }
 
-    public boolean isConcluded() {
+    public boolean isFightOver() {
         return concluded;
     }
 }

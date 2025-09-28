@@ -43,6 +43,10 @@ public final class FightHistory {
         return completedTurns.get(turnNumber - 1).humanReadable();
     }
 
+    public int turnsPassed() {
+        return completedTurns.size();
+    }
+
     public String lastParryOf(Fighter fighter) {
         return completedTurns.getLast().parryOf(fighter);
     }
