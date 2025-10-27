@@ -1,63 +1,58 @@
-# Implementation Plan — Iteration: 
+# Implementation Plan — Iteration: Fighters Use Weapons
 
 ## Goals
 
-- End the duel strictly at end-of-turn when ≥1 fighter’s HP ≤ 0.
-- Support double-death outcome and record it neutrally in history.
-- Preserve simultaneity: both strikes resolve before death is checked.
+1. Fighters can wield weapons (sword, axe, spear) or fight bare-handed with fists.
+2. Each weapon type has distinct base damage and critical hit characteristics.
+3. Weapons determine critical hits and amplify damage when they occur.
+4. Fight history captures weapon types and critical strikes in the combat narrative.
 
 ## Scenario description
 
-Two fighters trade simultaneous blows, each choosing a strike and a parry without seeing the other’s choice. Parry fully negates damage to its spot; otherwise damage lands. After both strikes resolve, hit points are tallied and only then the duel ends if one or both have fallen to zero or below. The fight history narrates each exchange plainly and marks the ending (single survivor or both died) without changing style.
+When a Fighter strikes, it asks its Weapon to calculate the damage for the target body part. The Weapon determines whether this strike is a critical hit based on its intrinsic critical chance. If critical, the Weapon amplifies the base damage by its multiplier. The Weapon then reports the critical hit event to FightHistory observers if one occurred. The calculated damage flows to the target BodyPart, which receives the strike and takes damage as before. FightHistory observes both the Weapon's critical hit notifications and the BodyPart's damage events, weaving weapon identity and critical strikes into the turn-by-turn narrative.
 
 ## Design
 
 ### Diagram
 
 ```mermaid
-%% minimal, only the pieces touched this iteration
 classDiagram
-  class Arena {
-    +beginFight()
-    +nextTurn()
-    +concludeIfOver()
-  }
-  class FightHistory {
-    +turnCompleted()
-  }
   class Fighter {
-    +decideParryAgainst(opponent)
+    -weapon: Weapon
     +strike(opponent)
   }
-  Arena --> FightHistory : checks
-  Fighter --> FightHistory : reports
+  class Weapon {
+    -baseDamage: int
+    -criticalChance: double
+    -criticalMultiplier: double
+    +calculateDamage(target): int
+    +reportCriticalHit(target)
+  }
+  class BodyPart {
+    +receiveStrike(attacker, damage)
+  }
+  class FightHistory {
+    +observeCriticalHit(weapon, target)
+    +observeStrike(attacker, target, damage)
+  }
+  Fighter --> Weapon : asks for damage
+  Weapon --> FightHistory : reports critical
+  Fighter --> BodyPart : delivers damage
+  BodyPart --> FightHistory : reports outcome
 ```
 
 ### Implementation details
 
-- History must expose or be extended to record a final outcome label (single survivor / both died) and final HP snapshot per fighter.
-- Arena’s turn loop must avoid mid-turn death checks; conclusion happens only after both strikes resolve.
+- Bare-handed fighting is modeled as a Weapon with low base damage and no critical chance.
+- Weapon types: Sword (moderate damage, elevated critical chance), Axe (high damage, no criticals), Spear (moderate damage, rare criticals), Fists (low damage, no criticals).
+- Weapon determines critical hit internally; BodyPart receives only the final damage value.
+- Consider how to handle the situation where a weapon is asked for damage multiple times in the same turn. Should FightHistory handle events idempotently?
+- Put all weapons into a `weapons` package with separate interface (Fowler pattern).
 
 ## Tests to Implement (TDD)
 
-- [x] ends after single death at end of turn
-  - Assert: history shows conclusion with one fighter at ≤ 0 HP and no further turns recorded
-- [x] ends after single death at end of turn after multiple turns
-  - Assert: history shows conclusion with one fighter at ≤ 0 HP and no further turns recorded
-  - Assert: multiple turns passed.
-  - Implementation: add a `beginFight()` method to Arena which would loop `nextTurn` until fight is concluded.
-- [x] both die in the same turn
-  - Assert: history’s final entry states “both died” (or equivalent) and no further turns recorded
-- [X] lethal strike still lands before death is checked
-  - Assert: in the lethal turn, both strikes are recorded (hit/parried + damage) before the conclusion line
-- [x] history records final outcome with final hit points
-  - Assert: final turn includes explicit final HP per fighter alongside outcome wording
-  - Assert: final turn is not the first (there are others)
-- [x] arena stops advancing after conclusion
-  - Assert: calling next turn after conclusion throws exception
-- [x] turn numbering remains consistent up to final turn
-  - Assert: describeTurn(n) returns the last resolved turn; n+1 is unavailable after conclusion
-
 ## Next
+- Prompt to generate test plan.
 - Review (and use?) PlatformPlatform rules
+- Consider throwing out weapons classes and just using a generic Weapon with parameterized constructor.
 - Weapons. Use them in tests where nextTurn() has to be called manually because otherwise there would be too many turns.

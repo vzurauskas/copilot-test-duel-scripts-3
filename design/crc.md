@@ -13,6 +13,7 @@
   - I know my name and max hit points (fields)
   - I know my current parry location (field)
   - I have my body parts (fields)
+  - I know my weapon (field)
   - Opponent fighter to strike is given with request (parameters)
   - I can ask my CombatScript for decisions (collaborator)
   - I can ask my body parts for their damage (collaborator)
@@ -20,6 +21,7 @@
 - **Collaborators:**
   - BodyPart
   - CombatScript
+  - Weapon
   - FightHistory (observer)
 
 **BodyPart**
@@ -42,6 +44,21 @@
   - Fighter (owner)
   - Observers (FightHistory)
 
+**Weapon**
+- **Responsibilities:**
+  - Calculate strike damage 
+  - Determine if a strike is a critical hit
+  - Amplify damage when critical hit occurs 
+  - Report critical hit events to observers
+- **Knowledge Sources:**
+  - I know my base damage (field)
+  - I know my critical hit chance (field)
+  - I know my critical damage multiplier (field) 
+  - I know my observers (field)
+  - Target body part given with strike request (parameters)
+- **Collaborators:**
+  - FightHistory (observer)
+
 **CombatScript**
 - **Responsibilities:**
   - Analyze combat situation using FightHistory
@@ -62,6 +79,7 @@
   - Present a human-readable summary of the duel so far, turn by turn
   - Expose queryable insights (recent parries, last outcomes, damage by body part, target effectiveness)
   - Track cumulative and per-body-part damage over time
+  - Record and report critical hits in combat narrative 
 - **Knowledge Sources:**
   - I know all events that happened so far (fields)
   - I observe combat events and turn boundaries as they occur (parameters)
@@ -70,6 +88,7 @@
   - Turn
   - Fighter (decisions, HP changes)
   - BodyPart (strike outcomes and damage)
+  - Weapon (critical hit events)
 
 **Turn**
 - **Responsibilities:**
