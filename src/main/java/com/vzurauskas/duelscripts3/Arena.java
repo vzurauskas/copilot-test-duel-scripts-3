@@ -25,7 +25,7 @@ public final class Arena {
 
     public void nextTurn() {
         if (concluded) {
-            return;
+            throw new IllegalStateException("Fight already concluded");
         }
         first.decideParryAgainst(second);
         second.decideParryAgainst(first);

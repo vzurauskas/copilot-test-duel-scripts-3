@@ -33,11 +33,8 @@ public final class DuelConclusionTest {
             alice.describe().intValue("hp") > 0,
             "Alice should be alive (HP > 0)");
 
-        arena.nextTurn();
-        assertThrows(
-            IndexOutOfBoundsException.class,
-            () -> history.describeTurn(2)
-        );
+        assertThrows(IllegalStateException.class, arena::nextTurn);
+        assertThrows(IndexOutOfBoundsException.class, () -> history.describeTurn(2));
     }
 
     @Test
@@ -94,5 +91,56 @@ public final class DuelConclusionTest {
             alice.describe().intValue("hp") > 0,
             "Alice should be alive (HP > 0)");
         assertTrue(history.turnsPassed() == 2);
+    }
+
+    @Test
+    void arenaStopsAdvancingAfterConclusion() {
+        CombatScript aliceScript = new FixedScript()
+            .parry(Fighter::torso)
+            .strike(Fighter::head);
+        CombatScript bobScript = new FixedScript()
+            .parry(Fighter::torso)
+            .strike(Fighter::head);
+
+        FightHistory history = new FightHistory();
+        Fighter alice = new Fighter("Alice", 5, aliceScript, history);
+        Fighter bob = new Fighter("Bob", 5, bobScript, history);
+        Arena arena = new Arena(alice, bob, history);
+
+        arena.beginFight();
+
+        assertTrue(arena.isFightOver(), "Fight should be concluded before attempting another turn");
+        assertThrows(IllegalStateException.class, arena::nextTurn);
+    }
+
+    @Test
+    void turnNumberingRemainsConsistentUpToFinalTurn() {
+        CombatScript aliceScript = new FixedScript()
+            .parry(Fighter::torso)
+            .strike(Fighter::head);
+        CombatScript bobScript = new FixedScript()
+            .parry(Fighter::torso)
+            .strike(Fighter::legs);
+
+        FightHistory history = new FightHistory();
+        Fighter alice = new Fighter("Alice", 10, aliceScript, history);
+        Fighter bob = new Fighter("Bob", 7, bobScript, history);
+        Arena arena = new Arena(alice, bob, history);
+
+        arena.beginFight();
+
+        int lastTurnNumber = history.turnsPassed();
+        assertTrue(lastTurnNumber > 1, "Fight should have multiple turns");
+        
+        String lastTurn = history.describeTurn(lastTurnNumber);
+        assertTrue(
+            lastTurn.contains("Turn " + lastTurnNumber), 
+            "Last turn description should include correct turn number"
+        );
+        assertThrows(
+            IndexOutOfBoundsException.class, 
+            () -> history.describeTurn(lastTurnNumber + 1),
+            "Turn after conclusion should be unavailable"
+        );
     }
 }

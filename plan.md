@@ -53,13 +53,11 @@ classDiagram
 - [x] history records final outcome with final hit points
   - Assert: final turn includes explicit final HP per fighter alongside outcome wording
   - Assert: final turn is not the first (there are others)
-- [ ] arena stops advancing after conclusion
+- [x] arena stops advancing after conclusion
   - Assert: calling next turn after conclusion throws exception
-- [ ] turn numbering remains consistent up to final turn
+- [x] turn numbering remains consistent up to final turn
   - Assert: describeTurn(n) returns the last resolved turn; n+1 is unavailable after conclusion
 
-## Notes
-- Need a fight loop in Arena
-
 ## Next
+- Review (and use?) PlatformPlatform rules
 - Weapons. Use them in tests where nextTurn() has to be called manually because otherwise there would be too many turns.
