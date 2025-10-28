@@ -65,7 +65,7 @@ While implementing code changes to make tests pass, or during refactoring phase,
   - Test class: DuelTest
   - Weapon construction: `new Weapon("sword", 8, 0.0, 1.0)` (0% crit for deterministic test)
 
-- [ ] **Axe deals highest base damage**
+- [x] **Axe deals highest base damage**
   - Observable: Weapon with baseDamage=12 deals more damage than sword's 8
   - Maps to: Weapon's "calculate strike damage" responsibility
   - Test class: DuelTest

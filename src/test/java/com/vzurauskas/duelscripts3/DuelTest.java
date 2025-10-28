@@ -88,4 +88,24 @@ public final class DuelTest {
 
         assertEquals(8, bob.torso().damage());
     }
+
+    @Test
+    void axeDealsHighestDamage() {
+        Weapon axe = new Weapon("axe", 12, 0.0, 1.0);
+        CombatScript aliceScript = new FixedScript()
+            .parry(Fighter::head)
+            .strike(Fighter::torso);
+        CombatScript bobScript = new FixedScript()
+            .parry(Fighter::head)
+            .strike(Fighter::legs);
+
+        FightHistory history = new FightHistory();
+        Fighter alice = new Fighter("Alice", axe, aliceScript, history);
+        Fighter bob = new Fighter("Bob", bobScript, history);
+
+        Arena arena = new Arena(alice, bob, history);
+        arena.nextTurn();
+
+        assertEquals(12, bob.torso().damage());
+    }
 }
