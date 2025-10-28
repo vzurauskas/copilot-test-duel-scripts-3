@@ -1,7 +1,7 @@
 You are in the DESIGN PHASE for this project. Create a TDD test plan grounded in the narrative domain description and CRC cards.
 
 Inputs:
-- ITERATION_FILE: {path-to-iteration-domain-doc}
+- ITERATION_FILE: design/fighters-use-weapons.md
 - CRC_FILE: design/crc.md
 - PLAN_FILE: plan.md
 

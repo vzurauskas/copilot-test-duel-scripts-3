@@ -1,7 +1,7 @@
 You are in the DESIGN PHASE for this project. Create a concrete implementation design from the narrative thick description and CRC cards before defining unit tests.
 
 Inputs:
-- ITERATION_FILE: design/fighters-use-weapons.md
+- ITERATION_FILE: {path-to-iteration-domain-doc}
 - CRC_FILE: design/crc.md
 - PLAN_FILE: plan.md
 

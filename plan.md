@@ -43,13 +43,69 @@ classDiagram
 
 ### Implementation details
 
-- Bare-handed fighting is modeled as a Weapon with low base damage and no critical chance.
-- Weapon types: Sword (moderate damage, elevated critical chance), Axe (high damage, no criticals), Spear (moderate damage, rare criticals), Fists (low damage, no criticals).
+While implementing code changes to make tests pass, or during refactoring phase, find opportunities to implement the following (but don't try to do it all at once):
+- Single `Weapon` class with constructor parameters: name (String), baseDamage (int), criticalChance (double), criticalMultiplier (double)
+- Weapon name is used in fight history descriptions (e.g., "strikes with sword")
+- Bare-handed fighting is modeled as a Weapon with same base damage as now (3) and no critical chance: `new Weapon("fists", 3, 0.0, 1.0)`
+- Example weapons:
+  - Sword: `new Weapon("sword", 8, 0.25, 2.0)` - moderate damage, 25% crit chance, 2x multiplier
+  - Axe: `new Weapon("axe", 12, 0.0, 1.0)` - high damage, no criticals
+  - Spear: `new Weapon("spear", 8, 0.1, 1.5)` - moderate damage, rare crits
+- For testing critical hits deterministically:
+  - Use weapons with 100% crit chance to guarantee crits: `new Weapon("test-sword", 8, 1.0, 2.0)`
+  - Use weapons with 0% crit chance to guarantee no crits: `new Weapon("test-axe", 12, 0.0, 1.0)`
 - Weapon determines critical hit internally; BodyPart receives only the final damage value.
 - Consider how to handle the situation where a weapon is asked for damage multiple times in the same turn. Should FightHistory handle events idempotently?
-- Put all weapons into a `weapons` package with separate interface (Fowler pattern).
 
 ## Tests to Implement (TDD)
+
+- [ ] **Sword deals moderate base damage**
+  - Observable: Weapon with baseDamage=8 deals 8 damage to unparried body part (before multipliers)
+  - Maps to: Weapon's "calculate strike damage" responsibility
+  - Test class: DuelTest
+  - Weapon construction: `new Weapon("sword", 8, 0.0, 1.0)` (0% crit for deterministic test)
+
+- [ ] **Axe deals highest base damage**
+  - Observable: Weapon with baseDamage=12 deals more damage than sword's 8
+  - Maps to: Weapon's "calculate strike damage" responsibility
+  - Test class: DuelTest
+  - Weapon construction: `new Weapon("axe", 12, 0.0, 1.0)`
+
+- [ ] **Spear deals moderate base damage**
+  - Observable: Weapon with baseDamage=8 matches sword's base damage
+  - Maps to: Weapon's "calculate strike damage" responsibility
+  - Test class: DuelTest
+  - Weapon construction: `new Weapon("spear", 8, 0.0, 1.0)`
+
+- [ ] **Weapon with 100% crit chance produces critical hit**
+  - Observable: Single strike with critChance=1.0 produces amplified damage
+  - Maps to: Weapon's "determine if a strike is critical hit" responsibility
+  - Test class: DuelTest
+  - Weapon construction: `new Weapon("test-sword", 8, 1.0, 2.0)` (guarantees crit)
+
+- [ ] **Critical hit amplifies damage by multiplier**
+  - Observable: Base damage 8 with critMultiplier=2.0 produces 16 damage to body part
+  - Maps to: Weapon's "amplify damage when critical hit occurs" responsibility
+  - Test class: DuelTest
+  - Weapon construction: `new Weapon("test-sword", 8, 1.0, 2.0)` (100% crit, 2x multiplier)
+
+- [ ] **Fight history captures weapon name in narrative**
+  - Observable: Turn description contains weapon name from constructor (e.g., "strikes with sword")
+  - Maps to: FightHistory's "present human-readable summary" responsibility
+  - Test class: FightDescriptionTest
+  - Weapon construction: `new Weapon("sword", 8, 0.0, 1.0)`
+
+- [ ] **Fight history captures critical strikes in narrative**
+  - Observable: Turn description mentions "critical" when crit occurs
+  - Maps to: FightHistory's "record and report critical hits in combat narrative" responsibility
+  - Test class: FightDescriptionTest
+  - Weapon construction: `new Weapon("sword", 8, 1.0, 2.0)` (100% crit for deterministic test)
+
+- [ ] **Weapon with 0% crit chance never produces critical hits**
+  - Observable: Multiple strikes with critChance=0.0 never show "critical" in history
+  - Maps to: Weapon's "determine if a strike is critical hit" responsibility
+  - Test class: DuelTest
+  - Weapon construction: `new Weapon("axe", 12, 0.0, 1.0)` (0% crit chance)
 
 ## Next
 - Prompt to generate test plan.
