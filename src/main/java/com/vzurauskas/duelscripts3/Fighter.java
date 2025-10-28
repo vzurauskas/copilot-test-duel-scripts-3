@@ -10,6 +10,7 @@ public final class Fighter {
     private final BodyPart legs;
     private BodyPart parryLocation;
     private FightHistory history;
+    private final Weapon weapon;
 
     public Fighter(String name, CombatScript script, FightHistory history) {
         this(name, 100, script, history);
@@ -18,11 +19,28 @@ public final class Fighter {
     public Fighter(
         String name, int maxHp, CombatScript script, FightHistory history
     ) {
+        this(name, new Weapon("fists", 3, 0.0, 1.0), maxHp, script, history);
+    }
+
+    public Fighter(
+        String name, Weapon weapon, CombatScript script, FightHistory history
+    ) {
+        this(name, weapon, 100, script, history);
+    }
+
+    public Fighter(
+        String name,
+        Weapon weapon,
+        int maxHp,
+        CombatScript script,
+        FightHistory history
+    ) {
         this.name = name;
         this.description = new Description();
         this.script = script;
         this.history = history;
         this.maxHp = maxHp;
+        this.weapon = weapon;
         this.head = new BodyPart("head", this, 1.7, history);
         this.torso = new BodyPart("torso", this, 1, history);
         this.legs = new BodyPart("legs", this, 0.7, history);
@@ -60,7 +78,7 @@ public final class Fighter {
     public void strike(Fighter opponent) {
         BodyPart target = script.chooseStrikeTarget(this, opponent);
         history.strikeTargetChosen(this, target);
-        target.receiveStrike(3, this);
+        target.receiveStrike(weapon.baseDamage(), this);
     }
 
     public boolean isParrying(BodyPart bodyPart) {

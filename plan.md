@@ -59,7 +59,7 @@ While implementing code changes to make tests pass, or during refactoring phase,
 
 ## Tests to Implement (TDD)
 
-- [ ] **Sword deals moderate base damage**
+- [x] **Sword deals moderate base damage**
   - Observable: Weapon with baseDamage=8 deals 8 damage to unparried body part (before multipliers)
   - Maps to: Weapon's "calculate strike damage" responsibility
   - Test class: DuelTest

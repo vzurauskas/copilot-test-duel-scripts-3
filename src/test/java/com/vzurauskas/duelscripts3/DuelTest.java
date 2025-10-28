@@ -68,4 +68,24 @@ public final class DuelTest {
         assertEquals(5, boromir.head().damage());
         assertEquals(2, aragorn.legs().damage());
     }
+
+    @Test
+    void swordDealsModerateDamage() {
+        Weapon sword = new Weapon("sword", 8, 0.0, 1.0);
+        CombatScript aliceScript = new FixedScript()
+            .parry(Fighter::head)
+            .strike(Fighter::torso);
+        CombatScript bobScript = new FixedScript()
+            .parry(Fighter::head)
+            .strike(Fighter::legs);
+
+        FightHistory history = new FightHistory();
+        Fighter alice = new Fighter("Alice", sword, aliceScript, history);
+        Fighter bob = new Fighter("Bob", bobScript, history);
+
+        Arena arena = new Arena(alice, bob, history);
+        arena.nextTurn();
+
+        assertEquals(8, bob.torso().damage());
+    }
 }

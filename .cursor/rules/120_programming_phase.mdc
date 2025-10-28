@@ -26,11 +26,13 @@ Programming phase begins when I say "go": find the next unmarked test in `plan.m
 1. Red: write a failing test defining a small increment of functionality. Then stop for user review/edits before any implementation. Do not edit any files under `src/main/**` while in Red.
 2. Green: after approval, write just enough code to pass.
 3. Refactor: improve structure with tests passing.
+4. Stop and wait for user to say "go" again before starting the next test.
 
 Additional rules:
 - Write the simplest failing test first.
 - Implement the minimum code needed to pass.
 - Refactor only after tests are passing.
+- After completing Refactor phase, always pause for user review before moving to the next test.
 - Separate structural (Tidy First) vs behavioral changes.
 
 Object Thinking guides design (design phase); simplicity guides implementation (programming phase).
@@ -55,6 +57,7 @@ Object Thinking guides design (design phase); simplicity guides implementation (
 - Use objective criteria: remove unused code, eliminate duplication, clarify naming, eliminate nulls, simplify logic, ensure single responsibility.
 - Run all tests (`mvn verify`) before and after each refactor; make one refactor at a time.
 - If no refactoring is needed, explicitly state "No refactoring needed" with objective reason.
+- After completing refactoring (or stating none is needed), pause for user review. Wait for user to say "go" before starting the next test.
 
 ## Phase-Scoped Allowed Actions
 
@@ -65,14 +68,12 @@ Object Thinking guides design (design phase); simplicity guides implementation (
 ## Example Workflow
 
 1. Write a simple failing test.
-2. Pause for user review and possible edits; do not implement yet.
+2. Pause for user review and possible edits; do not implement yet. Say "Red done — say 'proceed' to continue."
 3. When I say "proceed", implement the bare minimum to pass.
 4. Run tests (Green).
 5. Refactor: check for duplication, unclear naming, large methods; run tests after each change.
-6. Wait until I Commit behavioral change.
-7. Make structural changes (Tidy First), running tests after each.
-8. Wait until I commit structural changes separately.
-9. Add another test and repeat.
+6. Pause for user review. Wait for user to say "go" before continuing to the next test.
+7. When I say "go", repeat from step 1 with the next test.
 
 Always run all tests each time via `mvn verify` to both make sure all tests pass and code formatting is correct.
 
