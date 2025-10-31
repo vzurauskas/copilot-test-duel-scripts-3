@@ -1,12 +1,11 @@
 You are in the DESIGN PHASE for this project. Create a TDD test plan grounded in the narrative domain description and CRC cards.
 
 Inputs:
-- ITERATION_FILE: {path-to-iteration-domain-doc}
 - CRC_FILE: design/crc.md
 - PLAN_FILE: plan.md
 
 Task:
-- Read ITERATION_FILE (a narrative “thick description”) to extract observable behaviors and end conditions.
+- Read PLAN_FILE (a narrative “thick description”) to extract observable behaviors and end conditions.
 - Read CRC_FILE to align behaviors with object responsibilities and collaborations.
 - Read the design for this iteration in plan.md.
 - Find and read existing unit tests in this project to see what responsibilities are already implemented.
