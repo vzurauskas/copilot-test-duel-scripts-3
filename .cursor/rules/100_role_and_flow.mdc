@@ -57,6 +57,7 @@ Always keep in mind:
   - Allowed: minimal edits to `src/main/**` required to pass the failing test; run tests.
 - Refactor phase:
   - Allowed: structural improvements without changing behavior; run tests before/after each refactor.
+  - After completing the full cycle (Red → Green → Refactor → mark test done), the status message must end with: "Test complete. Say \"go\" for the next test."
 
 ### Trigger Phrases
 

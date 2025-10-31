@@ -18,12 +18,13 @@ public final class BodyPart {
         this.damage = 0;
     }
 
-    public void receiveStrike(int baseDamage, Fighter striker) {
+    public void receiveStrike(Weapon weapon, Fighter striker) {
+        int weaponDamage = weapon.calculateDamage();
         int dealt = owner.isParrying(this)
             ? 0
-            : (int) (baseDamage * damageMultiplier);
+            : (int) (weaponDamage * damageMultiplier);
         this.damage += dealt;
-        history.strikeOccurred(striker, this, dealt);
+        history.strikeOccurred(striker, weapon, this, dealt);
     }
 
     public String id() {

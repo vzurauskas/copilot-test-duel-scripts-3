@@ -27,8 +27,8 @@ public final class FightDescriptionTest {
         assertEquals(
             """
             Turn 1:
-                Alice parry=torso, strike=head [parried], damage=0
-                Bob parry=head, strike=legs [hit], damage=2
+                Alice parries torso, strikes with fists at Bob's head [parried], deals 0 damage.
+                Bob parries head, strikes with fists at Alice's legs [hit], deals 2 damage.
             """,
             history.describeTurn(1)
         );
@@ -54,8 +54,8 @@ public final class FightDescriptionTest {
         assertEquals(
             """
             Turn 1:
-                Alice parry=torso, strike=head [parried], damage=0
-                Bob parry=head, strike=legs [hit], damage=2
+                Alice parries torso, strikes with fists at Bob's head [parried], deals 0 damage.
+                Bob parries head, strikes with fists at Alice's legs [hit], deals 2 damage.
             """,
             history.describeTurn(1)
         );
@@ -81,11 +81,11 @@ public final class FightDescriptionTest {
         assertEquals(
             """
             Turn 1:
-                Alice parry=torso, strike=head [parried], damage=0
-                Bob parry=head, strike=legs [hit], damage=2
+                Alice parries torso, strikes with fists at Bob's head [parried], deals 0 damage.
+                Bob parries head, strikes with fists at Alice's legs [hit], deals 2 damage.
             Turn 2:
-                Alice parry=torso, strike=head [parried], damage=0
-                Bob parry=head, strike=legs [hit], damage=2
+                Alice parries torso, strikes with fists at Bob's head [parried], deals 0 damage.
+                Bob parries head, strikes with fists at Alice's legs [hit], deals 2 damage.
             """,
             history.fullStory()
         );
@@ -109,8 +109,8 @@ public final class FightDescriptionTest {
 
         assertEquals(1, history.turnsPassed());
         String turn = history.describeTurn(1);
-        assertTrue(turn.contains("Alice parry=torso, strike=head [hit], damage=5"));
-        assertTrue(turn.contains("Bob parry=torso, strike=head [hit], damage=5"));
+        assertTrue(turn.contains("Alice parries torso, strikes with fists at Bob's head [hit], deals 5 damage."));
+        assertTrue(turn.contains("Bob parries torso, strikes with fists at Alice's head [hit], deals 5 damage."));
         int idxFinalHp = turn.indexOf("final hp:");
         int idxBothDied = turn.indexOf("both died");
         assertTrue(idxFinalHp >= 0 && idxBothDied >= 0);
@@ -139,8 +139,8 @@ public final class FightDescriptionTest {
         String expected = String.format(
             """
             Turn 5:
-                Alice parry=torso, strike=head [parried], damage=0
-                Bob parry=head, strike=legs [hit], damage=2
+                Alice parries torso, strikes with fists at Bob's head [parried], deals 0 damage.
+                Bob parries head, strikes with fists at Alice's legs [hit], deals 2 damage.
                 final hp: Alice=0, Bob=7
             """
         );

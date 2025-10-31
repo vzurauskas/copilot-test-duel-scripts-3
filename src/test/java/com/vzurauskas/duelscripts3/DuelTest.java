@@ -108,4 +108,44 @@ public final class DuelTest {
 
         assertEquals(12, bob.torso().damage());
     }
+
+    @Test
+    void spearDealsModerateDamage() {
+        Weapon spear = new Weapon("spear", 8, 0.0, 1.0);
+        CombatScript aliceScript = new FixedScript()
+            .parry(Fighter::head)
+            .strike(Fighter::torso);
+        CombatScript bobScript = new FixedScript()
+            .parry(Fighter::head)
+            .strike(Fighter::legs);
+
+        FightHistory history = new FightHistory();
+        Fighter alice = new Fighter("Alice", spear, aliceScript, history);
+        Fighter bob = new Fighter("Bob", bobScript, history);
+
+        Arena arena = new Arena(alice, bob, history);
+        arena.nextTurn();
+
+        assertEquals(8, bob.torso().damage());
+    }
+
+    @Test
+    void weaponWithFullCritChanceProducesCriticalHit() {
+        Weapon critSword = new Weapon("test-sword", 8, 1.0, 2.0);
+        CombatScript aliceScript = new FixedScript()
+            .parry(Fighter::head)
+            .strike(Fighter::torso);
+        CombatScript bobScript = new FixedScript()
+            .parry(Fighter::head)
+            .strike(Fighter::legs);
+
+        FightHistory history = new FightHistory();
+        Fighter alice = new Fighter("Alice", critSword, aliceScript, history);
+        Fighter bob = new Fighter("Bob", bobScript, history);
+
+        Arena arena = new Arena(alice, bob, history);
+        arena.nextTurn();
+
+        assertEquals(16, bob.torso().damage());
+    }
 }

@@ -3,6 +3,7 @@ package com.vzurauskas.duelscripts3;
 public final class Turn {
     private static final String PARRY_KEY = "parry";
     private static final String TARGET_KEY = "target";
+    private static final String WEAPON_KEY = "weapon";
     private static final String OUTCOME_KEY = "outcome";
     private static final String DAMAGE_KEY = "damage";
 
@@ -27,9 +28,10 @@ public final class Turn {
     }
 
     public void recordOutcome(
-        Fighter fighter, String targetId, String outcome
+        Fighter fighter, String weaponName, String targetId, String outcome
     ) {
         ensureOrder(fighter);
+        remember(key(fighter, WEAPON_KEY), weaponName);
         remember(key(fighter, OUTCOME_KEY), outcome);
         if (!desc.knows(key(fighter, TARGET_KEY))) {
             remember(key(fighter, TARGET_KEY), targetId);
@@ -44,17 +46,23 @@ public final class Turn {
     public String humanReadable() {
         String header = String.format("Turn %d:", number);
         String firstLine = String.format(
-            "    %s parry=%s, strike=%s [%s], damage=%s",
+            "    %s parries %s, strikes with %s at %s's %s [%s], "
+            + "deals %s damage.",
             first,
             value(first, PARRY_KEY),
+            value(first, WEAPON_KEY),
+            second,
             value(first, TARGET_KEY),
             value(first, OUTCOME_KEY),
             value(first, DAMAGE_KEY)
         );
         String secondLine = String.format(
-            "    %s parry=%s, strike=%s [%s], damage=%s",
+            "    %s parries %s, strikes with %s at %s's %s [%s], "
+            + "deals %s damage.",
             second,
             value(second, PARRY_KEY),
+            value(second, WEAPON_KEY),
+            first,
             value(second, TARGET_KEY),
             value(second, OUTCOME_KEY),
             value(second, DAMAGE_KEY)

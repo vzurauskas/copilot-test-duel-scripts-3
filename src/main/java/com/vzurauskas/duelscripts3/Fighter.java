@@ -78,7 +78,7 @@ public final class Fighter {
     public void strike(Fighter opponent) {
         BodyPart target = script.chooseStrikeTarget(this, opponent);
         history.strikeTargetChosen(this, target);
-        target.receiveStrike(weapon.baseDamage(), this);
+        target.receiveStrike(weapon, this);
     }
 
     public boolean isParrying(BodyPart bodyPart) {

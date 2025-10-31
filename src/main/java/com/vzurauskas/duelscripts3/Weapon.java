@@ -18,8 +18,15 @@ public final class Weapon {
         this.criticalMultiplier = criticalMultiplier;
     }
 
-    public int baseDamage() {
+    public int calculateDamage() {
+        if (Math.random() < criticalChance) {
+            return (int) (baseDamage * criticalMultiplier);
+        }
         return baseDamage;
+    }
+
+    public String name() {
+        return name;
     }
 }
 

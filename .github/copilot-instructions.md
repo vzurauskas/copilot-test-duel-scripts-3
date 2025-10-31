@@ -51,6 +51,7 @@ Always keep in mind:
   - Allowed: minimal edits to `src/main/**` required to pass the failing test; run tests.
 - Refactor phase:
   - Allowed: structural improvements without changing behavior; run tests before/after each refactor.
+  - After completing the full cycle (Red → Green → Refactor → mark test done), the status message must end with: "Test complete. Say \"go\" for the next test."
 
 ### Trigger Phrases
 
@@ -74,6 +75,9 @@ Key principles:
 - No getters/setters unless CRC responsibility
 - No nulls — always initialize fields
 - No code comments — code must be self-explanatory
+
+
+
 
 
 
@@ -177,6 +181,9 @@ Generated Tests:
 
 
 
+
+
+
 # Programming Phase
 
 ## Role when in this phase: Object Thinking Programmer (TDD practitioner)
@@ -196,13 +203,15 @@ Programming phase begins when I say "go": find the next unmarked test in `plan.m
 1. Red: write a failing test defining a small increment of functionality. Then stop for user review/edits before any implementation. Do not edit any files under `src/main/**` while in Red.
 2. Green: after approval, write just enough code to pass.
 3. Refactor: improve structure with tests passing.
-4. Stop and wait for user to say "go" again before starting the next test.
+4. Mark test done: update `plan.md` to mark the test as complete.
+5. Stop and wait for user to say "go" again before starting the next test.
 
 Additional rules:
 - Write the simplest failing test first.
 - Implement the minimum code needed to pass.
 - Refactor only after tests are passing.
-- After completing Refactor phase, always pause for user review before moving to the next test.
+- After completing Refactor phase and marking test done, always pause for user review before moving to the next test.
+- The status message ending the complete cycle must end with: "Test complete. Say \"go\" for the next test."
 - Separate structural (Tidy First) vs behavioral changes.
 
 Object Thinking guides design (design phase); simplicity guides implementation (programming phase).
@@ -221,13 +230,14 @@ Object Thinking guides design (design phase); simplicity guides implementation (
 ### Green
 - Write code to make tests pass.
 - Run `mvn verify` to make sure all tests pass and code is formatted correctly.
-- When all tests pass, mark the test as done in plan.md.
 
 ### Refactor (required after every Green)
 - Use objective criteria: remove unused code, eliminate duplication, clarify naming, eliminate nulls, simplify logic, ensure single responsibility.
 - Run all tests (`mvn verify`) before and after each refactor; make one refactor at a time.
 - If no refactoring is needed, explicitly state "No refactoring needed" with objective reason.
-- After completing refactoring (or stating none is needed), pause for user review. Wait for user to say "go" before starting the next test.
+- After completing refactoring (or stating none is needed), mark the test as done in `plan.md`.
+- End with status message: "Test complete. Say \"go\" for the next test."
+- Wait for user to say "go" before starting the next test.
 
 ## Phase-Scoped Allowed Actions
 
@@ -242,10 +252,12 @@ Object Thinking guides design (design phase); simplicity guides implementation (
 3. When I say "proceed", implement the bare minimum to pass.
 4. Run tests (Green).
 5. Refactor: check for duplication, unclear naming, large methods; run tests after each change.
-6. Pause for user review. Wait for user to say "go" before continuing to the next test.
-7. When I say "go", repeat from step 1 with the next test.
+6. Mark test as done in `plan.md`.
+7. Say "Test complete. Say \"go\" for the next test." and wait for user to say "go" before continuing.
+8. When I say "go", repeat from step 1 with the next test.
 
 Always run all tests each time via `mvn verify` to both make sure all tests pass and code formatting is correct.
+
 
 
 

@@ -71,29 +71,17 @@ While implementing code changes to make tests pass, or during refactoring phase,
   - Test class: DuelTest
   - Weapon construction: `new Weapon("axe", 12, 0.0, 1.0)`
 
-- [ ] **Spear deals moderate base damage**
+- [x] **Spear deals moderate base damage**
   - Observable: Weapon with baseDamage=8 matches sword's base damage
   - Maps to: Weapon's "calculate strike damage" responsibility
   - Test class: DuelTest
   - Weapon construction: `new Weapon("spear", 8, 0.0, 1.0)`
 
-- [ ] **Weapon with 100% crit chance produces critical hit**
+- [x] **Weapon with 100% crit chance produces critical hit**
   - Observable: Single strike with critChance=1.0 produces amplified damage
   - Maps to: Weapon's "determine if a strike is critical hit" responsibility
   - Test class: DuelTest
   - Weapon construction: `new Weapon("test-sword", 8, 1.0, 2.0)` (guarantees crit)
-
-- [ ] **Critical hit amplifies damage by multiplier**
-  - Observable: Base damage 8 with critMultiplier=2.0 produces 16 damage to body part
-  - Maps to: Weapon's "amplify damage when critical hit occurs" responsibility
-  - Test class: DuelTest
-  - Weapon construction: `new Weapon("test-sword", 8, 1.0, 2.0)` (100% crit, 2x multiplier)
-
-- [ ] **Fight history captures weapon name in narrative**
-  - Observable: Turn description contains weapon name from constructor (e.g., "strikes with sword")
-  - Maps to: FightHistory's "present human-readable summary" responsibility
-  - Test class: FightDescriptionTest
-  - Weapon construction: `new Weapon("sword", 8, 0.0, 1.0)`
 
 - [ ] **Fight history captures critical strikes in narrative**
   - Observable: Turn description mentions "critical" when crit occurs
@@ -108,7 +96,4 @@ While implementing code changes to make tests pass, or during refactoring phase,
   - Weapon construction: `new Weapon("axe", 12, 0.0, 1.0)` (0% crit chance)
 
 ## Next
-- Prompt to generate test plan.
-- Review (and use?) PlatformPlatform rules
-- Consider throwing out weapons classes and just using a generic Weapon with parameterized constructor.
 - Weapons. Use them in tests where nextTurn() has to be called manually because otherwise there would be too many turns.
