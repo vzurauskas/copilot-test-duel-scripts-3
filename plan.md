@@ -89,7 +89,7 @@ While implementing code changes to make tests pass, or during refactoring phase,
   - Test class: FightDescriptionTest
   - Weapon construction: `new Weapon("sword", 8, 1.0, 2.0)` (100% crit for deterministic test)
 
-- [ ] **Weapon with 0% crit chance never produces critical hits**
+- [x] **Weapon with 0% crit chance never produces critical hits**
   - Observable: Multiple strikes with critChance=0.0 never show "critical" in history
   - Maps to: Weapon's "determine if a strike is critical hit" responsibility
   - Test class: DuelTest
