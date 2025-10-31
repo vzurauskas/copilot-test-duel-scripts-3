@@ -40,7 +40,7 @@ public final class Fighter {
         this.script = script;
         this.history = history;
         this.maxHp = maxHp;
-        this.weapon = weapon;
+        this.weapon = weapon.withObserver(history);
         this.head = new BodyPart("head", this, 1.7, history);
         this.torso = new BodyPart("torso", this, 1, history);
         this.legs = new BodyPart("legs", this, 0.7, history);

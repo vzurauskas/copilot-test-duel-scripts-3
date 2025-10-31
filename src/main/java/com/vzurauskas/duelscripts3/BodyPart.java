@@ -19,16 +19,11 @@ public final class BodyPart {
     }
 
     public void receiveStrike(Weapon weapon, Fighter striker) {
-        int weaponDamage = weapon.calculateDamage();
-        boolean wasCritical = weapon.wasCritical();
-        int dealt = owner.isParrying(this)
-            ? 0
-            : (int) (weaponDamage * damageMultiplier);
+        boolean isParried = owner.isParrying(this);
+        int weaponDamage = weapon.calculateDamage(striker, isParried);
+        int dealt = isParried ? 0 : (int) (weaponDamage * damageMultiplier);
         this.damage += dealt;
         history.strikeOccurred(striker, weapon, this, dealt);
-        if (wasCritical && dealt > 0) {
-            history.observeCriticalHit(striker);
-        }
     }
 
     public String id() {

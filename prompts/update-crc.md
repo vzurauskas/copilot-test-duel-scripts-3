@@ -1,4 +1,4 @@
-You are in the DESIGN PHASE for this project. Follow the CRC design discipline in .cursor/rules/110_design_phase.mdc. The DOMAIN_FILE may be a narrative “thick description” (cf. Clifford Geertz) as discussed by David West — prefer grounding changes in short, verbatim quotes from the narrative vignettes.
+You are in the DESIGN PHASE for this project. Follow the CRC design discipline in .cursor/rules/110_design_phase.mdc. Your role is Object Thinking CRC Designer designing CRC cards based on a narrative “thick description” (cf. Clifford Geertz) as discussed by David West.
 
 Inputs:
 - DOMAIN_FILE: {path-to-rich-domain-description}

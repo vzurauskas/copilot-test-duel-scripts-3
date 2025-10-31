@@ -5,7 +5,7 @@ public final class Weapon {
     private final int baseDamage;
     private final double criticalChance;
     private final double criticalMultiplier;
-    private boolean lastWasCritical;
+    private final FightHistory observer;
 
     public Weapon(
         String name,
@@ -13,28 +13,46 @@ public final class Weapon {
         double criticalChance,
         double criticalMultiplier
     ) {
+        this(name, baseDamage, criticalChance, criticalMultiplier, null);
+    }
+
+    public Weapon(
+        String name,
+        int baseDamage,
+        double criticalChance,
+        double criticalMultiplier,
+        FightHistory observer
+    ) {
         this.name = name;
         this.baseDamage = baseDamage;
         this.criticalChance = criticalChance;
         this.criticalMultiplier = criticalMultiplier;
-        this.lastWasCritical = false;
+        this.observer = observer;
     }
 
-    public int calculateDamage() {
+    public int calculateDamage(Fighter attacker, boolean willBeParried) {
         if (Math.random() < criticalChance) {
-            this.lastWasCritical = true;
-            return (int) (baseDamage * criticalMultiplier);
+            int damage = (int) (baseDamage * criticalMultiplier);
+            if (!willBeParried && observer != null) {
+                observer.observeCriticalHit(attacker);
+            }
+            return damage;
         }
-        this.lastWasCritical = false;
         return baseDamage;
-    }
-
-    public boolean wasCritical() {
-        return lastWasCritical;
     }
 
     public String name() {
         return name;
+    }
+
+    Weapon withObserver(FightHistory observer) {
+        return new Weapon(
+            name,
+            baseDamage,
+            criticalChance,
+            criticalMultiplier,
+            observer
+        );
     }
 }
 

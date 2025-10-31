@@ -4,7 +4,6 @@ public final class Arena {
     private final Fighter first;
     private final Fighter second;
     private final FightHistory history;
-    private boolean concluded;
 
     public Arena(Fighter first, Fighter second) {
         this(first, second, new FightHistory());
@@ -14,7 +13,6 @@ public final class Arena {
         this.first = first;
         this.second = second;
         this.history = history;
-        this.concluded = false;
     }
 
     public void beginFight() {
@@ -24,7 +22,7 @@ public final class Arena {
     }
 
     public void nextTurn() {
-        if (concluded) {
+        if (isFightOver()) {
             throw new IllegalStateException("Fight already concluded");
         }
         first.decideParryAgainst(second);
@@ -32,18 +30,10 @@ public final class Arena {
         first.strike(second);
         second.strike(first);
         history.turnCompleted();
-        concludeIfOver();
-    }
-
-    public void concludeIfOver() {
-        boolean firstDead = first.describe().intValue("hp") <= 0;
-        boolean secondDead = second.describe().intValue("hp") <= 0;
-        if (firstDead || secondDead) {
-            concluded = true;
-        }
     }
 
     public boolean isFightOver() {
-        return concluded;
+        return first.describe().intValue("hp") <= 0
+            || second.describe().intValue("hp") <= 0;
     }
 }

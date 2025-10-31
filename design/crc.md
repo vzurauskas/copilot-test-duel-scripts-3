@@ -5,7 +5,6 @@
   - ID self
   - Describe self
   - Determine overall health status
-  - Have body parts available for striking
   - Strike opponent at chosen body part
   - Parry strikes to chosen body part
   - Report chosen parry and strike to observers
@@ -86,9 +85,6 @@
   - I maintain derived aggregates per fighter and body part (fields or computed)
 - **Collaborators:**
   - Turn
-  - Fighter (decisions, HP changes)
-  - BodyPart (strike outcomes and damage)
-  - Weapon (critical hit events)
 
 **Turn**
 - **Responsibilities:**
@@ -109,7 +105,7 @@
 - **Knowledge Sources:**
   - I know the fighters in combat (fields)
   - I know my fight observers (fields)
-  - Turn actions given by fighters (collaborators)
+  - I can ask fighters to execute their turn actions (collaborator)
   - I can ask fighters about their health status (collaborator)
 - **Collaborators:**
   - Fighter
