@@ -36,6 +36,10 @@ public final class FightHistory {
         currentTurn.recordDamage(attacker, damageDealt);
     }
 
+    public void observeCriticalHit(Fighter attacker) {
+        currentTurn.recordCriticalHit(attacker);
+    }
+
     public void turnCompleted() {
         completedTurns.add(currentTurn);
         nextTurnNumber++;

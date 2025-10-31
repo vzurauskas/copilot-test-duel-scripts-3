@@ -5,6 +5,7 @@ public final class Weapon {
     private final int baseDamage;
     private final double criticalChance;
     private final double criticalMultiplier;
+    private boolean lastWasCritical;
 
     public Weapon(
         String name,
@@ -16,13 +17,20 @@ public final class Weapon {
         this.baseDamage = baseDamage;
         this.criticalChance = criticalChance;
         this.criticalMultiplier = criticalMultiplier;
+        this.lastWasCritical = false;
     }
 
     public int calculateDamage() {
         if (Math.random() < criticalChance) {
+            this.lastWasCritical = true;
             return (int) (baseDamage * criticalMultiplier);
         }
+        this.lastWasCritical = false;
         return baseDamage;
+    }
+
+    public boolean wasCritical() {
+        return lastWasCritical;
     }
 
     public String name() {

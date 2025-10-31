@@ -146,4 +146,25 @@ public final class FightDescriptionTest {
         );
         assertEquals(expected, lastTurn);
     }
+
+    @Test
+    void fightHistoryCapturesCriticalStrikesInNarrative() {
+        Weapon critSword = new Weapon("sword", 8, 1.0, 2.0);
+        CombatScript aliceScript = new FixedScript()
+            .parry(Fighter::head)
+            .strike(Fighter::torso);
+        CombatScript bobScript = new FixedScript()
+            .parry(Fighter::head)
+            .strike(Fighter::legs);
+
+        FightHistory history = new FightHistory();
+        Fighter alice = new Fighter("Alice", critSword, aliceScript, history);
+        Fighter bob = new Fighter("Bob", bobScript, history);
+        Arena arena = new Arena(alice, bob, history);
+
+        arena.nextTurn();
+
+        String turnDescription = history.describeTurn(1);
+        assertTrue(turnDescription.contains("critical"));
+    }
 }

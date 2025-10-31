@@ -83,7 +83,7 @@ While implementing code changes to make tests pass, or during refactoring phase,
   - Test class: DuelTest
   - Weapon construction: `new Weapon("test-sword", 8, 1.0, 2.0)` (guarantees crit)
 
-- [ ] **Fight history captures critical strikes in narrative**
+- [x] **Fight history captures critical strikes in narrative**
   - Observable: Turn description mentions "critical" when crit occurs
   - Maps to: FightHistory's "record and report critical hits in combat narrative" responsibility
   - Test class: FightDescriptionTest

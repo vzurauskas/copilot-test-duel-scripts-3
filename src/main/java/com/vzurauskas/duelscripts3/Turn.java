@@ -6,6 +6,7 @@ public final class Turn {
     private static final String WEAPON_KEY = "weapon";
     private static final String OUTCOME_KEY = "outcome";
     private static final String DAMAGE_KEY = "damage";
+    private static final String CRITICAL_KEY = "critical";
 
     private final int number;
     private Fighter first;
@@ -43,29 +44,40 @@ public final class Turn {
         remember(key(fighter, DAMAGE_KEY), String.valueOf(damage));
     }
 
+    public void recordCriticalHit(Fighter fighter) {
+        ensureOrder(fighter);
+        remember(key(fighter, CRITICAL_KEY), "true");
+    }
+
     public String humanReadable() {
         String header = String.format("Turn %d:", number);
+        String firstDamageText = (first != null && isCritical(first))
+            ? String.format("%s critical damage", value(first, DAMAGE_KEY))
+            : String.format("%s damage", value(first, DAMAGE_KEY));
+        String secondDamageText = (second != null && isCritical(second))
+            ? String.format("%s critical damage", value(second, DAMAGE_KEY))
+            : String.format("%s damage", value(second, DAMAGE_KEY));
         String firstLine = String.format(
             "    %s parries %s, strikes with %s at %s's %s [%s], "
-            + "deals %s damage.",
+            + "deals %s.",
             first,
             value(first, PARRY_KEY),
             value(first, WEAPON_KEY),
             second,
             value(first, TARGET_KEY),
             value(first, OUTCOME_KEY),
-            value(first, DAMAGE_KEY)
+            firstDamageText
         );
         String secondLine = String.format(
             "    %s parries %s, strikes with %s at %s's %s [%s], "
-            + "deals %s damage.",
+            + "deals %s.",
             second,
             value(second, PARRY_KEY),
             value(second, WEAPON_KEY),
             first,
             value(second, TARGET_KEY),
             value(second, OUTCOME_KEY),
-            value(second, DAMAGE_KEY)
+            secondDamageText
         );
 
         boolean firstDead = first.describe().intValue("hp") <= 0;
@@ -134,5 +146,10 @@ public final class Turn {
 
     private void remember(String key, String val) {
         desc.remember(key, val);
+    }
+
+    private boolean isCritical(Fighter fighter) {
+        return desc.knows(key(fighter, CRITICAL_KEY))
+            && "true".equals(value(fighter, CRITICAL_KEY));
     }
 }
